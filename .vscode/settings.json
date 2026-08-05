@@ -1,0 +1,13 @@
+{
+  "cSpell.words": [
+    "autoplay",
+    "hugeicons",
+    "payloadcms",
+    "postgres",
+    "umami",
+    "UMAMI",
+    "vaul"
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+}

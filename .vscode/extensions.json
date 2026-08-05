@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
+    "shyykoserhiy.git-autoconfig",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker-spanish",
+    "bradlc.vscode-tailwindcss",
+    "meganrogge.template-string-converter"
+  ]
+}
