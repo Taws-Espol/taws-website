@@ -1,0 +1,28 @@
+pattern='^(feat|fix|refactor|perf|docs|style|test|build|ci|chore|revert)/taws-[0-9]+$'
+zero='0000000000000000000000000000000000000000'
+
+# git feeds one line per ref being pushed:
+#   <local ref> <local sha> <remote ref> <remote sha>
+while read -r local_ref local_sha remote_ref remote_sha; do
+  # Branch deletions and tags are not subject to the naming convention.
+  [ "$local_sha" = "$zero" ] && continue
+  case "$local_ref" in
+    refs/heads/*) ;;
+    *) continue ;;
+  esac
+
+  if [ "$remote_ref" = "refs/heads/main" ]; then
+    echo "pre-push: refusing to push directly to main. Open a pull request instead."
+    echo "          See CONTRIBUTING.md."
+    exit 1
+  fi
+
+  branch="${local_ref#refs/heads/}"
+
+  if ! echo "$branch" | grep -Eq "$pattern"; then
+    echo "pre-push: branch name \"$branch\" does not follow the convention."
+    echo "          Expected: type/taws-<issue-number>, for example fix/taws-115."
+    echo "          See CONTRIBUTING.md."
+    exit 1
+  fi
+done

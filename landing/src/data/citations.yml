@@ -1,9 +1,0 @@
-# Google Scholar citation counts for the publications page.
-#
-# Keys are google_scholar_id values from papers.bib.
-# Counts sourced from OpenAlex (https://openalex.org) — a close approximation
-# to Google Scholar citation counts, updated within days of a new citation.
-#
-# Last updated: 2026-05-03
-# To refresh: yarn citations:update
-qyhmnyLat1gC: 16608
