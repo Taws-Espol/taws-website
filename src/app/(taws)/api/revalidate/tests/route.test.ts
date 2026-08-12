@@ -39,7 +39,7 @@ describe("POST /api/revalidate", () => {
 
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ ok: true });
-    expect(revalidateTag).toHaveBeenCalledWith("media", "max");
+    expect(revalidateTag).toHaveBeenCalledWith("media", { expire: 0 });
   });
 
   it("rejects a missing token without revalidating", async () => {
