@@ -9,7 +9,11 @@ import { cn } from "@/shared/utils/cn";
 import { getAppUrl } from "@/shared/utils/get-app-url";
 import "@/shared/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   metadataBase: getAppUrl(),
