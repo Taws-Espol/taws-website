@@ -11,6 +11,8 @@ import { Members } from "./src/shared/lib/payload/collections/members.ts";
 import { Users } from "./src/shared/lib/payload/collections/users.ts";
 import { getAppUrl } from "./src/shared/utils/get-app-url.ts";
 
+import { Events } from "@/shared/lib/payload/collections/Events";
+
 export default buildConfig({
   bin: [
     {
@@ -24,7 +26,7 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor(),
-  collections: [Users, Media, Members],
+  collections: [Users, Media, Members, Events],
   jobs: {
     tasks: [],
     shouldAutoRun: () => process.env.ENABLE_JOB_WORKERS === "true",

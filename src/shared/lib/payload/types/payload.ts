@@ -69,7 +69,11 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+<<<<<<< HEAD
     members: Member;
+=======
+    events: Event;
+>>>>>>> b3250df (feat(events): add events collection and split page into upcoming and past (#72))
     exports: Export;
     imports: Import;
     "payload-kv": PayloadKv;
@@ -82,7 +86,11 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+<<<<<<< HEAD
     members: MembersSelect<false> | MembersSelect<true>;
+=======
+    events: EventsSelect<false> | EventsSelect<true>;
+>>>>>>> b3250df (feat(events): add events collection and split page into upcoming and past (#72))
     exports: ExportsSelect<false> | ExportsSelect<true>;
     imports: ImportsSelect<false> | ImportsSelect<true>;
     "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -184,6 +192,7 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+<<<<<<< HEAD
  * via the `definition` "members".
  */
 export interface Member {
@@ -233,6 +242,34 @@ export interface Member {
   githubUrl?: string | null;
   linkedinUrl?: string | null;
   order?: number | null;
+=======
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: number;
+  title: string;
+  slug: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  startsAt: string;
+  endsAt?: string | null;
+  location: string;
+  cover: number | Media;
+  registrationUrl?: string | null;
+>>>>>>> b3250df (feat(events): add events collection and split page into upcoming and past (#72))
   updatedAt: string;
   createdAt: string;
 }
@@ -438,8 +475,13 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+<<<<<<< HEAD
         relationTo: "members";
         value: number | Member;
+=======
+        relationTo: "events";
+        value: number | Event;
+>>>>>>> b3250df (feat(events): add events collection and split page into upcoming and past (#72))
       } | null);
   globalSlug?: string | null;
   user: {
@@ -528,6 +570,7 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+<<<<<<< HEAD
  * via the `definition` "members_select".
  */
 export interface MembersSelect<T extends boolean = true> {
@@ -540,6 +583,19 @@ export interface MembersSelect<T extends boolean = true> {
   githubUrl?: T;
   linkedinUrl?: T;
   order?: T;
+=======
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  startsAt?: T;
+  endsAt?: T;
+  location?: T;
+  cover?: T;
+  registrationUrl?: T;
+>>>>>>> b3250df (feat(events): add events collection and split page into upcoming and past (#72))
   updatedAt?: T;
   createdAt?: T;
 }
@@ -692,7 +748,11 @@ export interface TaskCreateCollectionExport {
     id: string;
     name: string;
     batchSize?: number | null;
+<<<<<<< HEAD
     collectionSlug: "users" | "media" | "members" | "exports" | "imports";
+=======
+    collectionSlug: "users" | "media" | "events" | "exports" | "imports";
+>>>>>>> b3250df (feat(events): add events collection and split page into upcoming and past (#72))
     drafts?: ("yes" | "no") | null;
     exportCollection: string;
     fields?: string[] | null;
