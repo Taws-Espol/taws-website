@@ -11,4 +11,5 @@
  * a name that nothing reads and nothing revalidates, which the tests treat as a
  * bug — so add yours in the same change that adds the collection and the query.
  */
+export const MEMBERS_TAG = "members";
 export const MEDIA_TAG = "media";
