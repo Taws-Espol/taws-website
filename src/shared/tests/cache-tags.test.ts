@@ -13,7 +13,7 @@ function readAll(dir: string) {
   if (!existsSync(dir)) return "";
 
   return readdirSync(dir)
-    .filter((file) => file.endsWith(".ts"))
+    .filter((file) => file.endsWith(".ts") && !file.endsWith(".test.ts"))
     .map((file) => readFileSync(join(dir, file), "utf8"))
     .join("\n");
 }
