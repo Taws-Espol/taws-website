@@ -192,8 +192,8 @@ export interface Member {
   photo?: (number | null) | Media;
   major?:
     | (
-        | "ciencia-de-datos-e-inteligencia-artificial"
         | "computacion"
+        | "ciencia-de-datos-e-inteligencia-artificial"
         | "electricidad"
         | "electronica-y-automatizacion"
         | "telecomunicaciones"
