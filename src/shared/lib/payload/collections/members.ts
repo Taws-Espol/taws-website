@@ -1,10 +1,9 @@
 import type { CollectionConfig } from "payload";
 
 import { MEMBERS_TAG } from "../../../constants/cache-tags.ts";
+import { getMajorPayloadOptions } from "../../../utils/get-major-payload-options.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
-
-import { getMajorPayloadOptions } from "../../../../features/members/constants/majors.ts";
 
 export const Members: CollectionConfig = {
   slug: "members",

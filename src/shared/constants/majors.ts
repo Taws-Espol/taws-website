@@ -62,16 +62,3 @@ export const MAJORS = [
     label: "Producción para Medios de Comunicación",
   },
 ] as const;
-
-export type MajorValue = (typeof MAJORS)[number]["value"];
-
-export function getMajorPayloadOptions() {
-  return MAJORS.map(({ value, label }) => ({
-    label,
-    value,
-  }));
-}
-
-export function getMajorLabel(value: string) {
-  return MAJORS.find((major) => major.value === value)?.label;
-}

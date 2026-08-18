@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import * as cacheTags from "@/shared/constants/cache-tags";
 
 const FEATURES_DIR = "src/features";
+const SHARED_QUERIES_DIR = "src/shared/queries";
 const COLLECTIONS_DIR = "src/shared/lib/payload/collections";
 const GLOBALS_DIR = "src/shared/lib/payload/globals";
 
@@ -27,7 +28,8 @@ function readAllFeatureQueries() {
     .join("\n");
 }
 
-const consumers = readAllFeatureQueries();
+/** Queries with no feature of their own (e.g. members) live directly under shared. */
+const consumers = `${readAllFeatureQueries()}\n${readAll(SHARED_QUERIES_DIR)}`;
 const producers = `${readAll(COLLECTIONS_DIR)}\n${readAll(GLOBALS_DIR)}`;
 const TAG_NAMES = Object.keys(cacheTags);
 
