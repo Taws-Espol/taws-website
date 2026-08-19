@@ -11,7 +11,7 @@ import { Members } from "./src/shared/lib/payload/collections/members.ts";
 import { Users } from "./src/shared/lib/payload/collections/users.ts";
 import { getAppUrl } from "./src/shared/utils/get-app-url.ts";
 
-import { Events } from "@/shared/lib/payload/collections/Events";
+import { Events } from "./src/shared/lib/payload/collections/events";
 
 export default buildConfig({
   bin: [

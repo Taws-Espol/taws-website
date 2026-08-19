@@ -1,17 +1,6 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
-
-export interface Event {
-  id: string;
-  title: string;
-  slug: string;
-  description: unknown;
-  startsAt: string;
-  endsAt?: string;
-  location: string;
-  cover: unknown;
-  registrationUrl?: string;
-}
+import type { Event } from "../types/events";
 
 export async function getEvents() {
   const payload = await getPayload({ config });

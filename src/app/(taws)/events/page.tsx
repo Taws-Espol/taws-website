@@ -1,4 +1,4 @@
-import { getEvents } from "@/features/events/lib/get-events";
+import { getEvents } from "@/shared/queries/get-events";
 
 export const revalidate = 0;
 

@@ -1,6 +1,10 @@
-import type { CollectionConfig } from "payload";
+import type { Access, CollectionConfig } from "payload";
 import { revalidateTag } from "next/cache";
-import { EVENTS_TAG } from "@/shared/constants/cache-tags";
+import { EVENTS_TAG } from "../../../constants/cache-tags";
+
+const isAdminOrEditor: Access = ({ req: { user } }) => {
+  return Boolean(user && (user.role === "admin" || user.role === "editor"));
+};
 
 export const Events: CollectionConfig = {
   slug: "events",
@@ -9,19 +13,10 @@ export const Events: CollectionConfig = {
     defaultColumns: ["title", "startsAt", "location"],
   },
   access: {
+    create: isAdminOrEditor,
     read: () => true,
-  },
-  hooks: {
-    afterChange: [
-      () => {
-        revalidateTag(EVENTS_TAG, "default");
-      },
-    ],
-    afterDelete: [
-      () => {
-        revalidateTag(EVENTS_TAG, "default");
-      },
-    ],
+    update: isAdminOrEditor,
+    delete: isAdminOrEditor,
   },
   fields: [
     {
@@ -75,4 +70,16 @@ export const Events: CollectionConfig = {
       type: "text",
     },
   ],
+  hooks: {
+    afterChange: [
+      () => {
+        revalidateTag(EVENTS_TAG, "default");
+      },
+    ],
+    afterDelete: [
+      () => {
+        revalidateTag(EVENTS_TAG, "default");
+      },
+    ],
+  },
 };
