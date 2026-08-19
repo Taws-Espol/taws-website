@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    members: Member;
     exports: Export;
     imports: Import;
     "payload-kv": PayloadKv;
@@ -81,6 +82,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    members: MembersSelect<false> | MembersSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
     imports: ImportsSelect<false> | ImportsSelect<true>;
     "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -179,6 +181,60 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members".
+ */
+export interface Member {
+  id: number;
+  fullName: string;
+  photo?: (number | null) | Media;
+  major?:
+    | (
+        | "computacion"
+        | "ciencia-de-datos-e-inteligencia-artificial"
+        | "electricidad"
+        | "electronica-y-automatizacion"
+        | "telecomunicaciones"
+        | "telematica"
+        | "alimentos"
+        | "ingenieria-industrial"
+        | "materiales"
+        | "mecanica"
+        | "mecatronica"
+        | "administracion-de-empresas"
+        | "arqueologia"
+        | "auditoria-y-control-de-gestion"
+        | "economia"
+        | "turismo"
+        | "estadistica"
+        | "ingenieria-quimica"
+        | "logistica-y-transporte"
+        | "matematica"
+        | "biologia"
+        | "ingenieria-agricola-y-biologica"
+        | "geologia"
+        | "ingenieria-civil"
+        | "minas"
+        | "petroleos"
+        | "acuicultura"
+        | "ingenieria-naval"
+        | "oceanografia"
+        | "animacion-digital-y-videojuegos"
+        | "diseno-de-productos"
+        | "diseno-grafico"
+        | "produccion-para-medios-de-comunicacion"
+      )
+    | null;
+  position?: string | null;
+  status: "active" | "alumni";
+  joinedAt?: string | null;
+  githubUrl?: string | null;
+  linkedinUrl?: string | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -380,6 +436,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: "media";
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: "members";
+        value: number | Member;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -465,6 +525,23 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members_select".
+ */
+export interface MembersSelect<T extends boolean = true> {
+  fullName?: T;
+  photo?: T;
+  major?: T;
+  position?: T;
+  status?: T;
+  joinedAt?: T;
+  githubUrl?: T;
+  linkedinUrl?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -615,7 +692,7 @@ export interface TaskCreateCollectionExport {
     id: string;
     name: string;
     batchSize?: number | null;
-    collectionSlug: "users" | "media" | "exports" | "imports";
+    collectionSlug: "users" | "media" | "members" | "exports" | "imports";
     drafts?: ("yes" | "no") | null;
     exportCollection: string;
     fields?: string[] | null;
