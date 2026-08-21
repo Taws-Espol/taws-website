@@ -3,7 +3,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 
 import { EVENTS_TAG, MEDIA_TAG } from "@/shared/constants/cache-tags";
-import type { Event } from "../types/events";
+import type { Event } from "@/shared/types/events";
 
 export async function getEvents() {
   "use cache";

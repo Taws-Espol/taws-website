@@ -1,10 +1,8 @@
-import type { Access, CollectionConfig } from "payload";
+import type { CollectionConfig } from "payload";
 import { revalidateTag } from "next/cache";
-import { EVENTS_TAG } from "../../../constants/cache-tags";
 
-const isAdminOrEditor: Access = ({ req: { user } }) => {
-  return Boolean(user && (user.role === "admin" || user.role === "editor"));
-};
+import { EVENTS_TAG } from "../../../constants/cache-tags";
+import { isAdminOrEditor } from "../utils/is-admin-or-editor";
 
 export const Events: CollectionConfig = {
   slug: "events",
