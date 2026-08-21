@@ -1,46 +1,58 @@
 import {
-  FacebookIcon,
+  GithubIcon,
   InstagramIcon,
-  NewTwitterIcon,
   LinkedinIcon,
 } from "@hugeicons/core-free-icons";
 
 export const APP_NAME = "TAWS";
 
+export const CONTACT_EMAIL = "taws@espol.edu.ec";
+
 export const NAVIGATION_ITEMS = [
+  {
+    href: "/about",
+    label: "Nosotros",
+  },
+  {
+    href: "/projects",
+    label: "Proyectos",
+  },
+  {
+    href: "/events",
+    label: "Eventos",
+  },
+  {
+    href: "/gallery",
+    label: "Galería",
+  },
   {
     href: "/blog",
     label: "Blog",
   },
-  {
-    href: "/about",
-    label: "About",
-  },
-];
+] as const;
+
+export const APPLICATION_CTA = {
+  href: "/apply",
+  label: "Postula ahora",
+} as const;
 
 export const SOCIAL_LINKS = [
   {
-    platform: "facebook",
-    label: "Facebook",
-    href: "https://www.facebook.com/",
-    icon: FacebookIcon,
-  },
-  {
     platform: "instagram",
     label: "Instagram",
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com/taws_espol",
     icon: InstagramIcon,
-  },
-  {
-    platform: "x",
-    label: "X",
-    href: "https://x.com/",
-    icon: NewTwitterIcon,
   },
   {
     platform: "linkedin",
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/",
+    href: "https://ec.linkedin.com/company/tawsespol",
     icon: LinkedinIcon,
   },
-];
+  {
+    platform: "github",
+    label: "GitHub",
+    href: "https://github.com/Taws-Espol",
+    icon: GithubIcon,
+  },
+] as const;
