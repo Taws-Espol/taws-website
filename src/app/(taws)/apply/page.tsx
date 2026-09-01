@@ -1,16 +1,21 @@
-import { Section } from "@/shared/components/ui/section";
-import { Heading, Text } from "@/shared/components/ui/typography";
+import { Suspense } from "react";
+import type { Metadata } from "next";
+
+import { RecruitmentSection } from "@/features/registration/components/recruitment-section";
+import { RecruitmentSectionSkeleton } from "@/features/registration/components/recruitment-section-skeleton";
+
+export const metadata: Metadata = {
+  title: "Postula | TAWS",
+  description:
+    "Postula al club TAWS de la ESPOL. Una convocatoria por semestre, abierta a estudiantes de todas las carreras.",
+};
 
 export default function Page() {
   return (
-    <Section as="main">
-      <div className="flex flex-col gap-4">
-        <Heading as="h1" variant="display">
-          Postulación
-        </Heading>
-
-        <Text>Próximamente podrás postular para formar parte de TAWS.</Text>
-      </div>
-    </Section>
+    <main>
+      <Suspense fallback={<RecruitmentSectionSkeleton />}>
+        <RecruitmentSection />
+      </Suspense>
+    </main>
   );
 }
