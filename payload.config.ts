@@ -6,6 +6,7 @@ import { s3Storage } from "@payloadcms/storage-s3";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 
+import { Gallery } from "./src/shared/lib/payload/collections/gallery.ts";
 import { Media } from "./src/shared/lib/payload/collections/media.ts";
 import { Members } from "./src/shared/lib/payload/collections/members.ts";
 import { Projects } from "./src/shared/lib/payload/collections/projects.ts";
@@ -27,7 +28,7 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor(),
-  collections: [Users, Media, Members, Events, Projects],
+  collections: [Users, Media, Members, Events, Projects, Gallery],
   jobs: {
     tasks: [],
     shouldAutoRun: () => process.env.ENABLE_JOB_WORKERS === "true",
