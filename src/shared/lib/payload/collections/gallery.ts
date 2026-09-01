@@ -38,6 +38,15 @@ export const Gallery: CollectionConfig = {
       required: true,
     },
     {
+      name: "event",
+      type: "relationship",
+      relationTo: "events",
+      admin: {
+        description:
+          "Optional. Link the album to the occasion it came from; leave empty for a loose set.",
+      },
+    },
+    {
       name: "images",
       type: "array",
       required: true,
