@@ -319,6 +319,10 @@ export interface Gallery {
   title: string;
   date: string;
   cover: number | Media;
+  /**
+   * Optional. Link the album to the occasion it came from; leave empty for a loose set.
+   */
+  event?: (number | null) | Event;
   images: {
     image: number | Media;
     caption?: string | null;
@@ -782,6 +786,7 @@ export interface GallerySelect<T extends boolean = true> {
   title?: T;
   date?: T;
   cover?: T;
+  event?: T;
   images?:
     | T
     | {
