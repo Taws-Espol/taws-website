@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import type { getActiveMembers } from "@/shared/queries/get-active-members";
+import type { getActiveMembers } from "@/features/landing/queries/get-active-members";
 
 type BaseMember = Awaited<ReturnType<typeof getActiveMembers>>[number];
 

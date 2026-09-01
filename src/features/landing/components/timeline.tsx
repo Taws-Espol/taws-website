@@ -2,7 +2,7 @@ import { Heading, Text } from "@/shared/components/ui/typography";
 import {
   MILESTONES,
   type Milestone,
-} from "@/features/about/constants/milestones";
+} from "@/features/landing/constants/milestones";
 
 export function Timeline() {
   return (
