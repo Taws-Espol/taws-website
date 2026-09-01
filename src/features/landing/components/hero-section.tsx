@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { HERO } from "@/features/landing/constants/hero";
 import { getActiveMemberCount } from "@/features/landing/queries/get-active-member-count";
+import { buttonVariants } from "@/shared/components/ui/button-variants";
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 
@@ -27,16 +28,16 @@ export async function HeroSection() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href={HERO.primaryCta.href}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring focus-visible:ring-offset-background rounded-full px-6 py-3 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              className={buttonVariants({ variant: "primary" })}
             >
-              <Eyebrow>{HERO.primaryCta.label}</Eyebrow>
+              {HERO.primaryCta.label}
             </Link>
 
             <Link
               href={HERO.secondaryCta.href}
-              className="text-foreground/70 hover:text-foreground focus-visible:ring-ring focus-visible:ring-offset-background rounded-full px-6 py-3 underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              className={buttonVariants({ variant: "link" })}
             >
-              <Eyebrow>{HERO.secondaryCta.label}</Eyebrow>
+              {HERO.secondaryCta.label}
             </Link>
           </div>
         </div>

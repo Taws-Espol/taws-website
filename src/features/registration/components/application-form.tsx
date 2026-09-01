@@ -4,6 +4,7 @@ import { Controller } from "react-hook-form";
 
 import { WORK_AREAS } from "@/features/landing/constants/work-areas";
 import { useApplicationForm } from "@/features/registration/hooks/use-application-form";
+import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import {
   Select,
@@ -201,13 +202,9 @@ export function ApplicationForm() {
         </Text>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring focus-visible:ring-offset-background rounded-full px-6 py-3 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-60"
-      >
-        <Eyebrow>{isSubmitting ? "Enviando…" : "Enviar postulación"}</Eyebrow>
-      </button>
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Enviando…" : "Enviar postulación"}
+      </Button>
     </form>
   );
 }
