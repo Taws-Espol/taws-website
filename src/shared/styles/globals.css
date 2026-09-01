@@ -91,3 +91,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* The ticker track renders its items twice, so -50% lands exactly on the copy. */
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@theme {
+  --animate-ticker: ticker 30s linear infinite;
+}
