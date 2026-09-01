@@ -1,18 +1,38 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 
-import { Heading } from "@/shared/components/ui/typography";
+import { ProjectCard } from "@/features/landing/components/project-card";
+import { getProjects } from "@/features/landing/queries/get-projects";
+import { Section } from "@/shared/components/ui/section";
+import { Heading, Text } from "@/shared/components/ui/typography";
 
-export default function Page() {
+export const metadata: Metadata = {
+  title: "Proyectos | TAWS",
+  description:
+    "Lo que construye e investiga TAWS: proyectos web, móviles, de machine learning, data science e IoT.",
+};
+
+export default async function Page() {
+  const projects = await getProjects();
+
   return (
-    <main className="flex flex-col items-center justify-center gap-4">
-      <Heading as="h1" variant="display">
-        TAWS projects
-      </Heading>
+    <Section as="main">
+      <div className="flex flex-col gap-10">
+        <Heading as="h1" variant="display">
+          Proyectos
+        </Heading>
 
-      <Link href="/">Go to home page</Link>
-      <Link href="/about">Go to about page</Link>
-      <Link href="/blog">Go to blog page</Link>
-      <Link href="/projects">Go to projects page</Link>
-    </main>
+        {projects.length === 0 ? (
+          <Text className="text-foreground/60">
+            Todavía no hay proyectos publicados.
+          </Text>
+        ) : (
+          <div className="grid gap-x-10 gap-y-2 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        )}
+      </div>
+    </Section>
   );
 }

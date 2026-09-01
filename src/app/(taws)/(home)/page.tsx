@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { HeroSection } from "@/features/landing/components/hero-section";
 import { ManifestoSection } from "@/features/landing/components/manifesto-section";
 import { MembersSection } from "@/features/landing/components/members-section";
+import { ProjectsSection } from "@/features/landing/components/projects-section";
 import { TickerBand } from "@/features/landing/components/ticker-band";
 import { WorkAreasSection } from "@/features/landing/components/work-areas-section";
 import { Section } from "@/shared/components/ui/section";
@@ -19,6 +20,7 @@ export default function Page() {
       <HeroSection />
       <TickerBand />
       <WorkAreasSection />
+      <ProjectsSection />
       <ManifestoSection />
 
       <Section>

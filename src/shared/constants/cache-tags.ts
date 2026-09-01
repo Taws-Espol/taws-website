@@ -15,3 +15,5 @@ export const MEMBERS_TAG = "members";
 export const MEDIA_TAG = "media";
 
 export const EVENTS_TAG = "events";
+
+export const PROJECTS_TAG = "projects";
