@@ -1,25 +1,29 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 
+import { HeroSection } from "@/features/landing/components/hero-section";
+import { ManifestoSection } from "@/features/landing/components/manifesto-section";
 import { MembersSection } from "@/features/landing/components/members-section";
-import { Heading } from "@/shared/components/ui/typography";
+import { TickerBand } from "@/features/landing/components/ticker-band";
+import { WorkAreasSection } from "@/features/landing/components/work-areas-section";
+import { Section } from "@/shared/components/ui/section";
+
+export const metadata: Metadata = {
+  title: "TAWS | Grupo de investigación en tecnología de la ESPOL",
+  description:
+    "Grupo de investigación en tecnologías web, móviles y data science de la ESPOL. Desde 2007, en la FIEC.",
+};
 
 export default function Page() {
   return (
-    <main className="container mx-auto flex flex-col items-center justify-center gap-8 py-8">
-      <Heading as="h1" variant="display">
-        TAWS home
-      </Heading>
+    <main>
+      <HeroSection />
+      <TickerBand />
+      <WorkAreasSection />
+      <ManifestoSection />
 
-      <nav className="text-primary flex flex-wrap gap-4 hover:underline">
-        <Link href="/">Go to home page</Link>
-        <Link href="/about">Go to about page</Link>
-        <Link href="/blog">Go to blog page</Link>
-        <Link href="/projects">Go to projects page</Link>
-      </nav>
-
-      <div className="w-full">
+      <Section>
         <MembersSection />
-      </div>
+      </Section>
     </main>
   );
 }
