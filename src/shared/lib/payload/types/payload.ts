@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     members: Member;
     events: Event;
+    projects: Project;
     exports: Export;
     imports: Import;
     "payload-kv": PayloadKv;
@@ -85,6 +86,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
     imports: ImportsSelect<false> | ImportsSelect<true>;
     "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -266,6 +268,33 @@ export interface Event {
   location: string;
   cover: number | Media;
   registrationUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  /**
+   * Two or three lines. This is what the card shows.
+   */
+  summary: string;
+  areas: (
+    "web" | "mobile" | "machine-learning" | "data-science" | "iot" | "research"
+  )[];
+  status: "active" | "completed";
+  /**
+   * The large card at the top of the projects section. Only the most recent featured project is shown.
+   */
+  featured?: boolean | null;
+  cover?: (number | null) | Media;
+  year?: number | null;
+  repositoryUrl?: string | null;
+  externalUrl?: string | null;
+  members?: (number | Member)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -477,6 +506,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: "events";
         value: number | Event;
+      } | null)
+    | ({
+        relationTo: "projects";
+        value: number | Project;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -593,6 +626,24 @@ export interface EventsSelect<T extends boolean = true> {
   location?: T;
   cover?: T;
   registrationUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  summary?: T;
+  areas?: T;
+  status?: T;
+  featured?: T;
+  cover?: T;
+  year?: T;
+  repositoryUrl?: T;
+  externalUrl?: T;
+  members?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -746,7 +797,13 @@ export interface TaskCreateCollectionExport {
     name: string;
     batchSize?: number | null;
     collectionSlug:
-      "users" | "media" | "members" | "events" | "exports" | "imports";
+      | "users"
+      | "media"
+      | "members"
+      | "events"
+      | "projects"
+      | "exports"
+      | "imports";
     drafts?: ("yes" | "no") | null;
     exportCollection: string;
     fields?: string[] | null;

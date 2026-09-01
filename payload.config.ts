@@ -8,6 +8,7 @@ import sharp from "sharp";
 
 import { Media } from "./src/shared/lib/payload/collections/media.ts";
 import { Members } from "./src/shared/lib/payload/collections/members.ts";
+import { Projects } from "./src/shared/lib/payload/collections/projects.ts";
 import { Users } from "./src/shared/lib/payload/collections/users.ts";
 import { getAppUrl } from "./src/shared/utils/get-app-url.ts";
 
@@ -26,7 +27,7 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor(),
-  collections: [Users, Media, Members, Events],
+  collections: [Users, Media, Members, Events, Projects],
   jobs: {
     tasks: [],
     shouldAutoRun: () => process.env.ENABLE_JOB_WORKERS === "true",
