@@ -32,7 +32,7 @@ export function AlbumViewer({ album }: { album: Album }) {
       <div className="flex items-center justify-between gap-4">
         <Button
           type="button"
-          variant="transparent"
+          variant="ghost"
           size="icon"
           aria-label="Imagen anterior"
           onClick={goToPrevious}
@@ -52,7 +52,7 @@ export function AlbumViewer({ album }: { album: Album }) {
 
         <Button
           type="button"
-          variant="transparent"
+          variant="ghost"
           size="icon"
           aria-label="Imagen siguiente"
           onClick={goToNext}

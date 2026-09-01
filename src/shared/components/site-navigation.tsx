@@ -7,6 +7,7 @@ import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 import { Button } from "@/shared/components/ui/button";
+import { buttonVariants } from "@/shared/components/ui/button-variants";
 import { Eyebrow } from "@/shared/components/ui/typography";
 import { APPLICATION_CTA, NAVIGATION_ITEMS } from "@/shared/constants/app";
 import { useIsMobile } from "@/shared/hooks/use-is-mobile";
@@ -47,12 +48,12 @@ function DesktopNavigation({ pathname }: { pathname: string }) {
         href={APPLICATION_CTA.href}
         aria-current={isApplicationActive ? "page" : undefined}
         className={cn(
-          "bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:ring-ring rounded-full px-5 py-3 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+          buttonVariants({ variant: "secondary" }),
           isApplicationActive &&
             "ring-secondary ring-offset-background ring-2 ring-offset-2",
         )}
       >
-        <Eyebrow>{APPLICATION_CTA.label}</Eyebrow>
+        {APPLICATION_CTA.label}
       </Link>
     </nav>
   );
@@ -70,7 +71,7 @@ function MobileNavigation({ pathname }: { pathname: string }) {
     <div className="md:hidden">
       <Button
         type="button"
-        variant="transparent"
+        variant="ghost"
         size="icon"
         aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
         aria-expanded={isMenuOpen}
@@ -117,12 +118,13 @@ function MobileNavigation({ pathname }: { pathname: string }) {
                 aria-current={isApplicationActive ? "page" : undefined}
                 onClick={closeMenu}
                 className={cn(
-                  "bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:ring-ring flex rounded-full px-5 py-3 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+                  buttonVariants({ variant: "secondary" }),
+                  "flex",
                   isApplicationActive &&
                     "ring-secondary ring-offset-background ring-2 ring-offset-2",
                 )}
               >
-                <Eyebrow>{APPLICATION_CTA.label}</Eyebrow>
+                {APPLICATION_CTA.label}
               </Link>
             </li>
           </ul>
