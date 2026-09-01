@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-import { MemberCard } from "@/features/about/components/member-card";
-import { Timeline } from "@/features/about/components/timeline";
+import { MemberCard } from "@/features/landing/components/member-card";
+import { Timeline } from "@/features/landing/components/timeline";
 import { Section } from "@/shared/components/ui/section";
 import { Heading, Text } from "@/shared/components/ui/typography";
-import { getActiveMembers } from "@/shared/queries/get-active-members";
+import { getActiveMembers } from "@/features/landing/queries/get-active-members";
 
 export const metadata: Metadata = {
   title: "Sobre Nosotros | TAWS",
