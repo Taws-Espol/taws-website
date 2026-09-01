@@ -72,6 +72,7 @@ export interface Config {
     members: Member;
     events: Event;
     projects: Project;
+    gallery: Gallery;
     exports: Export;
     imports: Import;
     "payload-kv": PayloadKv;
@@ -87,6 +88,7 @@ export interface Config {
     members: MembersSelect<false> | MembersSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    gallery: GallerySelect<false> | GallerySelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
     imports: ImportsSelect<false> | ImportsSelect<true>;
     "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -295,6 +297,25 @@ export interface Project {
   repositoryUrl?: string | null;
   externalUrl?: string | null;
   members?: (number | Member)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Photos are published as albums. One album is one occasion, not one picture.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery".
+ */
+export interface Gallery {
+  id: number;
+  title: string;
+  date: string;
+  cover: number | Media;
+  images: {
+    image: number | Media;
+    caption?: string | null;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -510,6 +531,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: "projects";
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: "gallery";
+        value: number | Gallery;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -644,6 +669,24 @@ export interface ProjectsSelect<T extends boolean = true> {
   repositoryUrl?: T;
   externalUrl?: T;
   members?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery_select".
+ */
+export interface GallerySelect<T extends boolean = true> {
+  title?: T;
+  date?: T;
+  cover?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -802,6 +845,7 @@ export interface TaskCreateCollectionExport {
       | "members"
       | "events"
       | "projects"
+      | "gallery"
       | "exports"
       | "imports";
     drafts?: ("yes" | "no") | null;
