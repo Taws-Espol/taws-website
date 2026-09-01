@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import { HeroSection } from "@/features/landing/components/hero-section";
@@ -6,6 +7,8 @@ import { MembersSection } from "@/features/landing/components/members-section";
 import { ProjectsSection } from "@/features/landing/components/projects-section";
 import { TickerBand } from "@/features/landing/components/ticker-band";
 import { WorkAreasSection } from "@/features/landing/components/work-areas-section";
+import { RecruitmentSection } from "@/features/registration/components/recruitment-section";
+import { RecruitmentSectionSkeleton } from "@/features/registration/components/recruitment-section-skeleton";
 import { Section } from "@/shared/components/ui/section";
 
 export const metadata: Metadata = {
@@ -26,6 +29,10 @@ export default function Page() {
       <Section>
         <MembersSection />
       </Section>
+
+      <Suspense fallback={<RecruitmentSectionSkeleton />}>
+        <RecruitmentSection />
+      </Suspense>
     </main>
   );
 }

@@ -73,6 +73,7 @@ export interface Config {
     events: Event;
     projects: Project;
     gallery: Gallery;
+    applications: Application;
     exports: Export;
     imports: Import;
     "payload-kv": PayloadKv;
@@ -89,6 +90,7 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
+    applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
     imports: ImportsSelect<false> | ImportsSelect<true>;
     "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -104,8 +106,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: ("false" | "none" | "null") | false | null | "es" | "es"[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    recruitment: Recruitment;
+  };
+  globalsSelect: {
+    recruitment: RecruitmentSelect<false> | RecruitmentSelect<true>;
+  };
   locale: "es";
   widgets: {
     collections: CollectionsWidget;
@@ -316,6 +322,56 @@ export interface Gallery {
     caption?: string | null;
     id?: string | null;
   }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications".
+ */
+export interface Application {
+  id: number;
+  fullName: string;
+  email: string;
+  major:
+    | "computacion"
+    | "ciencia-de-datos-e-inteligencia-artificial"
+    | "electricidad"
+    | "electronica-y-automatizacion"
+    | "telecomunicaciones"
+    | "telematica"
+    | "alimentos"
+    | "ingenieria-industrial"
+    | "materiales"
+    | "mecanica"
+    | "mecatronica"
+    | "administracion-de-empresas"
+    | "arqueologia"
+    | "auditoria-y-control-de-gestion"
+    | "economia"
+    | "turismo"
+    | "estadistica"
+    | "ingenieria-quimica"
+    | "logistica-y-transporte"
+    | "matematica"
+    | "biologia"
+    | "ingenieria-agricola-y-biologica"
+    | "geologia"
+    | "ingenieria-civil"
+    | "minas"
+    | "petroleos"
+    | "acuicultura"
+    | "ingenieria-naval"
+    | "oceanografia"
+    | "animacion-digital-y-videojuegos"
+    | "diseno-de-productos"
+    | "diseno-grafico"
+    | "produccion-para-medios-de-comunicacion";
+  interests: (
+    "web" | "mobile" | "machine-learning" | "data-science" | "iot" | "research"
+  )[];
+  message?: string | null;
+  status: "pending" | "accepted" | "rejected";
   updatedAt: string;
   createdAt: string;
 }
@@ -535,6 +591,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: "gallery";
         value: number | Gallery;
+      } | null)
+    | ({
+        relationTo: "applications";
+        value: number | Application;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -692,6 +752,20 @@ export interface GallerySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications_select".
+ */
+export interface ApplicationsSelect<T extends boolean = true> {
+  fullName?: T;
+  email?: T;
+  major?: T;
+  interests?: T;
+  message?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "exports_select".
  */
 export interface ExportsSelect<T extends boolean = true> {
@@ -821,6 +895,35 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * The dates the club accepts applications. Open and closed are worked out from these; there is no switch to flip.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recruitment".
+ */
+export interface Recruitment {
+  id: number;
+  opensAt?: string | null;
+  closesAt?: string | null;
+  /**
+   * Shown in place of the form outside the window.
+   */
+  closedMessage?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recruitment_select".
+ */
+export interface RecruitmentSelect<T extends boolean = true> {
+  opensAt?: T;
+  closesAt?: T;
+  closedMessage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
@@ -846,6 +949,7 @@ export interface TaskCreateCollectionExport {
       | "events"
       | "projects"
       | "gallery"
+      | "applications"
       | "exports"
       | "imports";
     drafts?: ("yes" | "no") | null;
