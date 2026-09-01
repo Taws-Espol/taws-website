@@ -1,6 +1,6 @@
 import { Section } from "@/shared/components/ui/section";
 import { Heading, Text } from "@/shared/components/ui/typography";
-import { getEvents } from "@/shared/queries/get-events";
+import { getEvents } from "@/features/landing/queries/get-events";
 
 export default async function EventsPage() {
   const { upcomingEvents, pastEvents } = await getEvents();
