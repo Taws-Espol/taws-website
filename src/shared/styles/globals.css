@@ -105,3 +105,32 @@
 @theme {
   --animate-ticker: ticker 30s linear infinite;
 }
+
+/* Rich text comes out of Payload as bare elements, so the article body styles them. */
+.rich-text {
+  @apply flex flex-col gap-4 text-[0.95rem] leading-[1.75];
+}
+.rich-text :is(h2, h3, h4) {
+  @apply mt-4 font-bold;
+}
+.rich-text h2 {
+  @apply text-2xl;
+}
+.rich-text h3 {
+  @apply text-xl;
+}
+.rich-text :is(ul, ol) {
+  @apply flex flex-col gap-2 pl-6;
+}
+.rich-text ul {
+  @apply list-disc;
+}
+.rich-text ol {
+  @apply list-decimal;
+}
+.rich-text a {
+  @apply text-secondary underline underline-offset-4;
+}
+.rich-text blockquote {
+  @apply border-secondary text-foreground/70 border-l-2 pl-4 italic;
+}

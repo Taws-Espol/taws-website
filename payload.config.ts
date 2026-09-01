@@ -10,6 +10,7 @@ import { Applications } from "./src/shared/lib/payload/collections/applications.
 import { Gallery } from "./src/shared/lib/payload/collections/gallery.ts";
 import { Media } from "./src/shared/lib/payload/collections/media.ts";
 import { Members } from "./src/shared/lib/payload/collections/members.ts";
+import { Posts } from "./src/shared/lib/payload/collections/posts.ts";
 import { Projects } from "./src/shared/lib/payload/collections/projects.ts";
 import { Users } from "./src/shared/lib/payload/collections/users.ts";
 import { Recruitment } from "./src/shared/lib/payload/globals/recruitment.ts";
@@ -30,7 +31,16 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor(),
-  collections: [Users, Media, Members, Events, Projects, Gallery, Applications],
+  collections: [
+    Users,
+    Media,
+    Members,
+    Events,
+    Projects,
+    Gallery,
+    Applications,
+    Posts,
+  ],
   globals: [Recruitment],
   jobs: {
     tasks: [],
