@@ -5,11 +5,23 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 import { PostByline } from "@/features/blog/components/post-byline";
 import { CATEGORY_LABELS } from "@/features/blog/constants/categories";
 import { getPostBySlug } from "@/features/blog/queries/get-post-by-slug";
+import { getPublishedPostSlugs } from "@/features/blog/queries/get-published-post-slugs";
 import { formatPostDate } from "@/features/blog/utils/format-post-date";
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 
 type PageProps = { params: Promise<{ slug: string }> };
+
+/**
+ * Without this the build has no slug to prerender, and reading params outside a
+ * Suspense boundary fails the export under Cache Components. The posts tag keeps
+ * the set fresh, so a newly published post appears without a deploy.
+ */
+export async function generateStaticParams() {
+  const slugs = await getPublishedPostSlugs();
+
+  return slugs.map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({
   params,
