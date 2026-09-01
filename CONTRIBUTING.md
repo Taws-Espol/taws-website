@@ -105,14 +105,13 @@ New issues get `needs-triage` automatically from the form. These strings are mir
 `.github/CODEOWNERS` requests review from `waldaara` automatically.
 
 - **If someone other than `waldaara` opened the PR**, wait for `waldaara`'s approval. Only `waldaara` has bypass permissions on `main`.
-- **If `waldaara` opened the PR**, GitHub will not request review from the author, and self-approval is rejected. The mandatory Copilot code review stands in, and `waldaara` merges using their bypass permission.
+- **If `waldaara` opened the PR**, GitHub will not request review from the author, and self-approval is rejected — so no approving review is possible and the PR stays blocked. `waldaara` merges it using their bypass permission. Nothing reviews these PRs, so keep them small and describe them well.
 
 ### Branch protection on `main`
 
-Two rulesets are active and will block a merge that does not satisfy them:
+A ruleset is active and will block a merge that does not satisfy it:
 
 - Pull request required, linear history required, no force pushes, no deletion
-- Copilot code review required
 
 ## CI/CD
 
