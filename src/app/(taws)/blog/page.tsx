@@ -1,18 +1,38 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 
-import { Heading } from "@/shared/components/ui/typography";
+import { PostCard } from "@/features/blog/components/post-card";
+import { getPublishedPosts } from "@/features/blog/queries/get-published-posts";
+import { Section } from "@/shared/components/ui/section";
+import { Heading, Text } from "@/shared/components/ui/typography";
 
-export default function Page() {
+export const metadata: Metadata = {
+  title: "Blog | TAWS",
+  description:
+    "Tutoriales, anuncios y apuntes escritos por los miembros del club TAWS de la ESPOL.",
+};
+
+export default async function Page() {
+  const posts = await getPublishedPosts();
+
   return (
-    <main className="flex flex-col items-center justify-center gap-4">
-      <Heading as="h1" variant="display">
-        TAWS blog
-      </Heading>
+    <Section as="main">
+      <div className="flex flex-col gap-10">
+        <Heading as="h1" variant="display">
+          Blog
+        </Heading>
 
-      <Link href="/">Go to home page</Link>
-      <Link href="/about">Go to about page</Link>
-      <Link href="/blog">Go to blog page</Link>
-      <Link href="/projects">Go to projects page</Link>
-    </main>
+        {posts.length === 0 ? (
+          <Text className="text-foreground/60">
+            Todavía no hay publicaciones.
+          </Text>
+        ) : (
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
+      </div>
+    </Section>
   );
 }

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 
+import { BlogSection } from "@/features/blog/components/blog-section";
 import { HeroSection } from "@/features/landing/components/hero-section";
 import { ManifestoSection } from "@/features/landing/components/manifesto-section";
 import { MembersSection } from "@/features/landing/components/members-section";
@@ -25,6 +26,8 @@ export default function Page() {
       <WorkAreasSection />
       <ProjectsSection />
       <ManifestoSection />
+
+      <BlogSection />
 
       <Section>
         <MembersSection />

@@ -74,6 +74,7 @@ export interface Config {
     projects: Project;
     gallery: Gallery;
     applications: Application;
+    posts: Post;
     exports: Export;
     imports: Import;
     "payload-kv": PayloadKv;
@@ -91,6 +92,7 @@ export interface Config {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
     applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
     imports: ImportsSelect<false> | ImportsSelect<true>;
     "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -377,6 +379,42 @@ export interface Application {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  cover?: (number | null) | Media;
+  category: "tutorial" | "anuncio" | "proyecto" | "evento";
+  author: number | Member;
+  publishedAt: string;
+  /**
+   * Worked out from the content. Editing it does nothing.
+   */
+  readingTime?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ("draft" | "published") | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "exports".
  */
 export interface Export {
@@ -595,6 +633,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: "applications";
         value: number | Application;
+      } | null)
+    | ({
+        relationTo: "posts";
+        value: number | Post;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -763,6 +805,24 @@ export interface ApplicationsSelect<T extends boolean = true> {
   status?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  excerpt?: T;
+  content?: T;
+  cover?: T;
+  category?: T;
+  author?: T;
+  publishedAt?: T;
+  readingTime?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -950,6 +1010,7 @@ export interface TaskCreateCollectionExport {
       | "projects"
       | "gallery"
       | "applications"
+      | "posts"
       | "exports"
       | "imports";
     drafts?: ("yes" | "no") | null;

@@ -1,11 +1,57 @@
-import { Heading } from "@/shared/components/ui/typography";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
-export default function Page() {
+import { PostByline } from "@/features/blog/components/post-byline";
+import { CATEGORY_LABELS } from "@/features/blog/constants/categories";
+import { getPostBySlug } from "@/features/blog/queries/get-post-by-slug";
+import { formatPostDate } from "@/features/blog/utils/format-post-date";
+import { Section } from "@/shared/components/ui/section";
+import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
+
+type PageProps = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) return { title: "Publicación no encontrada | TAWS" };
+
+  return {
+    title: `${post.title} | TAWS`,
+    description: post.excerpt,
+  };
+}
+
+export default async function Page({ params }: PageProps) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) notFound();
+
   return (
-    <main className="flex flex-col items-center justify-center gap-4">
-      <Heading as="h1" variant="display">
-        TAWS blog post
-      </Heading>
-    </main>
+    <Section as="main">
+      <article className="mx-auto flex max-w-[68ch] flex-col gap-6">
+        <Eyebrow className="text-foreground/50">
+          {CATEGORY_LABELS[post.category] ?? post.category} ·{" "}
+          {formatPostDate(post.publishedAt)}
+          {post.readingTime ? ` · ${post.readingTime} min` : null}
+        </Eyebrow>
+
+        <Heading as="h1" variant="display">
+          {post.title}
+        </Heading>
+
+        <Text className="text-foreground/70">{post.excerpt}</Text>
+
+        <div className="rich-text">
+          <RichText data={post.content} />
+        </div>
+
+        <PostByline author={post.author} />
+      </article>
+    </Section>
   );
 }
