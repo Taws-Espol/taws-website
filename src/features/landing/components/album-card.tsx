@@ -41,6 +41,10 @@ export function AlbumCard({ album }: { album: Album }) {
         <Eyebrow className="text-foreground/50">
           {formatAlbumDate(album.date)} · {album.images.length} fotos
         </Eyebrow>
+
+        {typeof album.event === "object" && album.event ? (
+          <Eyebrow className="text-secondary">{album.event.title}</Eyebrow>
+        ) : null}
       </DialogTrigger>
 
       <DialogContent className="max-w-3xl">
