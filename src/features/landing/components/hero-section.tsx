@@ -16,21 +16,8 @@ export async function HeroSection() {
   ]);
 
   return (
-    <Section className="relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <Polygon
-          shape="circle"
-          fill="muted"
-          className="absolute -top-24 -left-24 size-72"
-        />
-        <Polygon
-          shape="square"
-          fill="muted"
-          className="absolute top-1/3 -right-20 size-56 rotate-12"
-        />
-      </div>
-
-      <div className="relative grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14">
+    <Section className="pt-10 pb-16 md:pt-16 md:pb-24">
+      <div className="grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14">
         <div className="flex flex-col items-start gap-6">
           <span className="bg-surface inline-flex items-center gap-2 rounded-full px-3.5 py-1.5">
             <Polygon shape="circle" fill="accent" className="size-2.5" />

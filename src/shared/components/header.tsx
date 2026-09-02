@@ -6,6 +6,7 @@ import { getRecruitmentWindow } from "@/features/recruitment/queries/get-recruit
 import { isRecruitmentOpen } from "@/features/recruitment/utils/is-recruitment-open";
 
 import { SiteNavigation } from "@/shared/components/site-navigation";
+import { SiteNavigationSkeleton } from "@/shared/components/site-navigation-skeleton";
 import { APP_NAME } from "@/shared/constants/app";
 
 async function Navigation() {
@@ -32,7 +33,7 @@ export function Header() {
           </span>
         </Link>
 
-        <Suspense fallback={null}>
+        <Suspense fallback={<SiteNavigationSkeleton />}>
           <Navigation />
         </Suspense>
       </div>

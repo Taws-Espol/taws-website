@@ -69,13 +69,13 @@ function Text({ className, variant, ...props }: TextProps) {
 
 type EyebrowProps = ComponentPropsWithoutRef<"span">;
 
-/** The one place the type gets loud: small, wide and set in caps. */
+/** A small label that names the section without competing with its heading. */
 function Eyebrow({ className, ...props }: EyebrowProps) {
   return (
     <span
       data-slot="eyebrow"
       className={cn(
-        "text-[0.75rem] font-semibold tracking-[0.14em] uppercase",
+        "text-[0.8125rem] font-semibold tracking-[0.01em]",
         className,
       )}
       {...props}
