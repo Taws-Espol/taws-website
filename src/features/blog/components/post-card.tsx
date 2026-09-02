@@ -32,7 +32,7 @@ export function PostCard({ post }: { post: Post }) {
       <Heading as="h3" className="text-base">
         <Link
           href={`/blog/${post.slug}`}
-          className="hover:text-secondary focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+          className="focus-visible:ring-ring rounded-sm underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
         >
           {post.title}
         </Link>

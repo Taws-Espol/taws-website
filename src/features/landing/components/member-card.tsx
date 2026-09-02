@@ -32,7 +32,7 @@ export function MemberCard({ member }: { member: Member }) {
       <Text className="font-bold">{member.fullName}</Text>
 
       {member.position ? (
-        <Eyebrow className="text-secondary">{member.position}</Eyebrow>
+        <Eyebrow className="text-muted-foreground">{member.position}</Eyebrow>
       ) : null}
 
       {member.major ? (

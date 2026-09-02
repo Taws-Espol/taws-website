@@ -23,7 +23,7 @@ export function WorkAreasSection() {
               <HugeiconsIcon
                 icon={area.icon}
                 aria-hidden="true"
-                className="text-secondary size-6"
+                className="text-foreground size-6"
               />
               <Eyebrow>{area.label}</Eyebrow>
             </li>

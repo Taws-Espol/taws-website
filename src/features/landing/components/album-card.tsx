@@ -43,7 +43,9 @@ export function AlbumCard({ album }: { album: Album }) {
         </Eyebrow>
 
         {typeof album.event === "object" && album.event ? (
-          <Eyebrow className="text-secondary">{album.event.title}</Eyebrow>
+          <Eyebrow className="text-muted-foreground">
+            {album.event.title}
+          </Eyebrow>
         ) : null}
       </DialogTrigger>
 

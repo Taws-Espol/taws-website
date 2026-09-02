@@ -67,7 +67,7 @@ function DialogContent({
               <Button
                 variant="ghost"
                 className="bg-secondary absolute top-4 right-4"
-                size="icon"
+                size="icon-sm"
               />
             }
           >
@@ -109,7 +109,7 @@ function DialogFooter({
     >
       {children}
       {showCloseButton && (
-        <DialogPrimitive.Close render={<Button variant="ghost" />}>
+        <DialogPrimitive.Close render={<Button variant="outline" />}>
           Close
         </DialogPrimitive.Close>
       )}
@@ -121,7 +121,10 @@ function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("text-base leading-none font-medium", className)}
+      className={cn(
+        "font-heading text-base leading-none font-medium",
+        className,
+      )}
       {...props}
     />
   );

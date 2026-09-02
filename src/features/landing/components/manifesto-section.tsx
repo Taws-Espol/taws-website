@@ -9,9 +9,7 @@ export function ManifestoSection() {
         <Eyebrow className="opacity-70">{MANIFESTO.eyebrow}</Eyebrow>
 
         <Heading as="h2" className="max-w-[24ch]">
-          {MANIFESTO.before}{" "}
-          <span className="text-secondary">{MANIFESTO.highlight}</span>{" "}
-          {MANIFESTO.after}
+          {MANIFESTO.before} {MANIFESTO.highlight} {MANIFESTO.after}
         </Heading>
 
         <Eyebrow className="opacity-70">{MANIFESTO.signature}</Eyebrow>
