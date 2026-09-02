@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
 import Script from "next/script";
 
 import { Footer } from "@/shared/components/footer";
 import { Header } from "@/shared/components/header";
+import { siteFont } from "@/shared/lib/fonts/site-font";
 import { UMAMI_TRACKED_DOMAINS } from "@/shared/lib/umami/umami-domains";
 import { cn } from "@/shared/utils/cn";
 import { getAppUrl } from "@/shared/utils/get-app-url";
 import "@/shared/styles/globals.css";
-
-/**
- * One family for the whole site. Outfit is drawn from circles and straight
- * lines, which is the same alphabet as the shapes in the illustrations, and it
- * carries a headline at 700 and a paragraph at 400 without needing a partner.
- */
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: getAppUrl(),
@@ -61,7 +54,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={cn("font-sans antialiased", outfit.variable)}>
+    <html lang="es" className={cn("font-sans antialiased", siteFont.variable)}>
       <head>
         <Script
           defer
