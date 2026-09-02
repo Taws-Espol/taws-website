@@ -6,7 +6,6 @@ import { isRecruitmentOpen } from "@/features/recruitment/utils/is-recruitment-o
 
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
-import { getWorkAreas } from "@/shared/queries/get-work-areas";
 
 const CLOSED_FALLBACK =
   "La convocatoria está cerrada por ahora. Síguenos en redes para enterarte de la próxima.";
@@ -14,10 +13,7 @@ const CLOSED_FALLBACK =
 export async function RecruitmentSection() {
   await connection();
 
-  const [window, workAreas] = await Promise.all([
-    getRecruitmentWindow(),
-    getWorkAreas(),
-  ]);
+  const window = await getRecruitmentWindow();
   const isOpen = isRecruitmentOpen(window, new Date());
 
   return (
@@ -37,7 +33,7 @@ export async function RecruitmentSection() {
         </div>
 
         {isOpen ? (
-          <ApplicationForm workAreas={workAreas} />
+          <ApplicationForm />
         ) : (
           <Text className="max-w-[46ch] opacity-80">
             {window.closedMessage ?? CLOSED_FALLBACK}

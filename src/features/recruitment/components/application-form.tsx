@@ -3,7 +3,6 @@
 import { Controller } from "react-hook-form";
 
 import { useApplicationForm } from "@/features/recruitment/hooks/use-application-form";
-import type { WorkAreaOption } from "@/features/recruitment/types/work-area-option";
 
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -26,15 +25,12 @@ import {
 import { Textarea } from "@/shared/components/ui/textarea";
 import { Heading, Text } from "@/shared/components/ui/typography";
 import { MAJORS } from "@/shared/constants/majors";
+import { WORK_AREAS } from "@/shared/constants/work-areas";
 import { cn } from "@/shared/utils/cn";
 
 const MAJOR_ITEMS = MAJORS.map(({ value, label }) => ({ value, label }));
 
-export function ApplicationForm({
-  workAreas,
-}: {
-  workAreas: WorkAreaOption[];
-}) {
+export function ApplicationForm() {
   const { form, onSubmit, submitError, isSubmitted } = useApplicationForm();
 
   if (isSubmitted) {
@@ -145,19 +141,21 @@ export function ApplicationForm({
               <FieldSet data-invalid={fieldState.invalid}>
                 <FieldLegend variant="label">Áreas de interés</FieldLegend>
                 <div className="flex flex-wrap gap-2">
-                  {workAreas.map((area) => {
-                    const isSelected = field.value.includes(area.id);
+                  {WORK_AREAS.map((area) => {
+                    const isSelected = field.value.includes(area.value);
 
                     return (
                       <button
-                        key={area.id}
+                        key={area.value}
                         type="button"
                         aria-pressed={isSelected}
                         onClick={() =>
                           field.onChange(
                             isSelected
-                              ? field.value.filter((id) => id !== area.id)
-                              : [...field.value, area.id],
+                              ? field.value.filter(
+                                  (value) => value !== area.value,
+                                )
+                              : [...field.value, area.value],
                           )
                         }
                         className={cn(
@@ -167,7 +165,7 @@ export function ApplicationForm({
                             : "hover:bg-accent",
                         )}
                       >
-                        {area.name}
+                        {area.label}
                       </button>
                     );
                   })}

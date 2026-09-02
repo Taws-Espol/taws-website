@@ -2,17 +2,9 @@ import { HugeiconsIcon } from "@hugeicons/react";
 
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
-import {
-  WORK_AREA_ICONS,
-  type WorkAreaIcon,
-} from "@/shared/constants/work-area-icons";
-import { getWorkAreas } from "@/shared/queries/get-work-areas";
+import { WORK_AREAS } from "@/shared/constants/work-areas";
 
-export async function WorkAreasSection() {
-  const workAreas = await getWorkAreas();
-
-  if (workAreas.length === 0) return null;
-
+export function WorkAreasSection() {
   return (
     <Section>
       <div className="flex flex-col gap-10">
@@ -20,20 +12,20 @@ export async function WorkAreasSection() {
           <Heading as="h2">En qué trabajamos</Heading>
 
           <Text variant="small" className="text-foreground/60 max-w-[46ch]">
-            Nuestras líneas de trabajo. Cada proyecto del club nace en alguna de
-            ellas.
+            Seis líneas de trabajo, una comunidad. Cada proyecto del club nace
+            en alguna de ellas.
           </Text>
         </div>
 
         <ul className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6">
-          {workAreas.map((area) => (
-            <li key={area.id} className="flex flex-col items-start gap-3">
+          {WORK_AREAS.map((area) => (
+            <li key={area.value} className="flex flex-col items-start gap-3">
               <HugeiconsIcon
-                icon={WORK_AREA_ICONS[area.icon as WorkAreaIcon]}
+                icon={area.icon}
                 aria-hidden="true"
                 className="text-foreground size-6"
               />
-              <Eyebrow>{area.name}</Eyebrow>
+              <Eyebrow>{area.label}</Eyebrow>
             </li>
           ))}
         </ul>

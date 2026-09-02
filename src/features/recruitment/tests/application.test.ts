@@ -6,7 +6,7 @@ const validApplication = {
   fullName: "Ana Pérez",
   email: "ana.perez@espol.edu.ec",
   major: "computacion",
-  interests: [1],
+  interests: ["web"],
 };
 
 describe("applicationSchema", () => {

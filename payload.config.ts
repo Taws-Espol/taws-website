@@ -15,7 +15,6 @@ import { Members } from "./src/shared/lib/payload/collections/members.ts";
 import { Posts } from "./src/shared/lib/payload/collections/posts.ts";
 import { Projects } from "./src/shared/lib/payload/collections/projects.ts";
 import { Users } from "./src/shared/lib/payload/collections/users.ts";
-import { WorkAreas } from "./src/shared/lib/payload/collections/work-areas.ts";
 import { Hero } from "./src/shared/lib/payload/globals/hero.ts";
 import { History } from "./src/shared/lib/payload/globals/history.ts";
 import { Manifesto } from "./src/shared/lib/payload/globals/manifesto.ts";
@@ -26,7 +25,10 @@ export default buildConfig({
   bin: [
     {
       key: "seed",
-      scriptPath: path.resolve(process.cwd(), "src/shared/lib/payload/seed.ts"),
+      scriptPath: path.resolve(
+        process.cwd(),
+        "src/shared/lib/payload/seed/index.ts",
+      ),
     },
   ],
   admin: {
@@ -44,7 +46,6 @@ export default buildConfig({
     Gallery,
     Applications,
     Posts,
-    WorkAreas,
   ],
   globals: [Hero, Manifesto, History, Recruitment],
   jobs: {
