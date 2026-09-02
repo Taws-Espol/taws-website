@@ -1,12 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import Image from "next/image";
 
 import { useAlbumViewer } from "@/features/landing/hooks/use-album-viewer";
 import type { Album } from "@/features/landing/types/album";
 import { getAlbumImage } from "@/features/landing/utils/get-album-image";
+
 import { Button } from "@/shared/components/ui/button";
 import { Eyebrow, Text } from "@/shared/components/ui/typography";
 

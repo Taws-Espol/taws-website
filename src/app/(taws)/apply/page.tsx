@@ -1,8 +1,8 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
-import { RecruitmentSection } from "@/features/registration/components/recruitment-section";
-import { RecruitmentSectionSkeleton } from "@/features/registration/components/recruitment-section-skeleton";
+import { RecruitmentSection } from "@/features/recruitment/components/recruitment-section";
+import { RecruitmentSectionSkeleton } from "@/features/recruitment/components/recruitment-section-skeleton";
 
 export const metadata: Metadata = {
   title: "Postula | TAWS",

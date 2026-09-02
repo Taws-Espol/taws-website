@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CATEGORY_LABELS } from "@/features/blog/constants/categories";
 import type { Post } from "@/features/blog/types/post";
 import { formatPostDate } from "@/features/blog/utils/format-post-date";
+
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 
 export function PostCard({ post }: { post: Post }) {

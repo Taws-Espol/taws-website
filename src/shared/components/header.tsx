@@ -1,5 +1,5 @@
-import { Suspense } from "react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { SiteNavigation } from "@/shared/components/site-navigation";
 import { Eyebrow } from "@/shared/components/ui/typography";

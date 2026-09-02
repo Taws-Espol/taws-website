@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import type { Post } from "@/features/blog/types/post";
+
 import { Eyebrow, Text } from "@/shared/components/ui/typography";
 import { getMajorLabel } from "@/shared/utils/get-major-label";
 

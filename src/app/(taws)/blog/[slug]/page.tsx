@@ -1,12 +1,13 @@
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { RichText } from "@payloadcms/richtext-lexical/react";
 
 import { PostByline } from "@/features/blog/components/post-byline";
 import { CATEGORY_LABELS } from "@/features/blog/constants/categories";
 import { getPostBySlug } from "@/features/blog/queries/get-post-by-slug";
 import { getPublishedPostSlugs } from "@/features/blog/queries/get-published-post-slugs";
 import { formatPostDate } from "@/features/blog/utils/format-post-date";
+
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 

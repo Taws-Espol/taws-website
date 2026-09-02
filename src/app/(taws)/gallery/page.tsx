@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { AlbumCard } from "@/features/landing/components/album-card";
 import { getAlbums } from "@/features/landing/queries/get-albums";
+
 import { Section } from "@/shared/components/ui/section";
 import { Heading, Text } from "@/shared/components/ui/typography";
 

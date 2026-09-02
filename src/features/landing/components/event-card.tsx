@@ -2,6 +2,7 @@ import { EventAlbumDialog } from "@/features/landing/components/event-album-dial
 import type { Album } from "@/features/landing/types/album";
 import type { Event } from "@/features/landing/types/event";
 import { formatEventDate } from "@/features/landing/utils/format-event-date";
+
 import { Eyebrow, Heading } from "@/shared/components/ui/typography";
 import { cn } from "@/shared/utils/cn";
 

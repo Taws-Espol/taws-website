@@ -1,5 +1,5 @@
-import type { ComponentPropsWithoutRef, ElementType } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import type { ComponentPropsWithoutRef, ElementType } from "react";
 
 import { cn } from "@/shared/utils/cn";
 

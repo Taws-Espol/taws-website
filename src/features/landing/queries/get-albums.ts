@@ -2,6 +2,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import { getPayload } from "payload";
 
 import payloadConfig from "@payload-config";
+
 import { GALLERY_TAG, MEDIA_TAG } from "@/shared/constants/cache-tags";
 
 export async function getAlbums() {

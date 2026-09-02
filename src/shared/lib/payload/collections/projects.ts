@@ -1,7 +1,7 @@
 import type { CollectionConfig } from "payload";
 
-import { getWorkAreaPayloadOptions } from "../../../../features/landing/constants/work-areas.ts";
 import { PROJECTS_TAG } from "../../../constants/cache-tags.ts";
+import { getWorkAreaPayloadOptions } from "../../../constants/work-areas.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
 

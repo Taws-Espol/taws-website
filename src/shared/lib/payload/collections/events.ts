@@ -1,5 +1,5 @@
-import type { CollectionConfig } from "payload";
 import { revalidateTag } from "next/cache";
+import type { CollectionConfig } from "payload";
 
 import { EVENTS_TAG } from "../../../constants/cache-tags";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor";

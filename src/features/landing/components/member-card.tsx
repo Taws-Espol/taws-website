@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { GithubIcon, LinkedinIcon, UserIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import Image from "next/image";
 
 import type { Member } from "@/features/landing/types/member";
+
 import { Eyebrow, Text } from "@/shared/components/ui/typography";
 import { getMajorLabel } from "@/shared/utils/get-major-label";
 
