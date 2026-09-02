@@ -1,23 +1,13 @@
 import { RichText } from "@payloadcms/richtext-lexical/react";
-import { notFound } from "next/navigation";
 
 import { PostByline } from "@/features/blog/components/post-byline";
 import { CATEGORY_LABELS } from "@/features/blog/constants/categories";
-import { getPostBySlug } from "@/features/blog/queries/get-post-by-slug";
+import type { Post } from "@/features/blog/types/post";
 import { formatPostDate } from "@/features/blog/utils/format-post-date";
 
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 
-export async function PostArticle({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
-
-  if (!post) notFound();
-
+export function PostArticle({ post }: { post: Post }) {
   return (
     <article className="mx-auto flex max-w-[68ch] flex-col gap-6">
       <Eyebrow className="text-foreground/50">
