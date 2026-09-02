@@ -23,7 +23,7 @@ export function AlbumCard({ album }: { album: Album }) {
         className="group focus-visible:ring-ring flex flex-col gap-4 rounded-3xl text-left focus-visible:ring-2 focus-visible:outline-none"
         aria-label={`Abrir el álbum ${album.title}`}
       >
-        <div className="bg-surface relative aspect-[4/3] w-full overflow-hidden rounded-3xl">
+        <div className="bg-surface relative aspect-[4/3] w-full overflow-hidden rounded-4xl">
           {cover?.url ? (
             <Image
               src={cover.url}

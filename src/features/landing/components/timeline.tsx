@@ -8,7 +8,7 @@ export async function Timeline() {
   if (!milestones?.length) return null;
 
   return (
-    <ol className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+    <ol className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
       {milestones.map((milestone) => (
         <li
           key={milestone.id ?? milestone.year}

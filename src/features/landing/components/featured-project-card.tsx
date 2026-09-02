@@ -12,7 +12,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
 
   return (
     <article className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-      <div className="bg-surface relative aspect-[16/10] overflow-hidden rounded-[2rem]">
+      <div className="bg-surface relative aspect-[16/10] overflow-hidden rounded-[2.5rem]">
         {cover?.url ? (
           <Image
             src={cover.url}

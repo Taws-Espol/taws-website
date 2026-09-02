@@ -31,7 +31,7 @@ export async function MembersSection() {
           }
         />
 
-        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
           {members.slice(0, LANDING_MEMBER_COUNT).map((member) => (
             <MemberCard key={member.id} member={member} />
           ))}

@@ -24,7 +24,7 @@ export default async function Page() {
             Todavía no hay publicaciones.
           </Text>
         ) : (
-          <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-10 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}

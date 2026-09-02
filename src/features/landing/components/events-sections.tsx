@@ -26,7 +26,7 @@ export async function EventsSections() {
             No hay eventos próximos programados por el momento.
           </Text>
         ) : (
-          <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-10 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
             {upcoming.map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
@@ -38,7 +38,7 @@ export async function EventsSections() {
         <section className="flex flex-col gap-6">
           <Heading as="h2">Eventos pasados</Heading>
 
-          <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-10 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
             {past.map((event) => (
               <EventCard
                 key={event.id}

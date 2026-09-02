@@ -16,7 +16,7 @@ export function WorkAreasSection() {
           description="Seis frentes abiertos. Cada proyecto y cada postulación se etiqueta con al menos uno."
         />
 
-        <ul className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           {WORK_AREAS.map((area) => (
             <li key={area.value} className="flex flex-col gap-3">
               <span className="bg-surface text-primary flex size-12 items-center justify-center rounded-2xl">

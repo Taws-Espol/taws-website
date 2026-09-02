@@ -31,7 +31,7 @@ export async function BlogSection() {
           }
         />
 
-        <div className="grid gap-x-8 gap-y-12 md:grid-cols-3">
+        <div className="grid gap-x-10 gap-y-16 md:grid-cols-3">
           {posts.slice(0, LANDING_POST_COUNT).map((post) => (
             <PostCard key={post.id} post={post} />
           ))}

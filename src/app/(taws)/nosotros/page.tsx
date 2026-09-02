@@ -41,7 +41,7 @@ export default async function Page() {
               No hay miembros activos registrados actualmente.
             </Text>
           ) : (
-            <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
               {members.map((member) => (
                 <MemberCard key={member.id} member={member} />
               ))}

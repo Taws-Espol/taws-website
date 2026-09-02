@@ -24,7 +24,7 @@ export default async function Page() {
             Todavía no hay álbumes publicados.
           </Text>
         ) : (
-          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
             {albums.map((album) => (
               <AlbumCard key={album.id} album={album} />
             ))}

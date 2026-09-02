@@ -12,7 +12,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article className="flex h-full flex-col gap-4">
-      <div className="bg-surface relative aspect-[16/10] overflow-hidden rounded-3xl">
+      <div className="bg-surface relative aspect-[16/10] overflow-hidden rounded-4xl">
         {cover?.url ? (
           <Image
             src={cover.url}

@@ -7,25 +7,26 @@ import type { Member } from "@/features/landing/types/member";
 import { Heading, Text } from "@/shared/components/ui/typography";
 import { getMajorLabel } from "@/shared/utils/get-major-label";
 
+/** A person is a portrait, not a cover: round photo, everything centred. */
 export function MemberCard({ member }: { member: Member }) {
   const photo = typeof member.photo === "object" ? member.photo : null;
 
   return (
-    <div className="flex h-full flex-col gap-3">
-      <div className="bg-surface relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl">
+    <div className="flex h-full flex-col items-center gap-4 text-center">
+      <div className="bg-surface relative flex size-40 items-center justify-center overflow-hidden rounded-full">
         {photo?.url ? (
           <Image
             src={photo.url}
             alt={member.fullName}
             fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+            sizes="160px"
             className="object-cover"
           />
         ) : (
           <HugeiconsIcon
             icon={UserIcon}
             aria-hidden="true"
-            className="text-muted-foreground size-10"
+            className="text-muted-foreground size-12"
           />
         )}
       </div>
@@ -48,7 +49,7 @@ export function MemberCard({ member }: { member: Member }) {
         ) : null}
       </div>
 
-      <div className="mt-auto -ml-2 flex gap-1 pt-1">
+      <div className="mt-auto flex gap-1">
         {member.githubUrl ? (
           <a
             href={member.githubUrl}
