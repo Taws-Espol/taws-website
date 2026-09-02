@@ -4,6 +4,8 @@
 import config from "@payload-config";
 import { generatePageMetadata, RootPage } from "@payloadcms/next/views";
 import type { Metadata } from "next";
+import { connection } from "next/server";
+
 import { importMap } from "../importMap";
 
 /**
@@ -11,8 +13,13 @@ import { importMap } from "../importMap";
  * and cannot be prerendered. That is correct for an auth gated route; saying so
  * keeps the dev overlay quiet without giving every view the same title.
  *
- * Payload generated this file and may rewrite it; if the notice comes back,
- * this line is what went missing.
+ * The admin also reads the clock while rendering, which prerendering rejects as
+ * an unstable value, so the page waits on connection() before handing over. It
+ * is auth gated and reads cookies on every request, so it was never going to be
+ * prerendered anyway.
+ *
+ * Payload generated this file and may rewrite it; if the notices come back,
+ * these lines are what went missing.
  */
 export const instant = false;
 
@@ -31,7 +38,10 @@ export const generateMetadata = ({
 }: Args): Promise<Metadata> =>
   generatePageMetadata({ config, params, searchParams });
 
-const Page = ({ params, searchParams }: Args) =>
-  RootPage({ config, params, searchParams, importMap });
+const Page = async ({ params, searchParams }: Args) => {
+  await connection();
+
+  return RootPage({ config, params, searchParams, importMap });
+};
 
 export default Page;
