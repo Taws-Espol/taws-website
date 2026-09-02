@@ -4,11 +4,18 @@ import { ApplicationForm } from "@/features/recruitment/components/application-f
 import { getRecruitmentWindow } from "@/features/recruitment/queries/get-recruitment-window";
 import { isRecruitmentOpen } from "@/features/recruitment/utils/is-recruitment-open";
 
+import { DoorIllustration } from "@/shared/components/illustrations/door-illustration";
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 
 const CLOSED_FALLBACK =
   "La convocatoria está cerrada por ahora. Síguenos en redes para enterarte de la próxima.";
+
+const STEPS = [
+  "Envías el formulario",
+  "Resuelves una prueba técnica",
+  "Conversamos en una entrevista",
+];
 
 /**
  * `hideWhenClosed` is for the landing, where a closed window should leave no
@@ -28,25 +35,40 @@ export async function RecruitmentSection({
   if (!isOpen && hideWhenClosed) return null;
 
   return (
-    <Section variant="inverted">
-      <div className="grid items-start gap-12 md:grid-cols-2">
+    <Section>
+      <div className="grid items-start gap-10 md:grid-cols-2 md:gap-14">
         <div className="flex flex-col gap-6">
-          <Eyebrow className="opacity-70">Únete</Eyebrow>
+          <Eyebrow className="text-primary">Únete</Eyebrow>
 
           <Heading as="h2" className="max-w-[16ch]">
             {isOpen ? "Postulaciones abiertas" : "Postulaciones cerradas"}
           </Heading>
 
-          <Text className="max-w-[46ch] opacity-80">
-            Abrimos una convocatoria por semestre. Tres semanas de proceso:
-            postulación, prueba técnica y entrevista.
+          <Text variant="lead" className="text-muted-foreground max-w-[46ch]">
+            Abrimos una convocatoria por semestre y el proceso dura tres
+            semanas.
           </Text>
+
+          {isOpen ? (
+            <ol className="flex flex-col gap-3">
+              {STEPS.map((step, index) => (
+                <li key={step} className="flex items-center gap-3">
+                  <span className="bg-surface text-primary flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold">
+                    {index + 1}
+                  </span>
+                  <Text variant="small">{step}</Text>
+                </li>
+              ))}
+            </ol>
+          ) : null}
+
+          <DoorIllustration className="mt-4" />
         </div>
 
         {isOpen ? (
           <ApplicationForm />
         ) : (
-          <Text className="max-w-[46ch] opacity-80">
+          <Text className="text-muted-foreground max-w-[46ch]">
             {window.closedMessage ?? CLOSED_FALLBACK}
           </Text>
         )}

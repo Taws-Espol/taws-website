@@ -5,8 +5,9 @@ import { ProjectCard } from "@/features/landing/components/project-card";
 import { getProjects } from "@/features/landing/queries/get-projects";
 import { selectFeaturedProjects } from "@/features/landing/utils/select-featured-projects";
 
+import { buttonVariants } from "@/shared/components/ui/button";
 import { Section } from "@/shared/components/ui/section";
-import { Eyebrow, Heading } from "@/shared/components/ui/typography";
+import { SectionHeader } from "@/shared/components/ui/section-header";
 
 export async function ProjectsSection() {
   const projects = await getProjects();
@@ -16,26 +17,27 @@ export async function ProjectsSection() {
 
   return (
     <Section>
-      <div className="flex flex-col gap-10">
-        <div className="flex items-end justify-between gap-6">
-          <Heading as="h2">Proyectos</Heading>
+      <div className="flex flex-col gap-14">
+        <SectionHeader
+          eyebrow="Proyectos"
+          title="Lo que hemos construido"
+          description="Trabajo de miembros del club, casi siempre con el código abierto."
+          action={
+            <Link
+              href="/proyectos"
+              className={buttonVariants({ variant: "secondary" })}
+            >
+              Ver todos
+            </Link>
+          }
+        />
 
-          <Link
-            href="/proyectos"
-            className="text-foreground/60 hover:text-foreground focus-visible:ring-ring rounded-sm underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:outline-none"
-          >
-            <Eyebrow>Ver todos</Eyebrow>
-          </Link>
-        </div>
+        <FeaturedProjectCard project={featured} />
 
-        <div className="grid gap-10 md:grid-cols-2">
-          <FeaturedProjectCard project={featured} />
-
-          <div className="flex flex-col gap-6">
-            {supporting.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
+        <div className="grid gap-x-10 gap-y-16 md:grid-cols-3">
+          {supporting.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
         </div>
       </div>
     </Section>

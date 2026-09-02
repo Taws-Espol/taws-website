@@ -1,31 +1,36 @@
 import { AlbumCard } from "@/features/landing/components/album-card";
 import { getAlbums } from "@/features/landing/queries/get-albums";
 
+import { GalleryIllustration } from "@/shared/components/illustrations/gallery-illustration";
+import { PageHeader } from "@/shared/components/page-header";
 import { Section } from "@/shared/components/ui/section";
-import { Heading, Text } from "@/shared/components/ui/typography";
+import { Text } from "@/shared/components/ui/typography";
 
 export default async function Page() {
   const albums = await getAlbums();
 
   return (
-    <Section as="main">
-      <div className="flex flex-col gap-10">
-        <Heading as="h1" variant="display">
-          Galería
-        </Heading>
+    <main>
+      <PageHeader
+        eyebrow="Galería"
+        title="Cómo se ve el club por dentro"
+        description="Fotos de eventos, sesiones de trabajo y todo lo que pasó entre semestre y semestre."
+        illustration={<GalleryIllustration />}
+      />
 
+      <Section>
         {albums.length === 0 ? (
-          <Text className="text-foreground/60">
+          <Text className="text-muted-foreground">
             Todavía no hay álbumes publicados.
           </Text>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
             {albums.map((album) => (
               <AlbumCard key={album.id} album={album} />
             ))}
           </div>
         )}
-      </div>
-    </Section>
+      </Section>
+    </main>
   );
 }

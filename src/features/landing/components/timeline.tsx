@@ -5,22 +5,28 @@ import { Heading, Text } from "@/shared/components/ui/typography";
 export async function Timeline() {
   const { milestones } = await getHistory();
 
+  if (!milestones?.length) return null;
+
   return (
-    <div className="border-primary/30 my-8 ml-4 space-y-8 border-l-2 pl-6">
-      {milestones?.map((milestone) => (
-        <div key={milestone.id ?? milestone.year} className="relative">
-          <div className="border-background bg-primary absolute top-1 -left-[31px] h-4 w-4 rounded-full border-4" />
-          <span className="text-primary text-sm font-semibold">
+    <ol className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+      {milestones.map((milestone) => (
+        <li
+          key={milestone.id ?? milestone.year}
+          className="flex flex-col gap-2"
+        >
+          <span className="text-primary text-3xl leading-none font-semibold">
             {milestone.year}
           </span>
-          <Heading as="h3" className="mt-1 text-xl font-bold">
+
+          <Heading as="h3" variant="card" className="mt-1">
             {milestone.title}
           </Heading>
-          <Text className="text-muted-foreground mt-2">
+
+          <Text variant="small" className="text-muted-foreground">
             {milestone.description}
           </Text>
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }

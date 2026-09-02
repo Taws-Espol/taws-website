@@ -1,31 +1,39 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 
 import { Section } from "@/shared/components/ui/section";
-import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
+import { SectionHeader } from "@/shared/components/ui/section-header";
+import { Heading, Text } from "@/shared/components/ui/typography";
+import { WORK_AREA_ICONS } from "@/shared/constants/work-area-icons";
 import { WORK_AREAS } from "@/shared/constants/work-areas";
 
 export function WorkAreasSection() {
   return (
     <Section>
-      <div className="flex flex-col gap-10">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <Heading as="h2">En qué trabajamos</Heading>
+      <div className="flex flex-col gap-14">
+        <SectionHeader
+          eyebrow="Áreas"
+          title="En qué trabajamos"
+          description="Seis frentes abiertos. Cada proyecto y cada postulación se etiqueta con al menos uno."
+        />
 
-          <Text variant="small" className="text-foreground/60 max-w-[46ch]">
-            Seis líneas de trabajo, una comunidad. Cada proyecto del club nace
-            en alguna de ellas.
-          </Text>
-        </div>
-
-        <ul className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6">
+        <ul className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           {WORK_AREAS.map((area) => (
-            <li key={area.value} className="flex flex-col items-start gap-3">
-              <HugeiconsIcon
-                icon={area.icon}
-                aria-hidden="true"
-                className="text-foreground size-6"
-              />
-              <Eyebrow>{area.label}</Eyebrow>
+            <li key={area.value} className="flex flex-col gap-3">
+              <span className="bg-surface text-primary flex size-12 items-center justify-center rounded-2xl">
+                <HugeiconsIcon
+                  icon={WORK_AREA_ICONS[area.value]}
+                  aria-hidden="true"
+                  className="size-6"
+                />
+              </span>
+
+              <Heading as="h3" variant="card">
+                {area.label}
+              </Heading>
+
+              <Text variant="small" className="text-muted-foreground">
+                {area.description}
+              </Text>
             </li>
           ))}
         </ul>

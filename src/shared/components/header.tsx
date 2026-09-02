@@ -1,39 +1,38 @@
+import Image from "next/image";
 import Link from "next/link";
-import { connection } from "next/server";
 import { Suspense } from "react";
 
-import { getRecruitmentWindow } from "@/features/recruitment/queries/get-recruitment-window";
-import { isRecruitmentOpen } from "@/features/recruitment/utils/is-recruitment-open";
-
+import { ApplicationCta } from "@/shared/components/application-cta";
 import { SiteNavigation } from "@/shared/components/site-navigation";
-import { Eyebrow } from "@/shared/components/ui/typography";
 import { APP_NAME } from "@/shared/constants/app";
-
-async function Navigation() {
-  await connection();
-
-  const window = await getRecruitmentWindow();
-
-  return (
-    <SiteNavigation isRecruitmentOpen={isRecruitmentOpen(window, new Date())} />
-  );
-}
 
 export function Header() {
   return (
-    <header className="border-border bg-background border-b">
+    <header className="bg-background relative z-40">
       <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-6 py-4">
         <Link
           href="/"
           aria-label={`${APP_NAME}, inicio`}
           className="focus-visible:ring-ring rounded-sm focus-visible:ring-2 focus-visible:outline-none"
         >
-          <Eyebrow className="text-base tracking-[0.12em]">{APP_NAME}</Eyebrow>
+          <Image
+            src="/assets/images/logo.svg"
+            alt=""
+            width={40}
+            height={35}
+            priority
+            unoptimized
+            className="h-9 w-auto"
+          />
         </Link>
 
-        <Suspense fallback={null}>
-          <Navigation />
-        </Suspense>
+        <SiteNavigation
+          applicationCta={
+            <Suspense fallback={null}>
+              <ApplicationCta />
+            </Suspense>
+          }
+        />
       </div>
     </header>
   );

@@ -1,35 +1,60 @@
-import { LinkSquare02Icon } from "@hugeicons/core-free-icons";
+import { ArrowUpRight01Icon, GithubIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 import type { Project } from "@/features/landing/types/project";
 
 import { buttonVariants } from "@/shared/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/shared/components/ui/tooltip";
 
 export function ProjectLinks({ project }: { project: Project }) {
   const links = [
-    { href: project.repositoryUrl, label: "Repositorio" },
-    { href: project.externalUrl, label: "Ver más" },
-  ].filter((link): link is { href: string; label: string } =>
-    Boolean(link.href),
+    {
+      href: project.repositoryUrl,
+      label: "Ver el repositorio",
+      icon: GithubIcon,
+    },
+    {
+      href: project.externalUrl,
+      label: "Ver el proyecto",
+      icon: ArrowUpRight01Icon,
+    },
+  ].filter(
+    (link): link is { href: string; label: string; icon: typeof GithubIcon } =>
+      Boolean(link.href),
   );
 
   if (links.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap gap-2">
-      {links.map((link) => (
-        <a
-          key={link.href}
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={buttonVariants({ variant: "outline", size: "sm" })}
-        >
-          {link.label}
-          <HugeiconsIcon icon={LinkSquare02Icon} aria-hidden="true" />
-          <span className="sr-only">, se abre en una pestaña nueva</span>
-        </a>
-      ))}
-    </div>
+    <TooltipProvider>
+      <div className="flex flex-wrap gap-2">
+        {links.map((link) => (
+          <Tooltip key={link.href}>
+            <TooltipTrigger
+              render={
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${link.label}, se abre en una pestaña nueva`}
+                  className={buttonVariants({
+                    variant: "secondary",
+                    size: "icon-sm",
+                  })}
+                >
+                  <HugeiconsIcon icon={link.icon} aria-hidden="true" />
+                </a>
+              }
+            />
+            <TooltipContent>{link.label}</TooltipContent>
+          </Tooltip>
+        ))}
+      </div>
+    </TooltipProvider>
   );
 }

@@ -30,7 +30,7 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
     );
   },
   quote: ({ node, nodesToJSX }) => (
-    <blockquote className="border-border text-muted-foreground border-l-2 pl-4 italic">
+    <blockquote className="bg-surface text-muted-foreground rounded-2xl px-5 py-4 italic">
       {nodesToJSX({ nodes: node.children })}
     </blockquote>
   ),

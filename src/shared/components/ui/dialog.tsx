@@ -3,6 +3,7 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { Button } from "@/shared/components/ui/button";
@@ -40,23 +41,42 @@ function DialogOverlay({
   );
 }
 
+const dialogContentVariants = cva(
+  "bg-popover text-popover-foreground ring-foreground/5 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 fixed z-50 grid gap-6 text-sm shadow-xl ring-1 duration-100 outline-none",
+  {
+    variants: {
+      variant: {
+        default:
+          "data-open:zoom-in-95 data-closed:zoom-out-95 top-1/2 left-1/2 w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-4xl p-6 sm:max-w-md",
+        /**
+         * A sheet under `md` and a centred dialog above it. Doing this in CSS
+         * rather than by measuring the viewport means it is right on the first
+         * paint, and stays right if the client script never runs.
+         */
+        sheet:
+          "data-open:slide-in-from-bottom-4 data-closed:slide-out-to-bottom-4 inset-x-0 bottom-0 max-h-[92dvh] w-full overflow-y-auto rounded-t-4xl rounded-b-none p-5 md:data-open:zoom-in-95 md:data-closed:zoom-out-95 md:inset-x-auto md:top-1/2 md:bottom-auto md:left-1/2 md:max-h-[90dvh] md:w-[min(64rem,calc(100%-4rem))] md:max-w-none md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-4xl md:p-6",
+      },
+    },
+    defaultVariants: { variant: "default" },
+  },
+);
+
 function DialogContent({
   className,
   children,
+  variant,
   showCloseButton = true,
   ...props
-}: DialogPrimitive.Popup.Props & {
-  showCloseButton?: boolean;
-}) {
+}: DialogPrimitive.Popup.Props &
+  VariantProps<typeof dialogContentVariants> & {
+    showCloseButton?: boolean;
+  }) {
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Popup
         data-slot="dialog-content"
-        className={cn(
-          "bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-6 rounded-4xl p-6 text-sm shadow-xl ring-1 duration-100 outline-none sm:max-w-md",
-          className,
-        )}
+        className={cn(dialogContentVariants({ variant }), className)}
         {...props}
       >
         {children}

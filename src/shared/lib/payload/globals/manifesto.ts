@@ -22,8 +22,7 @@ export const Manifesto: GlobalConfig = {
       name: "body",
       type: "textarea",
       required: true,
-      defaultValue:
-        "No esperamos a graduarnos para investigar. Se aprende construyendo, en equipo y a la vista de todos.",
+      defaultValue: "Be different. Be TAWS.",
     },
     {
       name: "signature",

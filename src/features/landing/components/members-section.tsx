@@ -3,51 +3,40 @@ import Link from "next/link";
 import { MemberCard } from "@/features/landing/components/member-card";
 import { getActiveMembers } from "@/features/landing/queries/get-active-members";
 
-import { Heading } from "@/shared/components/ui/typography";
+import { buttonVariants } from "@/shared/components/ui/button";
+import { Section } from "@/shared/components/ui/section";
+import { SectionHeader } from "@/shared/components/ui/section-header";
 
-interface MembersSectionProps {
-  limit?: number;
-}
+const LANDING_MEMBER_COUNT = 4;
 
-export async function MembersSection({ limit = 5 }: MembersSectionProps) {
+export async function MembersSection() {
   const members = await getActiveMembers();
 
   if (members.length === 0) return null;
 
-  const visibleMembers = members.slice(0, limit);
-  const remainingCount = members.length - visibleMembers.length;
-
   return (
-    <section className="flex flex-col gap-6 py-8">
-      <div className="flex items-center justify-between">
-        <Heading as="h2">Nuestra Comunidad</Heading>
-        <Link
-          href="/nosotros"
-          className="text-primary text-sm font-medium hover:underline"
-        >
-          Ver todos ({members.length})
-        </Link>
-      </div>
+    <Section>
+      <div className="flex flex-col gap-14">
+        <SectionHeader
+          eyebrow="Comunidad"
+          title="Quiénes lo hacen"
+          description="Estudiantes de la FIEC que dedican parte de su semestre al club."
+          action={
+            <Link
+              href="/nosotros"
+              className={buttonVariants({ variant: "secondary" })}
+            >
+              Ver los {members.length}
+            </Link>
+          }
+        />
 
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {visibleMembers.map((member) => (
-          <MemberCard key={member.id} member={member} />
-        ))}
-
-        {remainingCount > 0 && (
-          <Link
-            href="/nosotros"
-            className="border-border bg-card/50 hover:border-primary hover:bg-accent flex flex-col items-center justify-center rounded-xl border border-dashed p-6 text-center transition-all hover:shadow-md"
-          >
-            <div className="text-primary mb-1 text-3xl font-extrabold">
-              +{remainingCount}
-            </div>
-            <p className="text-muted-foreground text-sm font-medium">
-              Ver todos los miembros
-            </p>
-          </Link>
-        )}
+        <div className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+          {members.slice(0, LANDING_MEMBER_COUNT).map((member) => (
+            <MemberCard key={member.id} member={member} />
+          ))}
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }
