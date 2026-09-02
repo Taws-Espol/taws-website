@@ -222,7 +222,7 @@ pnpm build   # payload migrate && next build
 
 ## Public API
 
-Payload exposes the collections over REST, and members, events, projects, gallery, published posts and media all read without a session. [docs/public-api.md](./docs/public-api.md) covers what is public, how to filter and paginate, how to resolve image URLs, and why the API cannot be called from a browser on another domain.
+Payload exposes the collections over REST, and members, events, projects, gallery, published posts and media all read without a session, from any origin. [docs/public-api.md](./docs/public-api.md) covers what is public, how to filter and paginate, and how to resolve image URLs.
 
 ```bash
 curl "https://taws.espol.edu.ec/api/events?sort=startsAt&limit=5&depth=1"

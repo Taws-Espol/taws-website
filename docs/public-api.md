@@ -12,7 +12,9 @@ Locally that is `http://localhost:3000/api`.
 
 ## Before you build on this
 
-**The API sends no `Access-Control-Allow-Origin` header.** A browser on another domain will have its request blocked, no matter what it asks for. Call it from a server, a script, or a native app — not from client-side JavaScript on a different origin. If you need browser access from elsewhere, open an issue: it is a `cors` entry in `payload.config.ts`, but it is a deliberate decision rather than an oversight.
+**Call it from anywhere.** The API answers with `Access-Control-Allow-Origin: *`, so a page on your own domain, a script, a notebook or a native app can all read it without a key.
+
+Because the header is a literal `*`, browsers will not attach cookies to a cross-origin call. Every caller from another domain is anonymous and sees exactly what the public sees — logging into the admin panel in another tab changes nothing.
 
 There is no rate limiting on reads and no versioning. Treat the shape as something that can change when a collection changes, and pin nothing you cannot re-check.
 
@@ -141,4 +143,4 @@ for (const post of docs) {
 }
 ```
 
-Run that from a server. From a browser on another domain it will fail on CORS, for the reason at the top of this page.
+That runs anywhere: a server, a build script, or a page on your own site.
