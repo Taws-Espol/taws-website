@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ElementType } from "react";
 
 import { cn } from "@/shared/utils/cn";
 
-const sectionVariants = cva("w-full py-16 md:py-24", {
+const sectionVariants = cva("w-full py-24 md:py-32", {
   variants: {
     variant: {
       default: "bg-background text-foreground",
