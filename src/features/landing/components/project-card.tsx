@@ -1,9 +1,8 @@
 import { MemberAvatars } from "@/features/landing/components/member-avatars";
 import { ProjectLinks } from "@/features/landing/components/project-links";
+import { WorkAreaMark } from "@/features/landing/components/work-area-mark";
 import type { Project } from "@/features/landing/types/project";
-import { getWorkAreaLabel } from "@/features/landing/utils/get-work-area-label";
 
-import { Badge } from "@/shared/components/ui/badge";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 
 export function ProjectCard({ project }: { project: Project }) {
@@ -11,9 +10,7 @@ export function ProjectCard({ project }: { project: Project }) {
     <article className="border-border flex flex-col gap-3 border-t pt-5">
       <div className="flex flex-wrap gap-2">
         {project.areas.map((area) => (
-          <Badge key={area} variant="secondary">
-            {getWorkAreaLabel(area)}
-          </Badge>
+          <WorkAreaMark key={area} value={area} />
         ))}
       </div>
 

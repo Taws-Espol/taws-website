@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 
 import { Footer } from "@/shared/components/footer";
@@ -9,9 +9,18 @@ import { cn } from "@/shared/utils/cn";
 import { getAppUrl } from "@/shared/utils/get-app-url";
 import "@/shared/styles/globals.css";
 
-const inter = Inter({
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+/** Display: geometric with odd terminals, which holds up beside a drawn line. */
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-display",
+});
+
+/** Utility: this is a programming club, so mono labels are their own language. */
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -59,7 +68,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={cn("font-sans antialiased", inter.variable)}>
+    <html
+      lang="es"
+      className={cn(
+        "font-sans antialiased",
+        inter.variable,
+        spaceGrotesk.variable,
+        jetBrainsMono.variable,
+      )}
+    >
       <head>
         <Script
           defer

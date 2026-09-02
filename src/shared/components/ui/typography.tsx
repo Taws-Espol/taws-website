@@ -3,25 +3,29 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import { cn } from "@/shared/utils/cn";
 
-const headingVariants = cva("font-sans text-balance font-bold", {
-  variants: {
-    variant: {
-      display: "text-[clamp(2.2rem,5vw,3.4rem)] leading-[1.1]",
-      section: "text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.15]",
+const headingVariants = cva(
+  "font-heading text-balance font-bold tracking-[-0.02em]",
+  {
+    variants: {
+      variant: {
+        display: "text-[clamp(2.4rem,5.5vw,4rem)] leading-[0.98]",
+        section: "text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.15]",
+      },
+    },
+    defaultVariants: {
+      variant: "section",
     },
   },
-  defaultVariants: {
-    variant: "section",
-  },
-});
+);
 
 const textVariants = cva("font-sans", {
   variants: {
     variant: {
       body: "text-[0.95rem] leading-[1.75] font-normal",
       small: "text-[0.88rem] leading-[1.7] font-normal",
-      caption: "text-[0.72rem] leading-[1.6] font-normal tracking-[0.08em]",
-      meta: "text-[0.72rem] leading-[1.6] font-medium tracking-[0.14em]",
+      caption:
+        "font-mono text-[0.72rem] leading-[1.6] font-normal tracking-[0.06em]",
+      meta: "font-mono text-[0.72rem] leading-[1.6] font-medium tracking-[0.1em]",
     },
   },
   defaultVariants: {
@@ -71,7 +75,7 @@ function Eyebrow({ className, ...props }: EyebrowProps) {
     <span
       data-slot="eyebrow"
       className={cn(
-        "font-sans text-[0.75rem] font-semibold tracking-[0.07em] uppercase",
+        "font-mono text-[0.6875rem] font-medium tracking-[0.08em] uppercase",
         className,
       )}
       {...props}
