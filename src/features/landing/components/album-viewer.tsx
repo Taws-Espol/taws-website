@@ -25,7 +25,7 @@ export function AlbumViewer({ album }: { album: Album }) {
             alt={current.alt}
             fill
             sizes="(min-width: 768px) 64rem, 100vw"
-            className="object-contain"
+            className="object-cover"
           />
         ) : null}
       </div>
