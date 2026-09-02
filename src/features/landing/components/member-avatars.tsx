@@ -24,7 +24,12 @@ export function MemberAvatars({ members }: { members: Project["members"] }) {
 
   return (
     <TooltipProvider>
-      <ul className="flex items-center -space-x-2">
+      {/*
+        The avatars always trail their row. Leaving it to the row's
+        justify-between meant a project with no links pulled them to the left,
+        because they were then the only child.
+      */}
+      <ul className="ml-auto flex items-center -space-x-2">
         {people.map((member) => {
           const photo = typeof member.photo === "object" ? member.photo : null;
 
