@@ -19,19 +19,8 @@ const nextConfig: NextConfig = {
         pathname: "/assets/images/**",
         search: "",
       },
-    ],
-    remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn.taws.espol.edu.ec",
-      },
-      {
-        protocol: "https",
-        hostname: "s3.taws.espol.edu.ec",
+        pathname: "/api/media/**",
       },
     ],
   },

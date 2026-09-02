@@ -62,20 +62,19 @@ export default buildConfig({
     s3Storage({
       collections: {
         media: {
-          prefix: "taws",
-          generateFileURL: (file) => {
-            return `https://cdn.taws.espol.edu.ec/${file.prefix}/${file.filename}`;
-          },
+          // Relative on purpose: same origin, no host in code, and next/image
+          // treats it as a local path in every environment.
+          generateFileURL: ({ filename }) => `/api/media/file/${filename}`,
         },
       },
-      bucket: process.env.PUBLIC_S3_BUCKET_NAME ?? "",
+      bucket: process.env.S3_BUCKET_NAME ?? "",
       config: {
         credentials: {
-          accessKeyId: process.env.PUBLIC_S3_ACCESS_KEY_ID ?? "",
-          secretAccessKey: process.env.PUBLIC_S3_SECRET_ACCESS_KEY ?? "",
+          accessKeyId: process.env.S3_ACCESS_KEY_ID ?? "",
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? "",
         },
-        region: process.env.PUBLIC_S3_REGION ?? "",
-        endpoint: process.env.PUBLIC_S3_ENDPOINT ?? "",
+        region: process.env.S3_REGION ?? "",
+        endpoint: process.env.S3_ENDPOINT ?? "",
         forcePathStyle: true,
       },
     }),
