@@ -2,18 +2,16 @@ import type { GlobalConfig } from "payload";
 
 import { RECRUITMENT_TAG } from "../../../constants/cache-tags.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
-import { hideUnlessAdminOrEditor } from "../utils/hide-unless-admin-or-editor.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { globalAccess } from "../access/global-access.ts";
+
+const { access, hidden } = globalAccess({ managedBy: ["admin", "editor"] });
 
 export const Recruitment: GlobalConfig = {
   slug: "recruitment",
   label: "Recruitment",
-  access: {
-    read: () => true,
-    update: isAdminOrEditor,
-  },
+  access,
   admin: {
-    hidden: hideUnlessAdminOrEditor,
+    hidden,
     group: "Recruitment",
     description:
       "The dates the club accepts applications. Open and closed are worked out from these; there is no switch to flip.",

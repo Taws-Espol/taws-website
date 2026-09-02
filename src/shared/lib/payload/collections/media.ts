@@ -2,8 +2,11 @@ import type { CollectionConfig } from "payload";
 
 import { MEDIA_TAG } from "../../../constants/cache-tags.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
-import { isAdminEditorOrBlogger } from "../utils/is-admin-editor-or-blogger.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { collectionAccess } from "../access/collection-access.ts";
+
+const { access, hidden } = collectionAccess({
+  managedBy: ["admin", "editor", "blogger"],
+});
 
 export const Media: CollectionConfig = {
   slug: "media",
@@ -14,13 +17,9 @@ export const Media: CollectionConfig = {
     crop: true,
     focalPoint: true,
   },
-  access: {
-    create: isAdminEditorOrBlogger,
-    read: () => true,
-    update: isAdminEditorOrBlogger,
-    delete: isAdminOrEditor,
-  },
+  access,
   admin: {
+    hidden,
     group: "Media",
     defaultColumns: ["filename", "alt", "createdAt"],
   },

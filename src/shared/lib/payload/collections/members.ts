@@ -3,20 +3,16 @@ import type { CollectionConfig } from "payload";
 import { MEMBERS_TAG } from "../../../constants/cache-tags.ts";
 import { getMajorPayloadOptions } from "../../../utils/get-major-payload-options.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
-import { hideUnlessAdminOrEditor } from "../utils/hide-unless-admin-or-editor.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { collectionAccess } from "../access/collection-access.ts";
+
+const { access, hidden } = collectionAccess({ managedBy: ["admin", "editor"] });
 
 export const Members: CollectionConfig = {
   slug: "members",
   labels: { singular: "Member", plural: "Members" },
-  access: {
-    create: isAdminOrEditor,
-    read: () => true,
-    update: isAdminOrEditor,
-    delete: isAdminOrEditor,
-  },
+  access,
   admin: {
-    hidden: hideUnlessAdminOrEditor,
+    hidden,
     group: "Members",
     defaultColumns: ["fullName", "status", "major", "position", "order"],
     useAsTitle: "fullName",
