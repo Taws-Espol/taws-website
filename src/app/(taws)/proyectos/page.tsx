@@ -20,13 +20,11 @@ export default async function Page() {
 
       <Section>
         {projects.length === 0 ? (
-          <div className="bg-surface rounded-3xl p-8">
-            <Text className="text-muted-foreground">
-              Todavía no hay proyectos publicados.
-            </Text>
-          </div>
+          <Text className="text-muted-foreground">
+            Todavía no hay proyectos publicados.
+          </Text>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}

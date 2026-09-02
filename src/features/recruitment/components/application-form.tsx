@@ -37,7 +37,7 @@ export function ApplicationForm() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-card text-card-foreground shadow-lift flex flex-col gap-3 rounded-[2rem] p-8">
+      <div className="flex flex-col gap-3">
         <Heading as="h3" variant="card">
           Postulación enviada
         </Heading>
@@ -49,11 +49,7 @@ export function ApplicationForm() {
   }
 
   return (
-    <form
-      noValidate
-      onSubmit={onSubmit}
-      className="bg-card text-card-foreground shadow-lift rounded-[2rem] p-8"
-    >
+    <form noValidate onSubmit={onSubmit} className="w-full">
       <FieldSet>
         <FieldLegend>Postula en 2 minutos</FieldLegend>
 

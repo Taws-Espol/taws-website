@@ -11,8 +11,8 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
   const cover = typeof project.cover === "object" ? project.cover : null;
 
   return (
-    <article className="bg-card shadow-lift grid overflow-hidden rounded-[2rem] md:grid-cols-2">
-      <div className="bg-surface relative aspect-[16/10] md:aspect-auto md:min-h-[22rem]">
+    <article className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
+      <div className="bg-surface relative aspect-[16/10] overflow-hidden rounded-[2rem]">
         {cover?.url ? (
           <Image
             src={cover.url}
@@ -28,7 +28,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
         </span>
       </div>
 
-      <div className="flex flex-col justify-center gap-4 p-8 md:p-10">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-wrap gap-1.5">
           {project.areas.map((area) => (
             <WorkAreaTag key={area} value={area} />
@@ -39,7 +39,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
 
         <Text className="text-muted-foreground">{project.summary}</Text>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
           <ProjectLinks project={project} />
 
           <MemberAvatars members={project.members} />

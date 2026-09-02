@@ -20,10 +20,10 @@ export function AlbumCard({ album }: { album: Album }) {
   return (
     <Dialog>
       <DialogTrigger
-        className="group bg-card focus-visible:ring-ring shadow-soft hover:shadow-lift flex flex-col overflow-hidden rounded-3xl text-left transition-shadow focus-visible:ring-2 focus-visible:outline-none"
+        className="group focus-visible:ring-ring flex flex-col gap-4 rounded-3xl text-left focus-visible:ring-2 focus-visible:outline-none"
         aria-label={`Abrir el álbum ${album.title}`}
       >
-        <div className="bg-surface relative aspect-[4/3] w-full overflow-hidden">
+        <div className="bg-surface relative aspect-[4/3] w-full overflow-hidden rounded-3xl">
           {cover?.url ? (
             <Image
               src={cover.url}
@@ -35,7 +35,7 @@ export function AlbumCard({ album }: { album: Album }) {
           ) : null}
         </div>
 
-        <div className="flex flex-col gap-1.5 p-6">
+        <div className="flex flex-col gap-1">
           <Heading as="h3" variant="card">
             {album.title}
           </Heading>

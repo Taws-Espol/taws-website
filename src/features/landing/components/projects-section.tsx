@@ -17,7 +17,7 @@ export async function ProjectsSection() {
 
   return (
     <Section>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <SectionHeader
           eyebrow="Proyectos"
           title="Lo que hemos construido"
@@ -34,7 +34,7 @@ export async function ProjectsSection() {
 
         <FeaturedProjectCard project={featured} />
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-x-8 gap-y-12 md:grid-cols-3">
           {supporting.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}

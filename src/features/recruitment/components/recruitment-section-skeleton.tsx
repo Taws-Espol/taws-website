@@ -35,7 +35,7 @@ export function RecruitmentSectionSkeleton() {
           <Skeleton className="mt-4 aspect-[400/280] w-full rounded-3xl" />
         </div>
 
-        <div className="bg-card shadow-lift flex flex-col gap-6 rounded-[2rem] p-8">
+        <div className="flex flex-col gap-6">
           <Skeleton className="h-5 w-40 rounded-full" />
 
           {[0, 1, 2].map((index) => (

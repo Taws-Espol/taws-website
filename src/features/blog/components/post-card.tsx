@@ -11,8 +11,8 @@ export function PostCard({ post }: { post: Post }) {
   const cover = typeof post.cover === "object" ? post.cover : null;
 
   return (
-    <article className="bg-card group shadow-soft hover:shadow-lift flex h-full flex-col overflow-hidden rounded-3xl transition-shadow">
-      <div className="bg-surface relative aspect-[16/10]">
+    <article className="group flex h-full flex-col gap-4">
+      <div className="bg-surface relative aspect-[16/10] overflow-hidden rounded-3xl">
         {cover?.url ? (
           <Image
             src={cover.url}
@@ -22,16 +22,11 @@ export function PostCard({ post }: { post: Post }) {
             className="object-cover"
           />
         ) : null}
-
-        <span className="bg-card/95 text-primary absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold">
-          {CATEGORY_LABELS[post.category] ?? post.category}
-        </span>
       </div>
 
-      <div className="flex flex-1 flex-col gap-2.5 p-6">
-        <Text variant="caption" className="text-muted-foreground">
-          {formatPostDate(post.publishedAt)}
-          {post.readingTime ? ` · ${post.readingTime} min de lectura` : null}
+      <div className="flex flex-1 flex-col gap-2">
+        <Text variant="caption" className="text-primary font-semibold">
+          {CATEGORY_LABELS[post.category] ?? post.category}
         </Text>
 
         <Heading as="h3" variant="card">
@@ -45,6 +40,11 @@ export function PostCard({ post }: { post: Post }) {
 
         <Text variant="small" className="text-muted-foreground flex-1">
           {post.excerpt}
+        </Text>
+
+        <Text variant="caption" className="text-muted-foreground pt-1">
+          {formatPostDate(post.publishedAt)}
+          {post.readingTime ? ` · ${post.readingTime} min de lectura` : null}
         </Text>
       </div>
     </article>

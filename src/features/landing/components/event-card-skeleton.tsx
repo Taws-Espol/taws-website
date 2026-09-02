@@ -3,10 +3,10 @@ import { Skeleton } from "@/shared/components/ui/skeleton";
 /** The shell of an event card, so the grid does not resize when events land. */
 export function EventCardSkeleton() {
   return (
-    <div className="bg-card shadow-soft flex flex-col overflow-hidden rounded-3xl">
-      <Skeleton className="aspect-[16/9] rounded-none" />
+    <div className="flex flex-col gap-4">
+      <Skeleton className="aspect-[16/9] rounded-3xl" />
 
-      <div className="flex flex-col gap-3 p-6">
+      <div className="flex flex-col gap-3">
         <Skeleton className="h-5 w-3/4 rounded-full" />
 
         <div className="flex flex-col gap-2">

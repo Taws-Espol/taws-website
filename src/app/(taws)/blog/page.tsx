@@ -20,13 +20,11 @@ export default async function Page() {
 
       <Section>
         {posts.length === 0 ? (
-          <div className="bg-surface rounded-3xl p-8">
-            <Text className="text-muted-foreground">
-              Todavía no hay publicaciones.
-            </Text>
-          </div>
+          <Text className="text-muted-foreground">
+            Todavía no hay publicaciones.
+          </Text>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}

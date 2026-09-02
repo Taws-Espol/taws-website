@@ -16,7 +16,7 @@ export async function MembersSection() {
 
   return (
     <Section>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <SectionHeader
           eyebrow="Comunidad"
           title="Quiénes lo hacen"
@@ -31,7 +31,7 @@ export async function MembersSection() {
           }
         />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {members.slice(0, LANDING_MEMBER_COUNT).map((member) => (
             <MemberCard key={member.id} member={member} />
           ))}

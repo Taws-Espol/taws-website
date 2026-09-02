@@ -10,7 +10,7 @@ export function PostArticle({ post }: { post: Post }) {
   return (
     <article className="mx-auto flex max-w-[68ch] flex-col gap-6">
       <div className="flex flex-wrap items-center gap-3">
-        <span className="bg-primary/8 text-primary rounded-full px-3 py-1 text-xs font-semibold">
+        <span className="bg-surface text-primary rounded-full px-3 py-1 text-xs font-semibold">
           {CATEGORY_LABELS[post.category] ?? post.category}
         </span>
 

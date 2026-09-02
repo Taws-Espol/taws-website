@@ -16,7 +16,7 @@ export async function BlogSection() {
 
   return (
     <Section>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <SectionHeader
           eyebrow="Blog"
           title="Lo que vamos aprendiendo"
@@ -31,7 +31,7 @@ export async function BlogSection() {
           }
         />
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-x-8 gap-y-12 md:grid-cols-3">
           {posts.slice(0, LANDING_POST_COUNT).map((post) => (
             <PostCard key={post.id} post={post} />
           ))}

@@ -11,8 +11,8 @@ export function PostByline({ author }: { author: Post["author"] }) {
   const photo = typeof author.photo === "object" ? author.photo : null;
 
   return (
-    <div className="bg-surface mt-4 flex items-center gap-4 rounded-3xl p-5">
-      <div className="bg-card relative size-12 shrink-0 overflow-hidden rounded-full">
+    <div className="mt-6 flex items-center gap-4">
+      <div className="bg-surface relative size-12 shrink-0 overflow-hidden rounded-full">
         {photo?.url ? (
           <Image
             src={photo.url}

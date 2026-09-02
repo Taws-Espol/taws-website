@@ -53,7 +53,7 @@ export async function RecruitmentSection({
             <ol className="flex flex-col gap-3">
               {STEPS.map((step, index) => (
                 <li key={step} className="flex items-center gap-3">
-                  <span className="bg-primary/8 text-primary flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold">
+                  <span className="bg-surface text-primary flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold">
                     {index + 1}
                   </span>
                   <Text variant="small">{step}</Text>
@@ -68,11 +68,9 @@ export async function RecruitmentSection({
         {isOpen ? (
           <ApplicationForm />
         ) : (
-          <div className="bg-card shadow-soft rounded-[2rem] p-8">
-            <Text className="text-muted-foreground max-w-[46ch]">
-              {window.closedMessage ?? CLOSED_FALLBACK}
-            </Text>
-          </div>
+          <Text className="text-muted-foreground max-w-[46ch]">
+            {window.closedMessage ?? CLOSED_FALLBACK}
+          </Text>
         )}
       </div>
     </Section>

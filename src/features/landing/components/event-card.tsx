@@ -20,8 +20,8 @@ export function EventCard({ event, album, isPast }: EventCardProps) {
   const cover = typeof event.cover === "object" ? event.cover : null;
 
   return (
-    <article className="bg-card shadow-soft flex h-full flex-col overflow-hidden rounded-3xl">
-      <div className="bg-surface relative aspect-[16/9]">
+    <article className="flex h-full flex-col gap-4">
+      <div className="bg-surface relative aspect-[16/9] overflow-hidden rounded-3xl">
         {cover?.url ? (
           <Image
             src={cover.url}
@@ -33,7 +33,7 @@ export function EventCard({ event, album, isPast }: EventCardProps) {
         ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-6">
+      <div className="flex flex-1 flex-col gap-2.5">
         <Heading as="h3" variant="card">
           {event.title}
         </Heading>
@@ -62,7 +62,7 @@ export function EventCard({ event, album, isPast }: EventCardProps) {
           {event.description}
         </Text>
 
-        <div className="flex flex-wrap items-center gap-2 pt-1">
+        <div className="flex flex-wrap items-center gap-2 pt-2">
           {event.registrationUrl && !isPast ? (
             <a
               href={event.registrationUrl}

@@ -11,8 +11,8 @@ export function ProjectCard({ project }: { project: Project }) {
   const cover = typeof project.cover === "object" ? project.cover : null;
 
   return (
-    <article className="bg-card shadow-soft hover:shadow-lift flex h-full flex-col overflow-hidden rounded-3xl transition-shadow">
-      <div className="bg-surface relative aspect-[16/10]">
+    <article className="flex h-full flex-col gap-4">
+      <div className="bg-surface relative aspect-[16/10] overflow-hidden rounded-3xl">
         {cover?.url ? (
           <Image
             src={cover.url}
@@ -24,7 +24,7 @@ export function ProjectCard({ project }: { project: Project }) {
         ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-6">
+      <div className="flex flex-1 flex-col gap-2.5">
         <div className="flex flex-wrap gap-1.5">
           {project.areas.map((area) => (
             <WorkAreaTag key={area} value={area} />

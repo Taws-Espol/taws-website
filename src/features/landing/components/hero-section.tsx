@@ -1,11 +1,11 @@
-import Link from "next/link";
+import { Suspense } from "react";
 
+import { HeroActions } from "@/features/landing/components/hero-actions";
+import { HeroBadge } from "@/features/landing/components/hero-badge";
 import { getActiveMemberCount } from "@/features/landing/queries/get-active-member-count";
 import { getHero } from "@/features/landing/queries/get-hero";
 
 import { WorkspaceIllustration } from "@/shared/components/illustrations/workspace-illustration";
-import { buttonVariants } from "@/shared/components/ui/button";
-import { Polygon } from "@/shared/components/ui/polygon";
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 
@@ -19,10 +19,16 @@ export async function HeroSection() {
     <Section className="pt-10 pb-16 md:pt-16 md:pb-24">
       <div className="grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14">
         <div className="flex flex-col items-start gap-6">
-          <span className="bg-surface inline-flex items-center gap-2 rounded-full px-3.5 py-1.5">
-            <Polygon shape="circle" fill="accent" className="size-2.5" />
-            <Eyebrow className="text-foreground/70">{hero.eyebrow}</Eyebrow>
-          </span>
+          {/*
+            The badge and the buttons depend on the recruitment window, so they
+            stream in on their own. Their heights are reserved here to keep the
+            headline from moving when they arrive.
+          */}
+          <div className="flex min-h-8 items-center">
+            <Suspense fallback={null}>
+              <HeroBadge />
+            </Suspense>
+          </div>
 
           <Heading as="h1" variant="display" className="max-w-[15ch]">
             {hero.headline}
@@ -32,24 +38,14 @@ export async function HeroSection() {
             {hero.description}
           </Text>
 
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <Link
-              href={hero.primaryCta.href}
-              className={buttonVariants({ size: "lg" })}
-            >
-              {hero.primaryCta.label}
-            </Link>
-
-            <Link
-              href={hero.secondaryCta.href}
-              className={buttonVariants({ variant: "ghost", size: "lg" })}
-            >
-              {hero.secondaryCta.label}
-            </Link>
+          <div className="flex min-h-10 items-center pt-2">
+            <Suspense fallback={null}>
+              <HeroActions />
+            </Suspense>
           </div>
 
-          <div className="bg-card shadow-soft mt-4 inline-flex items-baseline gap-3 rounded-2xl px-5 py-3">
-            <span className="text-primary text-3xl leading-none font-semibold">
+          <div className="mt-4 flex items-baseline gap-3">
+            <span className="text-primary text-4xl leading-none font-semibold">
               {activeMemberCount}
             </span>
             <Eyebrow className="text-muted-foreground">

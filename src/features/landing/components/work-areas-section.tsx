@@ -9,20 +9,17 @@ import { WORK_AREAS } from "@/shared/constants/work-areas";
 export function WorkAreasSection() {
   return (
     <Section>
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-14">
         <SectionHeader
           eyebrow="Áreas"
           title="En qué trabajamos"
           description="Seis frentes abiertos. Cada proyecto y cada postulación se etiqueta con al menos uno."
         />
 
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {WORK_AREAS.map((area) => (
-            <li
-              key={area.value}
-              className="bg-card shadow-soft flex flex-col gap-3 rounded-3xl p-6"
-            >
-              <span className="bg-primary/8 text-primary flex size-12 items-center justify-center rounded-2xl">
+            <li key={area.value} className="flex flex-col gap-3">
+              <span className="bg-surface text-primary flex size-12 items-center justify-center rounded-2xl">
                 <HugeiconsIcon
                   icon={WORK_AREA_ICONS[area.value]}
                   aria-hidden="true"

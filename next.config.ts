@@ -2,6 +2,12 @@ import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /**
+   * Next blocks cross-origin requests to its development assets, so testing on
+   * a phone over the LAN needs that host listed. The option matches hostnames,
+   * not full origins. Development only.
+   */
+  allowedDevOrigins: ["192.168.1.130"],
   async redirects() {
     return [
       { source: "/about", destination: "/nosotros", permanent: true },

@@ -21,7 +21,7 @@ export default async function Page() {
       />
 
       <Section>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-14">
           <SectionHeader eyebrow="Historia" title="Cómo llegamos hasta aquí" />
 
           <Timeline />
@@ -29,7 +29,7 @@ export default async function Page() {
       </Section>
 
       <Section>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="Miembros"
             title="Quiénes están hoy"
@@ -37,13 +37,11 @@ export default async function Page() {
           />
 
           {members.length === 0 ? (
-            <div className="bg-surface rounded-3xl p-8">
-              <Text className="text-muted-foreground">
-                No hay miembros activos registrados actualmente.
-              </Text>
-            </div>
+            <Text className="text-muted-foreground">
+              No hay miembros activos registrados actualmente.
+            </Text>
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
               {members.map((member) => (
                 <MemberCard key={member.id} member={member} />
               ))}

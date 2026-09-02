@@ -8,13 +8,13 @@ export async function Timeline() {
   if (!milestones?.length) return null;
 
   return (
-    <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <ol className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
       {milestones.map((milestone) => (
         <li
           key={milestone.id ?? milestone.year}
-          className="bg-card shadow-soft flex flex-col gap-2 rounded-3xl p-6"
+          className="flex flex-col gap-2"
         >
-          <span className="bg-primary/8 text-primary self-start rounded-full px-3 py-1 text-sm font-semibold">
+          <span className="text-primary text-3xl leading-none font-semibold">
             {milestone.year}
           </span>
 

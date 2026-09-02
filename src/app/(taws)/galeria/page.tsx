@@ -20,13 +20,11 @@ export default async function Page() {
 
       <Section>
         {albums.length === 0 ? (
-          <div className="bg-surface rounded-3xl p-8">
-            <Text className="text-muted-foreground">
-              Todavía no hay álbumes publicados.
-            </Text>
-          </div>
+          <Text className="text-muted-foreground">
+            Todavía no hay álbumes publicados.
+          </Text>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {albums.map((album) => (
               <AlbumCard key={album.id} album={album} />
             ))}
