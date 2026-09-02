@@ -15,6 +15,10 @@ import { Members } from "./src/shared/lib/payload/collections/members.ts";
 import { Posts } from "./src/shared/lib/payload/collections/posts.ts";
 import { Projects } from "./src/shared/lib/payload/collections/projects.ts";
 import { Users } from "./src/shared/lib/payload/collections/users.ts";
+import { WorkAreas } from "./src/shared/lib/payload/collections/work-areas.ts";
+import { Hero } from "./src/shared/lib/payload/globals/hero.ts";
+import { History } from "./src/shared/lib/payload/globals/history.ts";
+import { Manifesto } from "./src/shared/lib/payload/globals/manifesto.ts";
 import { Recruitment } from "./src/shared/lib/payload/globals/recruitment.ts";
 import { getAppUrl } from "./src/shared/utils/get-app-url.ts";
 
@@ -40,8 +44,9 @@ export default buildConfig({
     Gallery,
     Applications,
     Posts,
+    WorkAreas,
   ],
-  globals: [Recruitment],
+  globals: [Hero, Manifesto, History, Recruitment],
   jobs: {
     tasks: [],
     shouldAutoRun: () => process.env.ENABLE_JOB_WORKERS === "true",

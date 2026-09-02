@@ -1,6 +1,5 @@
 import type { CollectionConfig } from "payload";
 
-import { getWorkAreaPayloadOptions } from "../../../constants/work-areas.ts";
 import { getMajorPayloadOptions } from "../../../utils/get-major-payload-options.ts";
 import { isAdminOrEditorFieldAccess } from "../utils/is-admin-or-editor-field-access.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
@@ -42,10 +41,10 @@ export const Applications: CollectionConfig = {
     },
     {
       name: "interests",
-      type: "select",
+      type: "relationship",
+      relationTo: "work-areas",
       hasMany: true,
       required: true,
-      options: getWorkAreaPayloadOptions(),
     },
     {
       name: "message",

@@ -1,19 +1,21 @@
-import { MANIFESTO } from "@/features/landing/constants/manifesto";
+import { getManifesto } from "@/features/landing/queries/get-manifesto";
 
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading } from "@/shared/components/ui/typography";
 
-export function ManifestoSection() {
+export async function ManifestoSection() {
+  const manifesto = await getManifesto();
+
   return (
     <Section variant="inverted">
       <div className="flex flex-col gap-8">
-        <Eyebrow className="opacity-70">{MANIFESTO.eyebrow}</Eyebrow>
+        <Eyebrow className="opacity-70">{manifesto.eyebrow}</Eyebrow>
 
         <Heading as="h2" className="max-w-[24ch]">
-          {MANIFESTO.before} {MANIFESTO.highlight} {MANIFESTO.after}
+          {manifesto.body}
         </Heading>
 
-        <Eyebrow className="opacity-70">{MANIFESTO.signature}</Eyebrow>
+        <Eyebrow className="opacity-70">{manifesto.signature}</Eyebrow>
       </div>
     </Section>
   );

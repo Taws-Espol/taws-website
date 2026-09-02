@@ -23,3 +23,11 @@ export const GALLERY_TAG = "gallery";
 export const RECRUITMENT_TAG = "recruitment";
 
 export const POSTS_TAG = "posts";
+
+export const HERO_TAG = "hero";
+
+export const MANIFESTO_TAG = "manifesto";
+
+export const HISTORY_TAG = "history";
+
+export const WORK_AREAS_TAG = "work-areas";
