@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { BlogSection } from "@/features/blog/components/blog-section";
@@ -11,12 +10,6 @@ import { RecruitmentSection } from "@/features/recruitment/components/recruitmen
 import { RecruitmentSectionSkeleton } from "@/features/recruitment/components/recruitment-section-skeleton";
 
 import { Section } from "@/shared/components/ui/section";
-
-export const metadata: Metadata = {
-  title: "TAWS | Grupo de investigación en tecnología de la ESPOL",
-  description:
-    "Grupo de investigación en tecnologías web, móviles y data science de la ESPOL. Desde 2007, en la FIEC.",
-};
 
 export default function Page() {
   return (

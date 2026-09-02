@@ -1,16 +1,8 @@
-import type { Metadata } from "next";
-
 import { ProjectCard } from "@/features/landing/components/project-card";
 import { getProjects } from "@/features/landing/queries/get-projects";
 
 import { Section } from "@/shared/components/ui/section";
 import { Heading, Text } from "@/shared/components/ui/typography";
-
-export const metadata: Metadata = {
-  title: "Proyectos | TAWS",
-  description:
-    "Lo que construye e investiga TAWS: proyectos web, móviles, de machine learning, data science e IoT.",
-};
 
 export default async function Page() {
   const projects = await getProjects();

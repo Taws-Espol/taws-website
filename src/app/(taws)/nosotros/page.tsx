@@ -1,17 +1,9 @@
-import type { Metadata } from "next";
-
 import { MemberCard } from "@/features/landing/components/member-card";
 import { Timeline } from "@/features/landing/components/timeline";
 import { getActiveMembers } from "@/features/landing/queries/get-active-members";
 
 import { Section } from "@/shared/components/ui/section";
 import { Heading, Text } from "@/shared/components/ui/typography";
-
-export const metadata: Metadata = {
-  title: "Sobre Nosotros | TAWS",
-  description:
-    "Conoce la historia del club TAWS, nuestra trayectoria desde 2007 y los miembros activos que forman parte de la comunidad.",
-};
 
 export default async function AboutPage() {
   const members = await getActiveMembers();

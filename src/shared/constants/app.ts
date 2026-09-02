@@ -10,19 +10,19 @@ export const CONTACT_EMAIL = "taws@espol.edu.ec";
 
 export const NAVIGATION_ITEMS = [
   {
-    href: "/about",
+    href: "/nosotros",
     label: "Nosotros",
   },
   {
-    href: "/projects",
+    href: "/proyectos",
     label: "Proyectos",
   },
   {
-    href: "/events",
+    href: "/eventos",
     label: "Eventos",
   },
   {
-    href: "/gallery",
+    href: "/galeria",
     label: "Galería",
   },
   {
@@ -32,7 +32,7 @@ export const NAVIGATION_ITEMS = [
 ] as const;
 
 export const APPLICATION_CTA = {
-  href: "/apply",
+  href: "/postula",
   label: "Postula ahora",
 } as const;
 
