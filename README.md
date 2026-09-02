@@ -79,7 +79,7 @@ Key files at the project root:
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) 20.9 or later, as required by Next.js 16. CI uses Node 24.
+- [Node.js](https://nodejs.org/) 24, the version in `.node-version`. That file is the single source: CI reads it, the deployment builder reads it, and `nvm use` or `fnm use` picks it up locally.
 - [pnpm](https://pnpm.io/) — the version is pinned in `packageManager`, so use `pnpm`, never `npx`.
 - [Docker](https://www.docker.com/), for the local PostgreSQL database.
 
@@ -191,14 +191,17 @@ Migrations carry schema changes and the data transformations needed to evolve ex
 
 ## Deployment
 
-Deployed on Coolify. The build command runs migrations first:
+Deployed on Coolify, built with [Railpack](https://railpack.com/). The build command runs migrations first:
 
 ```bash
 pnpm build   # payload migrate && next build
 ```
 
+- Build pack: Railpack
 - Build command: `pnpm build`
 - Start command: `pnpm start`
+
+There is no build configuration file. Railpack detects the project from `package.json`: Node from `.node-version`, pnpm from `packageManager`, and the commands above from the Coolify settings.
 
 ### Production safety
 
