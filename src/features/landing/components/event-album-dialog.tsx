@@ -21,7 +21,7 @@ export function EventAlbumDialog({ album }: { album: Album }) {
         Ver fotos ({album.images.length})
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-5xl">
+      <DialogContent variant="sheet">
         <DialogTitle>{album.title}</DialogTitle>
         <AlbumViewer album={album} />
       </DialogContent>

@@ -46,7 +46,7 @@ export function AlbumCard({ album }: { album: Album }) {
         </div>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-5xl">
+      <DialogContent variant="sheet">
         <DialogTitle>{album.title}</DialogTitle>
         <AlbumViewer album={album} />
       </DialogContent>

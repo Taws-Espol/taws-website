@@ -18,13 +18,13 @@ export function AlbumViewer({ album }: { album: Album }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="bg-muted relative aspect-[3/2] overflow-hidden rounded-xl">
+      <div className="bg-surface relative h-[52dvh] overflow-hidden rounded-2xl md:h-[60dvh]">
         {current.url ? (
           <Image
             src={current.url}
             alt={current.alt}
             fill
-            sizes="(min-width: 768px) 60vw, 100vw"
+            sizes="(min-width: 768px) 64rem, 100vw"
             className="object-contain"
           />
         ) : null}

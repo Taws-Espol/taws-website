@@ -8,7 +8,6 @@ import { type ReactNode, useState } from "react";
 
 import { Button } from "@/shared/components/ui/button";
 import { NAVIGATION_ITEMS } from "@/shared/constants/app";
-import { useIsMobile } from "@/shared/hooks/use-is-mobile";
 import { cn } from "@/shared/utils/cn";
 
 function isActiveRoute(pathname: string, href: string) {
@@ -115,11 +114,11 @@ export function SiteNavigation({
   applicationCta: ReactNode;
 }) {
   const pathname = usePathname();
-  const isMobile = useIsMobile();
 
-  return isMobile ? (
-    <MobileNavigation pathname={pathname} applicationCta={applicationCta} />
-  ) : (
-    <DesktopNavigation pathname={pathname} applicationCta={applicationCta} />
+  return (
+    <>
+      <DesktopNavigation pathname={pathname} applicationCta={applicationCta} />
+      <MobileNavigation pathname={pathname} applicationCta={applicationCta} />
+    </>
   );
 }
