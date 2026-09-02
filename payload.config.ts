@@ -81,7 +81,7 @@ export default buildConfig({
       },
     }),
     importExportPlugin({
-      collections: [{ slug: "users" }],
+      collections: [{ slug: "applications" }, { slug: "users" }],
     }),
   ],
   secret: process.env.PAYLOAD_SECRET ?? "",

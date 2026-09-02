@@ -206,7 +206,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"sort_order" "enum_exports_sort_order",
   	"locale" "enum_exports_locale" DEFAULT 'all',
   	"drafts" "enum_exports_drafts" DEFAULT 'yes',
-  	"collection_slug" varchar DEFAULT 'users' NOT NULL,
+  	"collection_slug" varchar DEFAULT 'applications' NOT NULL,
   	"where" jsonb DEFAULT '{}'::jsonb,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
@@ -231,7 +231,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE "imports" (
   	"id" serial PRIMARY KEY NOT NULL,
-  	"collection_slug" varchar DEFAULT 'users' NOT NULL,
+  	"collection_slug" varchar DEFAULT 'applications' NOT NULL,
   	"import_mode" "enum_imports_import_mode",
   	"match_field" varchar DEFAULT 'id',
   	"status" "enum_imports_status" DEFAULT 'pending',

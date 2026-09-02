@@ -2040,7 +2040,7 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true,
-          "default": "'users'"
+          "default": "'applications'"
         },
         "where": {
           "name": "where",
@@ -2262,7 +2262,7 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true,
-          "default": "'users'"
+          "default": "'applications'"
         },
         "import_mode": {
           "name": "import_mode",
@@ -4063,6 +4063,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "6a1780d8-dfbb-4c91-a487-e4aee85d4bd9",
+  "id": "7b18614d-6c50-4dac-8c91-30a30096015c",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
