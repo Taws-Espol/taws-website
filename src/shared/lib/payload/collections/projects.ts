@@ -2,18 +2,16 @@ import type { CollectionConfig } from "payload";
 
 import { PROJECTS_TAG } from "../../../constants/cache-tags.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { collectionAccess } from "../access/collection-access.ts";
+
+const { access, hidden } = collectionAccess({ managedBy: ["admin", "editor"] });
 
 export const Projects: CollectionConfig = {
   slug: "projects",
   labels: { singular: "Project", plural: "Projects" },
-  access: {
-    create: isAdminOrEditor,
-    read: () => true,
-    update: isAdminOrEditor,
-    delete: isAdminOrEditor,
-  },
+  access,
   admin: {
+    hidden,
     group: "Content",
     defaultColumns: ["title", "status", "featured", "year"],
     useAsTitle: "title",

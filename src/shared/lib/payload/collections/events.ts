@@ -2,20 +2,18 @@ import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 import { EVENTS_TAG } from "../../../constants/cache-tags";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor";
+import { collectionAccess } from "../access/collection-access.ts";
+
+const { access, hidden } = collectionAccess({ managedBy: ["admin", "editor"] });
 
 export const Events: CollectionConfig = {
   slug: "events",
   admin: {
+    hidden,
     useAsTitle: "title",
     defaultColumns: ["title", "startsAt", "location"],
   },
-  access: {
-    create: isAdminOrEditor,
-    read: () => true,
-    update: isAdminOrEditor,
-    delete: isAdminOrEditor,
-  },
+  access,
   fields: [
     {
       name: "title",

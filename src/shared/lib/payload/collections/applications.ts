@@ -1,23 +1,26 @@
 import type { CollectionConfig } from "payload";
 
 import { getMajorPayloadOptions } from "../../../utils/get-major-payload-options.ts";
-import { isAdminOrEditorFieldAccess } from "../utils/is-admin-or-editor-field-access.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { anyone } from "../access/anyone.ts";
+import { collectionAccess } from "../access/collection-access.ts";
+import { hasRole, hasRoleField } from "../access/has-role.ts";
 
 /**
  * The only public write on the site, and the only collection holding personal
  * data. Anyone may create; nobody may read without being an admin or editor.
  */
+const { access, hidden } = collectionAccess({
+  managedBy: ["admin", "editor"],
+  read: hasRole("admin", "editor"),
+  create: anyone,
+});
+
 export const Applications: CollectionConfig = {
   slug: "applications",
   labels: { singular: "Application", plural: "Applications" },
-  access: {
-    create: () => true,
-    read: isAdminOrEditor,
-    update: isAdminOrEditor,
-    delete: isAdminOrEditor,
-  },
+  access,
   admin: {
+    hidden,
     group: "Recruitment",
     defaultColumns: ["fullName", "email", "major", "status", "createdAt"],
     useAsTitle: "fullName",
@@ -57,7 +60,7 @@ export const Applications: CollectionConfig = {
       defaultValue: "pending",
       access: {
         create: () => false,
-        update: isAdminOrEditorFieldAccess,
+        update: hasRoleField("admin", "editor"),
       },
       options: [
         { label: "Pending", value: "pending" },

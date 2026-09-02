@@ -2,13 +2,15 @@ import type { GlobalConfig } from "payload";
 
 import { MANIFESTO_TAG } from "../../../constants/cache-tags.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { globalAccess } from "../access/global-access.ts";
+
+const { access, hidden } = globalAccess({ managedBy: ["admin", "editor"] });
 
 export const Manifesto: GlobalConfig = {
   slug: "manifesto",
   label: "Manifesto",
-  access: { read: () => true, update: isAdminOrEditor },
-  admin: { group: "Landing" },
+  access,
+  admin: { hidden, group: "Landing" },
   fields: [
     {
       name: "eyebrow",

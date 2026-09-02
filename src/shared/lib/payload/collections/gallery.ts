@@ -2,18 +2,16 @@ import type { CollectionConfig } from "payload";
 
 import { GALLERY_TAG } from "../../../constants/cache-tags.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { collectionAccess } from "../access/collection-access.ts";
+
+const { access, hidden } = collectionAccess({ managedBy: ["admin", "editor"] });
 
 export const Gallery: CollectionConfig = {
   slug: "gallery",
   labels: { singular: "Album", plural: "Gallery" },
-  access: {
-    create: isAdminOrEditor,
-    read: () => true,
-    update: isAdminOrEditor,
-    delete: isAdminOrEditor,
-  },
+  access,
   admin: {
+    hidden,
     group: "Content",
     defaultColumns: ["title", "date"],
     useAsTitle: "title",

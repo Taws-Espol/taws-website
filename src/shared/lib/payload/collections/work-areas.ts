@@ -3,18 +3,16 @@ import type { CollectionConfig } from "payload";
 import { WORK_AREAS_TAG } from "../../../constants/cache-tags.ts";
 import { WORK_AREA_ICON_OPTIONS } from "../../../constants/work-area-icons.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { collectionAccess } from "../access/collection-access.ts";
+
+const { access, hidden } = collectionAccess({ managedBy: ["admin", "editor"] });
 
 export const WorkAreas: CollectionConfig = {
   slug: "work-areas",
   labels: { singular: "Work area", plural: "Work areas" },
-  access: {
-    create: isAdminOrEditor,
-    read: () => true,
-    update: isAdminOrEditor,
-    delete: isAdminOrEditor,
-  },
+  access,
   admin: {
+    hidden,
     group: "Landing",
     defaultColumns: ["name", "slug", "order"],
     useAsTitle: "name",
