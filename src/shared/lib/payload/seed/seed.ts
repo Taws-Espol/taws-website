@@ -11,7 +11,7 @@ import {
 } from "./data.ts";
 import { makePlaceholderImage } from "./make-placeholder-image.ts";
 
-const PASSWORD = "Taws1234!";
+const PASSWORD = "test";
 
 const PALETTE: [number, number, number][] = [
   [11, 33, 134],
