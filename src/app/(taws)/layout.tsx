@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   metadataBase: getAppUrl(),
   applicationName: "TAWS",
   title: {
-    default: "TAWS · Grupo de investigación en tecnología de la ESPOL",
-    template: "%s · TAWS",
+    default: "TAWS | Grupo de investigación en tecnología de la ESPOL",
+    template: "%s | TAWS",
   },
   description:
     "Grupo estudiantil de investigación de la ESPOL en tecnologías web, móviles, machine learning, data science e IoT. En la FIEC desde 2007.",

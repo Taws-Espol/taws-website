@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/proyectos" },
   openGraph: {
-    title: "Proyectos · TAWS",
+    title: "Proyectos | TAWS",
     description:
       "Los proyectos de investigación y desarrollo de TAWS: web, móvil, machine learning, data science e IoT, construidos por estudiantes de la ESPOL.",
     url: "/proyectos",

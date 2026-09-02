@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Blog · TAWS",
+    title: "Blog | TAWS",
     description:
       "Tutoriales, anuncios y apuntes técnicos escritos por los miembros de TAWS sobre desarrollo web, machine learning y data science.",
     url: "/blog",

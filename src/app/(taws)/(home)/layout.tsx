@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "TAWS · Grupo de investigación en tecnología de la ESPOL",
+    absolute: "TAWS | Grupo de investigación en tecnología de la ESPOL",
   },
   description:
     "Grupo estudiantil de investigación de la ESPOL en tecnologías web, móviles, machine learning, data science e IoT. En la FIEC desde 2007.",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "TAWS · Grupo de investigación en tecnología de la ESPOL",
+    title: "TAWS | Grupo de investigación en tecnología de la ESPOL",
     description:
       "Grupo estudiantil de investigación de la ESPOL en tecnologías web, móviles, machine learning, data science e IoT. En la FIEC desde 2007.",
     url: "/",

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   keywords: ["galería TAWS", "fotos club ESPOL"],
   alternates: { canonical: "/galeria" },
   openGraph: {
-    title: "Galería · TAWS",
+    title: "Galería | TAWS",
     description:
       "Fotos de los talleres, charlas y del día a día de TAWS en la FIEC de la ESPOL.",
     url: "/galeria",

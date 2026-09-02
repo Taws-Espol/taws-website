@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/eventos" },
   openGraph: {
-    title: "Eventos · TAWS",
+    title: "Eventos | TAWS",
     description:
       "Charlas, talleres y ferias que organiza TAWS en la ESPOL. Consulta los próximos eventos y revive los que ya pasaron.",
     url: "/eventos",
