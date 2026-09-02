@@ -20,7 +20,7 @@ export default async function Page() {
         illustration={<TeamIllustration />}
       />
 
-      <Section variant="surface">
+      <Section>
         <div className="flex flex-col gap-10">
           <SectionHeader eyebrow="Historia" title="Cómo llegamos hasta aquí" />
 

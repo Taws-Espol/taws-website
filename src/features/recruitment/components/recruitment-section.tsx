@@ -35,7 +35,7 @@ export async function RecruitmentSection({
   if (!isOpen && hideWhenClosed) return null;
 
   return (
-    <Section variant="surface">
+    <Section>
       <div className="grid items-start gap-10 md:grid-cols-2 md:gap-14">
         <div className="flex flex-col gap-6">
           <Eyebrow className="text-primary">Únete</Eyebrow>

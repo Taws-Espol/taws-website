@@ -8,7 +8,7 @@ import { WORK_AREAS } from "@/shared/constants/work-areas";
 
 export function WorkAreasSection() {
   return (
-    <Section variant="surface">
+    <Section>
       <div className="flex flex-col gap-12">
         <SectionHeader
           eyebrow="Áreas"

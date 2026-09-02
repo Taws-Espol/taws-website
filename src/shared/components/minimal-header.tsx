@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { Eyebrow } from "@/shared/components/ui/typography";
 import { APP_NAME, NAVIGATION_ITEMS } from "@/shared/constants/app";
 
 /**
@@ -27,9 +26,9 @@ export function MinimalHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-foreground/70 hover:text-foreground focus-visible:ring-ring rounded-sm py-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+              className="text-foreground/70 hover:text-foreground focus-visible:ring-ring rounded-sm py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none"
             >
-              <Eyebrow>{item.label}</Eyebrow>
+              {item.label}
             </Link>
           ))}
         </nav>

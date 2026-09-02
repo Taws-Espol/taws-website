@@ -20,7 +20,7 @@ async function Navigation() {
 
 export function Header() {
   return (
-    <header className="bg-background/85 sticky top-0 z-40 backdrop-blur">
+    <header className="bg-background relative z-40">
       <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-6 py-4">
         <Link
           href="/"

@@ -8,7 +8,6 @@ import { useState } from "react";
 
 import { Button } from "@/shared/components/ui/button";
 import { buttonVariants } from "@/shared/components/ui/button";
-import { Eyebrow } from "@/shared/components/ui/typography";
 import { APPLICATION_CTA, NAVIGATION_ITEMS } from "@/shared/constants/app";
 import { useIsMobile } from "@/shared/hooks/use-is-mobile";
 import { cn } from "@/shared/utils/cn";
@@ -36,12 +35,12 @@ function DesktopNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
             href={item.href}
             aria-current={isActive ? "page" : undefined}
             className={cn(
-              "text-foreground/70 hover:text-foreground focus-visible:ring-ring relative rounded-sm py-2 transition-colors focus-visible:ring-2 focus-visible:outline-none",
+              "text-foreground/70 hover:text-foreground focus-visible:ring-ring relative rounded-sm py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none",
               isActive &&
-                "text-foreground after:bg-primary after:absolute after:inset-x-0 after:bottom-0 after:h-0.5",
+                "text-foreground after:bg-primary after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:rounded-full",
             )}
           >
-            <Eyebrow>{item.label}</Eyebrow>
+            {item.label}
           </Link>
         );
       })}
@@ -93,7 +92,7 @@ function MobileNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
         <nav
           id="mobile-navigation"
           aria-label="Navegación móvil"
-          className="border-border bg-background absolute top-full right-0 left-0 border-t px-6 py-4 shadow-sm"
+          className="bg-background shadow-soft absolute top-full right-0 left-0 z-50 px-6 pt-2 pb-6"
         >
           <ul className="flex flex-col gap-1">
             {NAVIGATION_ITEMS.map((item) => {
@@ -106,11 +105,11 @@ function MobileNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
                     aria-current={isActive ? "page" : undefined}
                     onClick={closeMenu}
                     className={cn(
-                      "text-foreground/70 hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring flex rounded-md px-4 py-3 transition-colors focus-visible:ring-2 focus-visible:outline-none",
-                      isActive && "bg-accent text-accent-foreground",
+                      "text-foreground/70 hover:bg-surface hover:text-foreground focus-visible:ring-ring flex rounded-xl px-4 py-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none",
+                      isActive && "bg-surface text-foreground",
                     )}
                   >
-                    <Eyebrow>{item.label}</Eyebrow>
+                    {item.label}
                   </Link>
                 </li>
               );

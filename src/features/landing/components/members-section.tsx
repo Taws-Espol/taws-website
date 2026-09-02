@@ -15,7 +15,7 @@ export async function MembersSection() {
   if (members.length === 0) return null;
 
   return (
-    <Section variant="surface">
+    <Section>
       <div className="flex flex-col gap-10">
         <SectionHeader
           eyebrow="Comunidad"
