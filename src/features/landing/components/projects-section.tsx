@@ -21,7 +21,7 @@ export async function ProjectsSection() {
           <Heading as="h2">Proyectos</Heading>
 
           <Link
-            href="/projects"
+            href="/proyectos"
             className="text-foreground/60 hover:text-foreground focus-visible:ring-ring rounded-sm underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:outline-none"
           >
             <Eyebrow>Ver todos</Eyebrow>

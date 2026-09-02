@@ -22,7 +22,7 @@ export async function MembersSection({ limit = 5 }: MembersSectionProps) {
       <div className="flex items-center justify-between">
         <Heading as="h2">Nuestra Comunidad</Heading>
         <Link
-          href="/about"
+          href="/nosotros"
           className="text-primary text-sm font-medium hover:underline"
         >
           Ver todos ({members.length})
@@ -36,7 +36,7 @@ export async function MembersSection({ limit = 5 }: MembersSectionProps) {
 
         {remainingCount > 0 && (
           <Link
-            href="/about"
+            href="/nosotros"
             className="border-border bg-card/50 hover:border-primary hover:bg-accent flex flex-col items-center justify-center rounded-xl border border-dashed p-6 text-center transition-all hover:shadow-md"
           >
             <div className="text-primary mb-1 text-3xl font-extrabold">

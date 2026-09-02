@@ -1,16 +1,8 @@
-import type { Metadata } from "next";
-
 import { AlbumCard } from "@/features/landing/components/album-card";
 import { getAlbums } from "@/features/landing/queries/get-albums";
 
 import { Section } from "@/shared/components/ui/section";
 import { Heading, Text } from "@/shared/components/ui/typography";
-
-export const metadata: Metadata = {
-  title: "Galería | TAWS",
-  description:
-    "Fotos de los talleres, charlas y del día a día del club TAWS en la FIEC.",
-};
 
 export default async function Page() {
   const albums = await getAlbums();

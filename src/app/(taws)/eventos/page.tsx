@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { EventsSections } from "@/features/landing/components/events-sections";
@@ -6,12 +5,6 @@ import { EventsSectionsSkeleton } from "@/features/landing/components/events-sec
 
 import { Section } from "@/shared/components/ui/section";
 import { Heading } from "@/shared/components/ui/typography";
-
-export const metadata: Metadata = {
-  title: "Eventos | TAWS",
-  description:
-    "Charlas, talleres y ferias que organiza el club TAWS de la ESPOL.",
-};
 
 export default function Page() {
   return (

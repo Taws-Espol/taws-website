@@ -17,14 +17,39 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: getAppUrl(),
   applicationName: "TAWS",
-  title: "TAWS",
-  description: "TAWS",
+  title: {
+    default: "TAWS · Grupo de investigación en tecnología de la ESPOL",
+    template: "%s · TAWS",
+  },
+  description:
+    "Grupo estudiantil de investigación de la ESPOL en tecnologías web, móviles, machine learning, data science e IoT. En la FIEC desde 2007.",
+  keywords: [
+    "TAWS",
+    "ESPOL",
+    "FIEC",
+    "grupo de investigación",
+    "club estudiantil",
+    "Guayaquil",
+    "desarrollo web",
+    "machine learning",
+    "data science",
+  ],
+  authors: [{ name: "TAWS" }],
+  creator: "TAWS",
+  alternates: { canonical: "/" },
   openGraph: {
     siteName: "TAWS",
     type: "website",
+    locale: "es_EC",
+    url: "/",
   },
   twitter: {
     card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
 };
 

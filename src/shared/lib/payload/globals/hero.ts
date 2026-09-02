@@ -39,7 +39,12 @@ export const Hero: GlobalConfig = {
           required: true,
           defaultValue: "Quiero postular",
         },
-        { name: "href", type: "text", required: true, defaultValue: "/apply" },
+        {
+          name: "href",
+          type: "text",
+          required: true,
+          defaultValue: "/postula",
+        },
       ],
     },
     {
@@ -56,7 +61,7 @@ export const Hero: GlobalConfig = {
           name: "href",
           type: "text",
           required: true,
-          defaultValue: "/projects",
+          defaultValue: "/proyectos",
         },
       ],
     },

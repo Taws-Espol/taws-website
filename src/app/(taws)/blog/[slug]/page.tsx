@@ -1,27 +1,11 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { PostArticle } from "@/features/blog/components/post-article";
-import { getPostBySlug } from "@/features/blog/queries/get-post-by-slug";
 
 import { Section } from "@/shared/components/ui/section";
 import { Skeleton } from "@/shared/components/ui/skeleton";
 
 type PageProps = { params: Promise<{ slug: string }> };
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
-
-  if (!post) return { title: "Publicación no encontrada | TAWS" };
-
-  return {
-    title: `${post.title} | TAWS`,
-    description: post.excerpt,
-  };
-}
 
 /**
  * The slug is read inside the boundary rather than through
