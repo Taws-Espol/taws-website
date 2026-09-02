@@ -35,7 +35,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-secondary focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+            className="focus-visible:ring-ring rounded-sm underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
           >
             {project.title}
           </a>

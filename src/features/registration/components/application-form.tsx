@@ -162,7 +162,7 @@ export function ApplicationForm() {
                     className={cn(
                       "border-border focus-visible:ring-ring rounded-full border px-4 py-2 transition-colors focus-visible:ring-2 focus-visible:outline-none",
                       isSelected
-                        ? "bg-secondary text-secondary-foreground border-secondary"
+                        ? "bg-primary text-primary-foreground border-primary"
                         : "hover:bg-accent",
                     )}
                   >

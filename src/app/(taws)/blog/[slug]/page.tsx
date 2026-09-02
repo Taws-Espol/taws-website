@@ -58,7 +58,7 @@ export default async function Page({ params }: PageProps) {
 
         <Text className="text-foreground/70">{post.excerpt}</Text>
 
-        <div className="rich-text">
+        <div className="[&_blockquote]:border-border [&_blockquote]:text-muted-foreground flex flex-col gap-4 [&_a]:underline [&_a]:underline-offset-4 [&_blockquote]:border-l-2 [&_blockquote]:pl-4 [&_blockquote]:italic [&_h2]:mt-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h3]:mt-4 [&_h3]:text-xl [&_h3]:font-bold [&_ol]:flex [&_ol]:list-decimal [&_ol]:flex-col [&_ol]:gap-2 [&_ol]:pl-6 [&_ul]:flex [&_ul]:list-disc [&_ul]:flex-col [&_ul]:gap-2 [&_ul]:pl-6">
           <RichText data={post.content} />
         </div>
 

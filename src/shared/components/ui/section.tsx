@@ -7,7 +7,7 @@ const sectionVariants = cva("w-full py-16 md:py-24", {
   variants: {
     variant: {
       default: "bg-background text-foreground",
-      inverted: "bg-surface-inverted text-on-inverted",
+      inverted: "bg-primary text-primary-foreground",
     },
   },
   defaultVariants: {

@@ -7,7 +7,7 @@ import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 import { Button } from "@/shared/components/ui/button";
-import { buttonVariants } from "@/shared/components/ui/button-variants";
+import { buttonVariants } from "@/shared/components/ui/button";
 import { Eyebrow } from "@/shared/components/ui/typography";
 import { APPLICATION_CTA, NAVIGATION_ITEMS } from "@/shared/constants/app";
 import { useIsMobile } from "@/shared/hooks/use-is-mobile";
@@ -36,7 +36,7 @@ function DesktopNavigation({ pathname }: { pathname: string }) {
             className={cn(
               "text-foreground/70 hover:text-foreground focus-visible:ring-ring relative rounded-sm py-2 transition-colors focus-visible:ring-2 focus-visible:outline-none",
               isActive &&
-                "text-foreground after:bg-secondary after:absolute after:inset-x-0 after:bottom-0 after:h-0.5",
+                "text-foreground after:bg-primary after:absolute after:inset-x-0 after:bottom-0 after:h-0.5",
             )}
           >
             <Eyebrow>{item.label}</Eyebrow>
@@ -48,7 +48,7 @@ function DesktopNavigation({ pathname }: { pathname: string }) {
         href={APPLICATION_CTA.href}
         aria-current={isApplicationActive ? "page" : undefined}
         className={cn(
-          buttonVariants({ variant: "secondary" }),
+          buttonVariants(),
           isApplicationActive &&
             "ring-secondary ring-offset-background ring-2 ring-offset-2",
         )}
@@ -118,7 +118,7 @@ function MobileNavigation({ pathname }: { pathname: string }) {
                 aria-current={isApplicationActive ? "page" : undefined}
                 onClick={closeMenu}
                 className={cn(
-                  buttonVariants({ variant: "secondary" }),
+                  buttonVariants(),
                   "flex",
                   isApplicationActive &&
                     "ring-secondary ring-offset-background ring-2 ring-offset-2",
