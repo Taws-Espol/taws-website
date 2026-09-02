@@ -4,7 +4,7 @@ import { POSTS_TAG } from "../../../constants/cache-tags.ts";
 import { postTag } from "../../../utils/post-tag.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
 import { countLexicalWords } from "../utils/count-lexical-words.ts";
-import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
+import { isAdminEditorOrBlogger } from "../utils/is-admin-editor-or-blogger.ts";
 
 const WORDS_PER_MINUTE = 200;
 
@@ -13,11 +13,11 @@ export const Posts: CollectionConfig = {
   labels: { singular: "Post", plural: "Posts" },
   versions: { drafts: true },
   access: {
-    create: isAdminOrEditor,
+    create: isAdminEditorOrBlogger,
     read: ({ req: { user } }) =>
       Boolean(user) || { _status: { equals: "published" } },
-    update: isAdminOrEditor,
-    delete: isAdminOrEditor,
+    update: isAdminEditorOrBlogger,
+    delete: isAdminEditorOrBlogger,
   },
   admin: {
     group: "Content",

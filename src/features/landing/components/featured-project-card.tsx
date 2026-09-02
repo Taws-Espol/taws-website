@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import type { Project } from "@/features/landing/types/project";
-import { getWorkAreaLabel } from "@/features/landing/utils/get-work-area-label";
 
 import { Badge } from "@/shared/components/ui/badge";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
@@ -25,9 +24,11 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {project.areas.map((area) => (
-          <Badge key={area}>{getWorkAreaLabel(area)}</Badge>
-        ))}
+        {project.areas.map((area) =>
+          typeof area === "object" ? (
+            <Badge key={area.id}>{area.name}</Badge>
+          ) : null,
+        )}
       </div>
 
       <Heading as="h3">

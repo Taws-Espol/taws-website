@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 
 import { MEDIA_TAG } from "../../../constants/cache-tags.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
+import { isAdminEditorOrBlogger } from "../utils/is-admin-editor-or-blogger.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
 
 export const Media: CollectionConfig = {
@@ -14,9 +15,9 @@ export const Media: CollectionConfig = {
     focalPoint: true,
   },
   access: {
-    create: isAdminOrEditor,
+    create: isAdminEditorOrBlogger,
     read: () => true,
-    update: isAdminOrEditor,
+    update: isAdminEditorOrBlogger,
     delete: isAdminOrEditor,
   },
   admin: {

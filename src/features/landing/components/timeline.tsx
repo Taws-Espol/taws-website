@@ -1,15 +1,14 @@
-import {
-  MILESTONES,
-  type Milestone,
-} from "@/features/landing/constants/milestones";
+import { getHistory } from "@/features/landing/queries/get-history";
 
 import { Heading, Text } from "@/shared/components/ui/typography";
 
-export function Timeline() {
+export async function Timeline() {
+  const { milestones } = await getHistory();
+
   return (
     <div className="border-primary/30 my-8 ml-4 space-y-8 border-l-2 pl-6">
-      {MILESTONES.map((milestone: Milestone, index: number) => (
-        <div key={index} className="relative">
+      {milestones?.map((milestone) => (
+        <div key={milestone.id ?? milestone.year} className="relative">
           <div className="border-background bg-primary absolute top-1 -left-[31px] h-4 w-4 rounded-full border-4" />
           <span className="text-primary text-sm font-semibold">
             {milestone.year}

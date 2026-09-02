@@ -12,7 +12,7 @@ export const Users: CollectionConfig = {
   auth: true,
   access: {
     admin: ({ req: { user } }) =>
-      checkRole(["admin", "editor", "viewer"], user),
+      checkRole(["admin", "editor", "blogger", "viewer"], user),
     create: isAdmin,
     delete: isAdmin,
     read: isAdminOrSelf,
@@ -49,6 +49,10 @@ export const Users: CollectionConfig = {
         {
           label: "Editor",
           value: "editor",
+        },
+        {
+          label: "Blogger",
+          value: "blogger",
         },
         {
           label: "Viewer",

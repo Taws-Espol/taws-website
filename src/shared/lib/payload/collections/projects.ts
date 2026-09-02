@@ -1,7 +1,6 @@
 import type { CollectionConfig } from "payload";
 
 import { PROJECTS_TAG } from "../../../constants/cache-tags.ts";
-import { getWorkAreaPayloadOptions } from "../../../constants/work-areas.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
 
@@ -35,10 +34,10 @@ export const Projects: CollectionConfig = {
     },
     {
       name: "areas",
-      type: "select",
+      type: "relationship",
+      relationTo: "work-areas",
       hasMany: true,
       required: true,
-      options: getWorkAreaPayloadOptions(),
     },
     {
       name: "status",

@@ -1,5 +1,7 @@
 # Narrative content lives in the repository, not the CMS
 
+> **Superseded by [ADR-0003](./0003-narrative-content-moves-into-the-cms.md).** The premise that the narrative changes once every couple of years did not hold.
+
 The landing page mixes two kinds of content: things that grow and are edited by non-technical people (members, projects, events, albums, posts), and the club's narrative — the hero copy, the six work areas, the timeline milestones, the manifesto band. We put the first kind in Payload and the second kind in `src/features/landing/constants/` as typed constants.
 
 The narrative changes roughly once every couple of years, and it is inseparable from the design: each work area carries an icon and a position in a fixed six-item grid, the manifesto is a hand-set band with a highlighted clause, the timeline is a bespoke layout. Making those editable buys the club almost nothing and costs us admin surface, database migrations, loading states and a class of bug where someone adds a seventh work area and the grid breaks.
