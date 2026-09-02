@@ -4,11 +4,10 @@ import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { Button } from "@/shared/components/ui/button";
-import { buttonVariants } from "@/shared/components/ui/button";
-import { APPLICATION_CTA, NAVIGATION_ITEMS } from "@/shared/constants/app";
+import { NAVIGATION_ITEMS } from "@/shared/constants/app";
 import { useIsMobile } from "@/shared/hooks/use-is-mobile";
 import { cn } from "@/shared/utils/cn";
 
@@ -16,11 +15,9 @@ function isActiveRoute(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-type NavigationProps = { pathname: string; isRecruitmentOpen: boolean };
+type NavigationProps = { pathname: string; applicationCta: ReactNode };
 
-function DesktopNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
-  const isApplicationActive = isActiveRoute(pathname, APPLICATION_CTA.href);
-
+function DesktopNavigation({ pathname, applicationCta }: NavigationProps) {
   return (
     <nav
       aria-label="Navegación principal"
@@ -45,30 +42,20 @@ function DesktopNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
         );
       })}
 
-      {isRecruitmentOpen ? (
-        <Link
-          href={APPLICATION_CTA.href}
-          aria-current={isApplicationActive ? "page" : undefined}
-          className={cn(
-            buttonVariants(),
-            isApplicationActive &&
-              "ring-secondary ring-offset-background ring-2 ring-offset-2",
-          )}
-        >
-          {APPLICATION_CTA.label}
-        </Link>
-      ) : null}
+      {applicationCta}
     </nav>
   );
 }
 
-function MobileNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isApplicationActive = isActiveRoute(pathname, APPLICATION_CTA.href);
-
-  function closeMenu() {
-    setIsMenuOpen(false);
-  }
+function MobileNavigation({ pathname, applicationCta }: NavigationProps) {
+  /**
+   * The menu belongs to the route it was opened on, so navigating anywhere
+   * closes it. Deriving that beats a click handler on every link: it also
+   * covers the application button, which is rendered on the server and handed
+   * in as a slot.
+   */
+  const [openedOn, setOpenedOn] = useState<string | null>(null);
+  const isMenuOpen = openedOn === pathname;
 
   return (
     <div className="md:hidden">
@@ -79,7 +66,7 @@ function MobileNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
         aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
         aria-expanded={isMenuOpen}
         aria-controls="mobile-navigation"
-        onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
+        onClick={() => setOpenedOn(isMenuOpen ? null : pathname)}
       >
         <HugeiconsIcon
           icon={isMenuOpen ? Cancel01Icon : Menu01Icon}
@@ -103,7 +90,6 @@ function MobileNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
                   <Link
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
-                    onClick={closeMenu}
                     className={cn(
                       "text-foreground/70 hover:bg-surface hover:text-foreground focus-visible:ring-ring flex rounded-xl px-4 py-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none",
                       isActive && "bg-surface text-foreground",
@@ -115,23 +101,7 @@ function MobileNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
               );
             })}
 
-            <li className="pt-2">
-              {isRecruitmentOpen ? (
-                <Link
-                  href={APPLICATION_CTA.href}
-                  aria-current={isApplicationActive ? "page" : undefined}
-                  onClick={closeMenu}
-                  className={cn(
-                    buttonVariants(),
-                    "flex",
-                    isApplicationActive &&
-                      "ring-secondary ring-offset-background ring-2 ring-offset-2",
-                  )}
-                >
-                  {APPLICATION_CTA.label}
-                </Link>
-              ) : null}
-            </li>
+            <li className="pt-2 [&>a]:flex">{applicationCta}</li>
           </ul>
         </nav>
       ) : null}
@@ -140,22 +110,16 @@ function MobileNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
 }
 
 export function SiteNavigation({
-  isRecruitmentOpen,
+  applicationCta,
 }: {
-  isRecruitmentOpen: boolean;
+  applicationCta: ReactNode;
 }) {
   const pathname = usePathname();
   const isMobile = useIsMobile();
 
   return isMobile ? (
-    <MobileNavigation
-      pathname={pathname}
-      isRecruitmentOpen={isRecruitmentOpen}
-    />
+    <MobileNavigation pathname={pathname} applicationCta={applicationCta} />
   ) : (
-    <DesktopNavigation
-      pathname={pathname}
-      isRecruitmentOpen={isRecruitmentOpen}
-    />
+    <DesktopNavigation pathname={pathname} applicationCta={applicationCta} />
   );
 }

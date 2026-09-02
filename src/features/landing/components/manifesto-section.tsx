@@ -37,7 +37,11 @@ export async function ManifestoSection() {
           {manifesto.eyebrow}
         </Eyebrow>
 
-        <Heading as="h2" className="max-w-[22ch] text-balance">
+        <Heading
+          as="h2"
+          variant="display"
+          className="max-w-[18ch] text-balance"
+        >
           {manifesto.body}
         </Heading>
 

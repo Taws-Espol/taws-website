@@ -43,16 +43,10 @@ export function AlbumCard({ album }: { album: Album }) {
           <Text variant="caption" className="text-muted-foreground">
             {formatAlbumDate(album.date)} · {album.images.length} fotos
           </Text>
-
-          {typeof album.event === "object" && album.event ? (
-            <Text variant="caption" className="text-primary font-medium">
-              {album.event.title}
-            </Text>
-          ) : null}
         </div>
       </DialogTrigger>
 
-      <DialogContent className="max-w-3xl">
+      <DialogContent className="sm:max-w-5xl">
         <DialogTitle>{album.title}</DialogTitle>
         <AlbumViewer album={album} />
       </DialogContent>

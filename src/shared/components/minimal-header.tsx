@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { APP_NAME, NAVIGATION_ITEMS } from "@/shared/constants/app";
@@ -16,9 +17,14 @@ export function MinimalHeader() {
           aria-label={`${APP_NAME}, inicio`}
           className="focus-visible:ring-ring rounded-sm focus-visible:ring-2 focus-visible:outline-none"
         >
-          <span className="text-primary text-xl font-bold tracking-[-0.02em]">
-            {APP_NAME}
-          </span>
+          <Image
+            src="/assets/images/logo.svg"
+            alt=""
+            width={40}
+            height={35}
+            unoptimized
+            className="h-9 w-auto"
+          />
         </Link>
 
         <nav aria-label="Navegación principal" className="hidden gap-6 md:flex">
