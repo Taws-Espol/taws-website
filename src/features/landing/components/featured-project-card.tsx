@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { MemberAvatars } from "@/features/landing/components/member-avatars";
+import { ProjectLinks } from "@/features/landing/components/project-links";
 import type { Project } from "@/features/landing/types/project";
 import { getWorkAreaLabel } from "@/features/landing/utils/get-work-area-label";
 
@@ -7,7 +9,6 @@ import { Badge } from "@/shared/components/ui/badge";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 
 export function FeaturedProjectCard({ project }: { project: Project }) {
-  const href = project.repositoryUrl ?? project.externalUrl;
   const cover = typeof project.cover === "object" ? project.cover : null;
 
   return (
@@ -30,25 +31,18 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
         ))}
       </div>
 
-      <Heading as="h3">
-        {href ? (
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="focus-visible:ring-ring rounded-sm underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
-          >
-            {project.title}
-          </a>
-        ) : (
-          project.title
-        )}
-      </Heading>
+      <Heading as="h3">{project.title}</Heading>
 
       <Text className="text-foreground/70 max-w-[60ch]">{project.summary}</Text>
 
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <ProjectLinks project={project} />
+
+        <MemberAvatars members={project.members} />
+      </div>
+
       {project.year ? (
-        <Eyebrow className="text-foreground/50">{project.year}</Eyebrow>
+        <Eyebrow className="text-muted-foreground">{project.year}</Eyebrow>
       ) : null}
     </article>
   );

@@ -171,6 +171,7 @@ export const SEED_EVENTS = [
     location: "Laboratorio de Cómputo, FIEC",
     daysFromNow: 14,
     description: "Cuatro horas de práctica con ramas, conflictos y revisiones.",
+    registrationUrl: "https://forms.gle/ejemplo-taller-git",
   },
   {
     title: "Charla: qué hace un ingeniero de datos",
