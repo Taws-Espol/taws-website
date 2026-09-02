@@ -2,13 +2,14 @@ import type { GlobalConfig } from "payload";
 
 import { HERO_TAG } from "../../../constants/cache-tags.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
+import { hideUnlessAdminOrEditor } from "../utils/hide-unless-admin-or-editor.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
 
 export const Hero: GlobalConfig = {
   slug: "hero",
   label: "Hero",
   access: { read: () => true, update: isAdminOrEditor },
-  admin: { group: "Landing" },
+  admin: { group: "Landing", hidden: hideUnlessAdminOrEditor },
   fields: [
     {
       name: "eyebrow",

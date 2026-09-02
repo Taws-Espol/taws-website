@@ -3,6 +3,7 @@ import type { CollectionConfig } from "payload";
 import { WORK_AREAS_TAG } from "../../../constants/cache-tags.ts";
 import { WORK_AREA_ICON_OPTIONS } from "../../../constants/work-area-icons.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
+import { hideUnlessAdminOrEditor } from "../utils/hide-unless-admin-or-editor.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
 
 export const WorkAreas: CollectionConfig = {
@@ -15,6 +16,7 @@ export const WorkAreas: CollectionConfig = {
     delete: isAdminOrEditor,
   },
   admin: {
+    hidden: hideUnlessAdminOrEditor,
     group: "Landing",
     defaultColumns: ["name", "slug", "order"],
     useAsTitle: "name",

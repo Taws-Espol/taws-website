@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 
 import { checkRole } from "../utils/check-role.ts";
 import { ensureFirstUserIsAdmin } from "../utils/ensure-first-user-is-admin.ts";
+import { hideUnlessAdmin } from "../utils/hide-unless-admin.ts";
 import { isAdminFieldAccess } from "../utils/is-admin-field-access.ts";
 import { isAdminOrSelf } from "../utils/is-admin-or-self.ts";
 import { isAdmin } from "../utils/is-admin.ts";
@@ -20,6 +21,7 @@ export const Users: CollectionConfig = {
     update: isAdminOrSelf,
   },
   admin: {
+    hidden: hideUnlessAdmin,
     group: "Users",
     defaultColumns: ["name", "email", "role", "createdAt", "updatedAt"],
     useAsTitle: "name",

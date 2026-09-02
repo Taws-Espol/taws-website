@@ -2,11 +2,13 @@ import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 import { EVENTS_TAG } from "../../../constants/cache-tags";
+import { hideUnlessAdminOrEditor } from "../utils/hide-unless-admin-or-editor.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor";
 
 export const Events: CollectionConfig = {
   slug: "events",
   admin: {
+    hidden: hideUnlessAdminOrEditor,
     useAsTitle: "title",
     defaultColumns: ["title", "startsAt", "location"],
   },

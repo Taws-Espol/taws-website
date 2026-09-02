@@ -3,6 +3,7 @@ import type { CollectionConfig } from "payload";
 import { MEMBERS_TAG } from "../../../constants/cache-tags.ts";
 import { getMajorPayloadOptions } from "../../../utils/get-major-payload-options.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
+import { hideUnlessAdminOrEditor } from "../utils/hide-unless-admin-or-editor.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
 
 export const Members: CollectionConfig = {
@@ -15,6 +16,7 @@ export const Members: CollectionConfig = {
     delete: isAdminOrEditor,
   },
   admin: {
+    hidden: hideUnlessAdminOrEditor,
     group: "Members",
     defaultColumns: ["fullName", "status", "major", "position", "order"],
     useAsTitle: "fullName",

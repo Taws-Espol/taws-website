@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 
 import { GALLERY_TAG } from "../../../constants/cache-tags.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
+import { hideUnlessAdminOrEditor } from "../utils/hide-unless-admin-or-editor.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";
 
 export const Gallery: CollectionConfig = {
@@ -14,6 +15,7 @@ export const Gallery: CollectionConfig = {
     delete: isAdminOrEditor,
   },
   admin: {
+    hidden: hideUnlessAdminOrEditor,
     group: "Content",
     defaultColumns: ["title", "date"],
     useAsTitle: "title",
