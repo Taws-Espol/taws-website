@@ -13,14 +13,6 @@ import { makePlaceholderImage } from "./make-placeholder-image.ts";
 
 const PASSWORD = "test";
 
-const PALETTE: [number, number, number][] = [
-  [11, 33, 134],
-  [255, 119, 35],
-  [30, 30, 30],
-  [120, 140, 170],
-  [200, 200, 200],
-];
-
 function daysFromNow(days: number) {
   return new Date(Date.now() + days * 86_400_000).toISOString();
 }
@@ -46,16 +38,17 @@ function richText(body: string) {
   } as never;
 }
 
-async function uploadImage(payload: Payload, alt: string, index: number) {
-  const data = makePlaceholderImage(1200, 800, PALETTE[index % PALETTE.length]);
+/** One upload, reused everywhere: the seed proves the wiring, not the artwork. */
+async function uploadPlaceholder(payload: Payload) {
+  const data = makePlaceholderImage(1200, 800, [120, 140, 170]);
 
   return payload.create({
     collection: "media",
-    data: { alt },
+    data: { alt: "Imagen de ejemplo" },
     file: {
       data,
       mimetype: "image/png",
-      name: `seed-${index}.png`,
+      name: "placeholder.png",
       size: data.length,
     },
   });
@@ -97,28 +90,25 @@ export async function seed(payload: Payload) {
     }
   }
 
-  let imageIndex = 0;
-  const nextImage = (alt: string) => uploadImage(payload, alt, imageIndex++);
+  const placeholder = await uploadPlaceholder(payload);
 
   const members = [];
   for (const member of SEED_MEMBERS) {
-    const photo = await nextImage(`Foto de ${member.fullName}`);
     members.push(
       await payload.create({
         collection: "members",
-        data: { ...member, photo: photo.id },
+        data: { ...member, photo: placeholder.id },
       }),
     );
   }
 
   for (const project of SEED_PROJECTS) {
-    const cover = await nextImage(`Portada de ${project.title}`);
     await payload.create({
       collection: "projects",
       data: {
         ...project,
         areas: [...project.areas],
-        cover: cover.id,
+        cover: placeholder.id,
         members: members.slice(0, 2).map((member) => member.id),
       },
     });
@@ -126,35 +116,31 @@ export async function seed(payload: Payload) {
 
   const events = [];
   for (const event of SEED_EVENTS) {
-    const cover = await nextImage(`Portada de ${event.title}`);
-    const { daysFromNow: offset, description, ...rest } = event;
+    const { daysFromNow: offset, ...rest } = event;
     events.push(
       await payload.create({
         collection: "events",
         data: {
           ...rest,
-          cover: cover.id,
+          cover: placeholder.id,
           startsAt: daysFromNow(offset),
-          description: richText(description),
         },
       }),
     );
   }
 
   for (const album of SEED_ALBUMS) {
-    const cover = await nextImage(`Portada del álbum ${album.title}`);
-    const images = [];
-    for (let i = 0; i < album.imageCount; i++) {
-      const image = await nextImage(`${album.title}, foto ${i + 1}`);
-      images.push({ image: image.id, caption: `Foto ${i + 1}` });
-    }
+    const images = Array.from({ length: album.imageCount }, (_, i) => ({
+      image: placeholder.id,
+      caption: `Foto ${i + 1}`,
+    }));
 
     await payload.create({
       collection: "gallery",
       data: {
         title: album.title,
         date: daysFromNow(album.daysFromNow),
-        cover: cover.id,
+        cover: placeholder.id,
         images,
         event: album.eventSlug
           ? events.find((event) => event.slug === album.eventSlug)?.id
@@ -164,13 +150,12 @@ export async function seed(payload: Payload) {
   }
 
   for (const [index, post] of SEED_POSTS.entries()) {
-    const cover = await nextImage(`Portada de ${post.title}`);
     const { body, status, ...rest } = post;
     await payload.create({
       collection: "posts",
       data: {
         ...rest,
-        cover: cover.id,
+        cover: placeholder.id,
         author: members[index % members.length].id,
         publishedAt: daysFromNow(-index * 9),
         content: richText(body),

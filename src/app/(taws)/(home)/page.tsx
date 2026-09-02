@@ -26,7 +26,7 @@ export default function Page() {
       </Section>
 
       <Suspense fallback={<RecruitmentSectionSkeleton />}>
-        <RecruitmentSection />
+        <RecruitmentSection hideWhenClosed />
       </Suspense>
     </main>
   );

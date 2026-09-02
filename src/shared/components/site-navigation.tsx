@@ -17,7 +17,9 @@ function isActiveRoute(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function DesktopNavigation({ pathname }: { pathname: string }) {
+type NavigationProps = { pathname: string; isRecruitmentOpen: boolean };
+
+function DesktopNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
   const isApplicationActive = isActiveRoute(pathname, APPLICATION_CTA.href);
 
   return (
@@ -44,22 +46,24 @@ function DesktopNavigation({ pathname }: { pathname: string }) {
         );
       })}
 
-      <Link
-        href={APPLICATION_CTA.href}
-        aria-current={isApplicationActive ? "page" : undefined}
-        className={cn(
-          buttonVariants(),
-          isApplicationActive &&
-            "ring-secondary ring-offset-background ring-2 ring-offset-2",
-        )}
-      >
-        {APPLICATION_CTA.label}
-      </Link>
+      {isRecruitmentOpen ? (
+        <Link
+          href={APPLICATION_CTA.href}
+          aria-current={isApplicationActive ? "page" : undefined}
+          className={cn(
+            buttonVariants(),
+            isApplicationActive &&
+              "ring-secondary ring-offset-background ring-2 ring-offset-2",
+          )}
+        >
+          {APPLICATION_CTA.label}
+        </Link>
+      ) : null}
     </nav>
   );
 }
 
-function MobileNavigation({ pathname }: { pathname: string }) {
+function MobileNavigation({ pathname, isRecruitmentOpen }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isApplicationActive = isActiveRoute(pathname, APPLICATION_CTA.href);
 
@@ -113,19 +117,21 @@ function MobileNavigation({ pathname }: { pathname: string }) {
             })}
 
             <li className="pt-2">
-              <Link
-                href={APPLICATION_CTA.href}
-                aria-current={isApplicationActive ? "page" : undefined}
-                onClick={closeMenu}
-                className={cn(
-                  buttonVariants(),
-                  "flex",
-                  isApplicationActive &&
-                    "ring-secondary ring-offset-background ring-2 ring-offset-2",
-                )}
-              >
-                {APPLICATION_CTA.label}
-              </Link>
+              {isRecruitmentOpen ? (
+                <Link
+                  href={APPLICATION_CTA.href}
+                  aria-current={isApplicationActive ? "page" : undefined}
+                  onClick={closeMenu}
+                  className={cn(
+                    buttonVariants(),
+                    "flex",
+                    isApplicationActive &&
+                      "ring-secondary ring-offset-background ring-2 ring-offset-2",
+                  )}
+                >
+                  {APPLICATION_CTA.label}
+                </Link>
+              ) : null}
             </li>
           </ul>
         </nav>
@@ -134,13 +140,23 @@ function MobileNavigation({ pathname }: { pathname: string }) {
   );
 }
 
-export function SiteNavigation() {
+export function SiteNavigation({
+  isRecruitmentOpen,
+}: {
+  isRecruitmentOpen: boolean;
+}) {
   const pathname = usePathname();
   const isMobile = useIsMobile();
 
   return isMobile ? (
-    <MobileNavigation pathname={pathname} />
+    <MobileNavigation
+      pathname={pathname}
+      isRecruitmentOpen={isRecruitmentOpen}
+    />
   ) : (
-    <DesktopNavigation pathname={pathname} />
+    <DesktopNavigation
+      pathname={pathname}
+      isRecruitmentOpen={isRecruitmentOpen}
+    />
   );
 }

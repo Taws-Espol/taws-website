@@ -10,11 +10,22 @@ import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 const CLOSED_FALLBACK =
   "La convocatoria está cerrada por ahora. Síguenos en redes para enterarte de la próxima.";
 
-export async function RecruitmentSection() {
+/**
+ * `hideWhenClosed` is for the landing, where a closed window should leave no
+ * trace. The dedicated page still answers, because someone reaching it from a
+ * saved link deserves to be told rather than shown an empty screen.
+ */
+export async function RecruitmentSection({
+  hideWhenClosed = false,
+}: {
+  hideWhenClosed?: boolean;
+}) {
   await connection();
 
   const window = await getRecruitmentWindow();
   const isOpen = isRecruitmentOpen(window, new Date());
+
+  if (!isOpen && hideWhenClosed) return null;
 
   return (
     <Section variant="inverted">

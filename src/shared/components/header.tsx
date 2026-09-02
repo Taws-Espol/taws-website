@@ -1,9 +1,23 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { Suspense } from "react";
+
+import { getRecruitmentWindow } from "@/features/recruitment/queries/get-recruitment-window";
+import { isRecruitmentOpen } from "@/features/recruitment/utils/is-recruitment-open";
 
 import { SiteNavigation } from "@/shared/components/site-navigation";
 import { Eyebrow } from "@/shared/components/ui/typography";
 import { APP_NAME } from "@/shared/constants/app";
+
+async function Navigation() {
+  await connection();
+
+  const window = await getRecruitmentWindow();
+
+  return (
+    <SiteNavigation isRecruitmentOpen={isRecruitmentOpen(window, new Date())} />
+  );
+}
 
 export function Header() {
   return (
@@ -18,7 +32,7 @@ export function Header() {
         </Link>
 
         <Suspense fallback={null}>
-          <SiteNavigation />
+          <Navigation />
         </Suspense>
       </div>
     </header>
