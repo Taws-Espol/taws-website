@@ -1,36 +1,50 @@
+import Image from "next/image";
+
 import { MemberAvatars } from "@/features/landing/components/member-avatars";
 import { ProjectLinks } from "@/features/landing/components/project-links";
-import { WorkAreaMark } from "@/features/landing/components/work-area-mark";
 import type { Project } from "@/features/landing/types/project";
 
-import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
+import { Heading, Text } from "@/shared/components/ui/typography";
+import { WorkAreaTag } from "@/shared/components/ui/work-area-tag";
 
 export function ProjectCard({ project }: { project: Project }) {
+  const cover = typeof project.cover === "object" ? project.cover : null;
+
   return (
-    <article className="border-border flex flex-col gap-3 border-t pt-5">
-      <div className="flex flex-wrap gap-2">
-        {project.areas.map((area) => (
-          <WorkAreaMark key={area} value={area} />
-        ))}
+    <article className="bg-card shadow-soft hover:shadow-lift flex h-full flex-col overflow-hidden rounded-3xl transition-shadow">
+      <div className="bg-surface relative aspect-[16/10]">
+        {cover?.url ? (
+          <Image
+            src={cover.url}
+            alt={cover.alt ?? project.title}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+          />
+        ) : null}
       </div>
 
-      <Heading as="h3" className="text-lg">
-        {project.title}
-      </Heading>
+      <div className="flex flex-1 flex-col gap-3 p-6">
+        <div className="flex flex-wrap gap-1.5">
+          {project.areas.map((area) => (
+            <WorkAreaTag key={area} value={area} />
+          ))}
+        </div>
 
-      <Text variant="small" className="text-foreground/70">
-        {project.summary}
-      </Text>
+        <Heading as="h3" variant="card">
+          {project.title}
+        </Heading>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-        <ProjectLinks project={project} />
+        <Text variant="small" className="text-muted-foreground flex-1">
+          {project.summary}
+        </Text>
 
-        <MemberAvatars members={project.members} />
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <ProjectLinks project={project} />
+
+          <MemberAvatars members={project.members} />
+        </div>
       </div>
-
-      {project.year ? (
-        <Eyebrow className="text-muted-foreground">{project.year}</Eyebrow>
-      ) : null}
     </article>
   );
 }

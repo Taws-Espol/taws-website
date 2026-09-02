@@ -23,7 +23,7 @@ export function ProjectLinks({ project }: { project: Project }) {
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={buttonVariants({ variant: "outline", size: "sm" })}
+          className={buttonVariants({ variant: "secondary", size: "sm" })}
         >
           {link.label}
           <HugeiconsIcon icon={LinkSquare02Icon} aria-hidden="true" />

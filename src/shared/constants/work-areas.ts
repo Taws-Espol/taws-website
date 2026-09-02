@@ -1,37 +1,42 @@
-import type { PolygonFill, PolygonShape } from "@/shared/components/ui/polygon";
-
 /**
- * Each area owns one shape-and-fill pair, and that mark is how the area is shown
- * everywhere it appears: this grid, a project card, a chip in the form. The
- * reader learns the six marks once and reads them for the rest of the site.
+ * The six things the club actually does. This module stays free of UI so the
+ * Payload config can import it; the icons live beside it in `work-area-icons`.
  */
 export const WORK_AREAS = [
-  { value: "web", label: "Web", shape: "circle", fill: "primary" },
-  { value: "mobile", label: "Móvil", shape: "circle", fill: "accent" },
+  {
+    value: "web",
+    label: "Web",
+    description: "Aplicaciones y plataformas que corren en el navegador.",
+  },
+  {
+    value: "mobile",
+    label: "Móvil",
+    description: "Apps nativas y multiplataforma para Android e iOS.",
+  },
   {
     value: "machine-learning",
     label: "Machine learning",
-    shape: "square",
-    fill: "primary",
+    description: "Modelos que aprenden de los datos y resuelven tareas.",
   },
   {
     value: "data-science",
     label: "Data science",
-    shape: "square",
-    fill: "accent",
+    description: "Análisis, visualización y decisiones basadas en datos.",
   },
-  { value: "iot", label: "IoT", shape: "triangle", fill: "primary" },
+  {
+    value: "iot",
+    label: "IoT",
+    description: "Hardware conectado, sensores y sistemas embebidos.",
+  },
   {
     value: "research",
     label: "Investigación",
-    shape: "triangle",
-    fill: "accent",
+    description: "Publicaciones, papers y colaboración académica.",
   },
 ] as const satisfies readonly {
   value: string;
   label: string;
-  shape: PolygonShape;
-  fill: PolygonFill;
+  description: string;
 }[];
 
 export type WorkAreaValue = (typeof WORK_AREAS)[number]["value"];

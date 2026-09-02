@@ -1,31 +1,42 @@
-import { Polygon } from "@/shared/components/ui/polygon";
+import { HugeiconsIcon } from "@hugeicons/react";
+
 import { Section } from "@/shared/components/ui/section";
+import { SectionHeader } from "@/shared/components/ui/section-header";
 import { Heading, Text } from "@/shared/components/ui/typography";
+import { WORK_AREA_ICONS } from "@/shared/constants/work-area-icons";
 import { WORK_AREAS } from "@/shared/constants/work-areas";
 
 export function WorkAreasSection() {
   return (
-    <Section>
+    <Section variant="surface">
       <div className="flex flex-col gap-12">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <Heading as="h2">En qué trabajamos</Heading>
+        <SectionHeader
+          eyebrow="Áreas"
+          title="En qué trabajamos"
+          description="Seis frentes abiertos. Cada proyecto y cada postulación se etiqueta con al menos uno."
+        />
 
-          <Text variant="small" className="text-muted-foreground max-w-[44ch]">
-            Cada área tiene su marca. La verás repetida en cada proyecto y en el
-            formulario de postulación.
-          </Text>
-        </div>
-
-        <ul className="border-rule/15 grid grid-cols-2 border-t md:grid-cols-3 lg:grid-cols-6">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {WORK_AREAS.map((area) => (
             <li
               key={area.value}
-              className="border-rule/15 flex flex-col gap-4 border-b border-l py-6 pr-4 pl-4 first:border-l-0 lg:first:border-l-0"
+              className="bg-card shadow-soft flex flex-col gap-3 rounded-3xl p-6"
             >
-              <Polygon shape={area.shape} fill={area.fill} className="size-7" />
-              <span className="font-mono text-[0.6875rem] tracking-[0.08em] uppercase">
-                {area.label}
+              <span className="bg-primary/8 text-primary flex size-12 items-center justify-center rounded-2xl">
+                <HugeiconsIcon
+                  icon={WORK_AREA_ICONS[area.value]}
+                  aria-hidden="true"
+                  className="size-6"
+                />
               </span>
+
+              <Heading as="h3" variant="card">
+                {area.label}
+              </Heading>
+
+              <Text variant="small" className="text-muted-foreground">
+                {area.description}
+              </Text>
             </li>
           ))}
         </ul>

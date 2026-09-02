@@ -17,14 +17,16 @@ export async function EventsSections() {
   const albumsByEvent = indexAlbumsByEvent(albums);
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-16">
       <section className="flex flex-col gap-6">
         <Heading as="h2">Próximos eventos</Heading>
 
         {upcoming.length === 0 ? (
-          <Text className="text-foreground/60">
-            No hay eventos próximos programados por el momento.
-          </Text>
+          <div className="bg-surface rounded-3xl p-8">
+            <Text className="text-muted-foreground">
+              No hay eventos próximos programados por el momento.
+            </Text>
+          </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {upcoming.map((event) => (

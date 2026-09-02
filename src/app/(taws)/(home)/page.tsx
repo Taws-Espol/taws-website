@@ -9,8 +9,6 @@ import { WorkAreasSection } from "@/features/landing/components/work-areas-secti
 import { RecruitmentSection } from "@/features/recruitment/components/recruitment-section";
 import { RecruitmentSectionSkeleton } from "@/features/recruitment/components/recruitment-section-skeleton";
 
-import { Section } from "@/shared/components/ui/section";
-
 export default function Page() {
   return (
     <main>
@@ -18,12 +16,8 @@ export default function Page() {
       <WorkAreasSection />
       <ProjectsSection />
       <ManifestoSection />
-
       <BlogSection />
-
-      <Section>
-        <MembersSection />
-      </Section>
+      <MembersSection />
 
       <Suspense fallback={<RecruitmentSectionSkeleton />}>
         <RecruitmentSection hideWhenClosed />

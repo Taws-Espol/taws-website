@@ -1,5 +1,6 @@
 import { getManifesto } from "@/features/landing/queries/get-manifesto";
 
+import { Polygon } from "@/shared/components/ui/polygon";
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading } from "@/shared/components/ui/typography";
 
@@ -8,34 +9,41 @@ export async function ManifestoSection() {
 
   return (
     <Section variant="inverted" className="relative overflow-hidden">
-      {/* On ink the outline turns pale rather than black, so the line survives. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <svg
-          viewBox="0 0 24 24"
-          className="stroke-primary-foreground/25 absolute -top-16 right-[6%] size-64 fill-none"
-        >
-          <path
-            d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"
-            strokeWidth={1.5}
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-        <svg
-          viewBox="0 0 24 24"
-          className="fill-brand-accent absolute right-[28%] -bottom-16 size-40 rotate-12"
-        >
-          <path d="M3 3h18v18H3Z" />
-        </svg>
+      <div
+        aria-hidden="true"
+        className="text-primary-foreground/10 pointer-events-none absolute inset-0"
+      >
+        <Polygon
+          shape="circle"
+          fill="none"
+          outlined
+          className="absolute -top-20 right-[8%] size-64"
+        />
+        <Polygon
+          shape="triangle"
+          fill="accent"
+          className="absolute right-[12%] bottom-0 size-32"
+        />
+        <Polygon
+          shape="square"
+          fill="none"
+          outlined
+          className="absolute bottom-8 left-[38%] size-20 rotate-12"
+        />
       </div>
 
       <div className="relative flex flex-col gap-8">
-        <Eyebrow className="opacity-70">{manifesto.eyebrow}</Eyebrow>
+        <Eyebrow className="text-primary-foreground/60">
+          {manifesto.eyebrow}
+        </Eyebrow>
 
-        <Heading as="h2" className="max-w-[24ch]">
+        <Heading as="h2" className="max-w-[22ch] text-balance">
           {manifesto.body}
         </Heading>
 
-        <Eyebrow className="opacity-70">{manifesto.signature}</Eyebrow>
+        <Eyebrow className="text-primary-foreground/60">
+          {manifesto.signature}
+        </Eyebrow>
       </div>
     </Section>
   );

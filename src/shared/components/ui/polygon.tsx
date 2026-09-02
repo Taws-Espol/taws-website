@@ -1,31 +1,41 @@
 import { cn } from "@/shared/utils/cn";
 
 export type PolygonShape = "circle" | "square" | "triangle";
-export type PolygonFill = "primary" | "accent" | "none";
+export type PolygonFill = "primary" | "accent" | "muted" | "none";
 
 const FILLS: Record<PolygonFill, string> = {
   primary: "fill-primary",
   accent: "fill-brand-accent",
+  muted: "fill-surface",
   none: "fill-none",
 };
 
+/** Every corner is turned, including the ones on the shapes themselves. */
 const PATHS: Record<PolygonShape, string> = {
-  circle: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z",
-  square: "M3 3h18v18H3Z",
-  triangle: "M12 2.5 22.5 21H1.5Z",
+  circle: "M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21Z",
+  square:
+    "M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z",
+  triangle:
+    "M9.4 3.6a3 3 0 0 1 5.2 0l7 12.2a3 3 0 0 1-2.6 4.5H5a3 3 0 0 1-2.6-4.5Z",
 };
 
 type PolygonProps = {
   shape: PolygonShape;
   fill?: PolygonFill;
+  outlined?: boolean;
   className?: string;
 };
 
 /**
- * The line is drawn in ink and the inside is flat, which is what the reference
- * illustration does and what keeps these from reading as clip art.
+ * The decorative vocabulary of the site. It carries no meaning on its own, so
+ * it is always hidden from assistive technology.
  */
-export function Polygon({ shape, fill = "primary", className }: PolygonProps) {
+export function Polygon({
+  shape,
+  fill = "primary",
+  outlined = false,
+  className,
+}: PolygonProps) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -34,9 +44,8 @@ export function Polygon({ shape, fill = "primary", className }: PolygonProps) {
     >
       <path
         d={PATHS[shape]}
-        className={cn(FILLS[fill], "stroke-rule")}
-        strokeWidth={1.5}
-        strokeLinejoin="round"
+        className={cn(FILLS[fill], outlined && "stroke-current")}
+        strokeWidth={outlined ? 1.5 : 0}
         vectorEffect="non-scaling-stroke"
       />
     </svg>

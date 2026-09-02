@@ -1,5 +1,6 @@
 "use client";
 
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Controller } from "react-hook-form";
 
 import { useApplicationForm } from "@/features/recruitment/hooks/use-application-form";
@@ -15,7 +16,6 @@ import {
   FieldSet,
 } from "@/shared/components/ui/field";
 import { Input } from "@/shared/components/ui/input";
-import { Polygon } from "@/shared/components/ui/polygon";
 import {
   Select,
   SelectContent,
@@ -26,6 +26,7 @@ import {
 import { Textarea } from "@/shared/components/ui/textarea";
 import { Heading, Text } from "@/shared/components/ui/typography";
 import { MAJORS } from "@/shared/constants/majors";
+import { WORK_AREA_ICONS } from "@/shared/constants/work-area-icons";
 import { WORK_AREAS } from "@/shared/constants/work-areas";
 import { cn } from "@/shared/utils/cn";
 
@@ -36,8 +37,8 @@ export function ApplicationForm() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-card text-card-foreground flex flex-col gap-3 rounded-2xl p-8">
-        <Heading as="h3" className="text-xl">
+      <div className="bg-card text-card-foreground shadow-soft flex flex-col gap-3 rounded-[2rem] p-8">
+        <Heading as="h3" variant="card">
           Postulación enviada
         </Heading>
         <Text className="text-muted-foreground">
@@ -51,7 +52,7 @@ export function ApplicationForm() {
     <form
       noValidate
       onSubmit={onSubmit}
-      className="bg-card text-card-foreground rounded-2xl p-8"
+      className="bg-card text-card-foreground shadow-soft rounded-[2rem] p-8"
     >
       <FieldSet>
         <FieldLegend>Postula en 2 minutos</FieldLegend>
@@ -160,16 +161,16 @@ export function ApplicationForm() {
                           )
                         }
                         className={cn(
-                          "border-border focus-visible:ring-ring inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors focus-visible:ring-2 focus-visible:outline-none",
+                          "focus-visible:ring-ring inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none",
                           isSelected
-                            ? "border-rule bg-secondary"
-                            : "hover:bg-accent",
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-surface text-foreground/80 hover:bg-secondary",
                         )}
                       >
-                        <Polygon
-                          shape={area.shape}
-                          fill={area.fill}
-                          className="size-3"
+                        <HugeiconsIcon
+                          icon={WORK_AREA_ICONS[area.value]}
+                          aria-hidden="true"
+                          className="size-4"
                         />
                         {area.label}
                       </button>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Outfit } from "next/font/google";
 import Script from "next/script";
 
 import { Footer } from "@/shared/components/footer";
@@ -9,19 +9,12 @@ import { cn } from "@/shared/utils/cn";
 import { getAppUrl } from "@/shared/utils/get-app-url";
 import "@/shared/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-/** Display: geometric with odd terminals, which holds up beside a drawn line. */
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
-});
-
-/** Utility: this is a programming club, so mono labels are their own language. */
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-});
+/**
+ * One family for the whole site. Outfit is drawn from circles and straight
+ * lines, which is the same alphabet as the shapes in the illustrations, and it
+ * carries a headline at 700 and a paragraph at 400 without needing a partner.
+ */
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: getAppUrl(),
@@ -68,15 +61,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="es"
-      className={cn(
-        "font-sans antialiased",
-        inter.variable,
-        spaceGrotesk.variable,
-        jetBrainsMono.variable,
-      )}
-    >
+    <html lang="es" className={cn("font-sans antialiased", outfit.variable)}>
       <head>
         <Script
           defer

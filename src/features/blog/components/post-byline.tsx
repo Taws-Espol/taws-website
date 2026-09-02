@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import type { Post } from "@/features/blog/types/post";
 
-import { Eyebrow, Text } from "@/shared/components/ui/typography";
+import { Text } from "@/shared/components/ui/typography";
 import { getMajorLabel } from "@/shared/utils/get-major-label";
 
 export function PostByline({ author }: { author: Post["author"] }) {
@@ -11,8 +11,8 @@ export function PostByline({ author }: { author: Post["author"] }) {
   const photo = typeof author.photo === "object" ? author.photo : null;
 
   return (
-    <div className="border-border flex items-center gap-4 border-t pt-6">
-      <div className="bg-muted relative size-12 shrink-0 overflow-hidden rounded-full">
+    <div className="bg-surface mt-4 flex items-center gap-4 rounded-3xl p-5">
+      <div className="bg-card relative size-12 shrink-0 overflow-hidden rounded-full">
         {photo?.url ? (
           <Image
             src={photo.url}
@@ -25,13 +25,13 @@ export function PostByline({ author }: { author: Post["author"] }) {
       </div>
 
       <div className="flex flex-col">
-        <Text variant="small" className="font-medium">
+        <Text variant="small" className="font-semibold">
           {author.fullName}
         </Text>
         {author.major ? (
-          <Eyebrow className="text-foreground/50">
+          <Text variant="caption" className="text-muted-foreground">
             {getMajorLabel(author.major)}
-          </Eyebrow>
+          </Text>
         ) : null}
       </div>
     </div>

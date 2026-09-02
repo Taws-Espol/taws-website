@@ -8,7 +8,7 @@ import { APP_NAME, CONTACT_EMAIL, SOCIAL_LINKS } from "@/shared/constants/app";
 export function Footer() {
   return (
     <Section as="footer" variant="inverted">
-      <div className="border-primary-foreground/20 grid gap-10 border-b pb-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+      <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
         <div className="max-w-2xl">
           <Eyebrow className="text-primary-foreground/70">ESPOL · FIEC</Eyebrow>
 
@@ -43,8 +43,8 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 pt-8 md:flex-row md:items-center md:justify-between">
-        <Text variant="caption" className="text-primary-foreground/60">
+      <div className="mt-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <Text variant="caption" className="text-primary-foreground/70">
           Escuela Superior Politécnica del Litoral · Guayaquil, Ecuador
         </Text>
 

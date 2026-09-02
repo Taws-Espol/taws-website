@@ -3,29 +3,28 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import { cn } from "@/shared/utils/cn";
 
-const headingVariants = cva(
-  "font-heading text-balance font-bold tracking-[-0.02em]",
-  {
-    variants: {
-      variant: {
-        display: "text-[clamp(2.4rem,5.5vw,4rem)] leading-[0.98]",
-        section: "text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.15]",
-      },
-    },
-    defaultVariants: {
-      variant: "section",
-    },
-  },
-);
-
-const textVariants = cva("font-sans", {
+const headingVariants = cva("text-balance font-semibold", {
   variants: {
     variant: {
-      body: "text-[0.95rem] leading-[1.75] font-normal",
-      small: "text-[0.88rem] leading-[1.7] font-normal",
-      caption:
-        "font-mono text-[0.72rem] leading-[1.6] font-normal tracking-[0.06em]",
-      meta: "font-mono text-[0.72rem] leading-[1.6] font-medium tracking-[0.1em]",
+      display:
+        "text-[clamp(2.5rem,5.5vw,4.25rem)] leading-[1.02] tracking-[-0.03em]",
+      section:
+        "text-[clamp(1.75rem,3.6vw,2.5rem)] leading-[1.12] tracking-[-0.02em]",
+      card: "text-lg leading-[1.3] tracking-[-0.01em]",
+    },
+  },
+  defaultVariants: {
+    variant: "section",
+  },
+});
+
+const textVariants = cva("", {
+  variants: {
+    variant: {
+      lead: "text-[1.0625rem] leading-[1.65]",
+      body: "text-[0.9375rem] leading-[1.7]",
+      small: "text-[0.875rem] leading-[1.6]",
+      caption: "text-[0.8125rem] leading-[1.5]",
     },
   },
   defaultVariants: {
@@ -70,12 +69,13 @@ function Text({ className, variant, ...props }: TextProps) {
 
 type EyebrowProps = ComponentPropsWithoutRef<"span">;
 
+/** The one place the type gets loud: small, wide and set in caps. */
 function Eyebrow({ className, ...props }: EyebrowProps) {
   return (
     <span
       data-slot="eyebrow"
       className={cn(
-        "font-mono text-[0.6875rem] font-medium tracking-[0.08em] uppercase",
+        "text-[0.75rem] font-semibold tracking-[0.14em] uppercase",
         className,
       )}
       {...props}

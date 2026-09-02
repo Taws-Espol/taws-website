@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getActiveMemberCount } from "@/features/landing/queries/get-active-member-count";
 import { getHero } from "@/features/landing/queries/get-hero";
 
+import { WorkspaceIllustration } from "@/shared/components/illustrations/workspace-illustration";
 import { buttonVariants } from "@/shared/components/ui/button";
 import { Polygon } from "@/shared/components/ui/polygon";
 import { Section } from "@/shared/components/ui/section";
@@ -15,65 +16,53 @@ export async function HeroSection() {
   ]);
 
   return (
-    <Section className="pt-12 pb-20 md:pt-16 md:pb-28">
-      <div className="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr]">
+    <Section className="relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <Polygon
+          shape="circle"
+          fill="muted"
+          className="absolute -top-24 -left-24 size-72"
+        />
+        <Polygon
+          shape="square"
+          fill="muted"
+          className="absolute top-1/3 -right-20 size-56 rotate-12"
+        />
+      </div>
+
+      <div className="relative grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14">
         <div className="flex flex-col items-start gap-6">
-          <span className="border-rule/20 inline-flex items-center gap-2 border px-3 py-1.5">
+          <span className="bg-surface inline-flex items-center gap-2 rounded-full px-3.5 py-1.5">
             <Polygon shape="circle" fill="accent" className="size-2.5" />
-            <Eyebrow>{hero.eyebrow}</Eyebrow>
+            <Eyebrow className="text-foreground/70">{hero.eyebrow}</Eyebrow>
           </span>
 
-          <Heading as="h1" variant="display" className="max-w-[14ch]">
+          <Heading as="h1" variant="display" className="max-w-[15ch]">
             {hero.headline}
           </Heading>
 
-          <Text className="text-foreground/70 max-w-[52ch]">
+          <Text variant="lead" className="text-muted-foreground max-w-[52ch]">
             {hero.description}
           </Text>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href={hero.primaryCta.href} className={buttonVariants()}>
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <Link
+              href={hero.primaryCta.href}
+              className={buttonVariants({ size: "lg" })}
+            >
               {hero.primaryCta.label}
             </Link>
 
             <Link
               href={hero.secondaryCta.href}
-              className={buttonVariants({ variant: "link" })}
+              className={buttonVariants({ variant: "ghost", size: "lg" })}
             >
               {hero.secondaryCta.label}
             </Link>
           </div>
-        </div>
 
-        <div className="flex flex-col items-start gap-8 md:items-end">
-          <div
-            aria-hidden="true"
-            className="border-rule relative hidden h-64 w-full border-b md:block"
-          >
-            <Polygon
-              shape="circle"
-              fill="primary"
-              className="absolute bottom-0 left-[14%] size-40"
-            />
-            <Polygon
-              shape="square"
-              fill="none"
-              className="absolute bottom-0 left-[42%] size-24 rotate-6"
-            />
-            <Polygon
-              shape="triangle"
-              fill="accent"
-              className="absolute right-[16%] bottom-0 size-20"
-            />
-            <Polygon
-              shape="circle"
-              fill="none"
-              className="absolute top-6 right-[4%] size-12"
-            />
-          </div>
-
-          <div className="border-rule flex items-baseline gap-3 border-l-2 pl-4">
-            <span className="font-heading text-4xl leading-none font-bold">
+          <div className="bg-card shadow-soft mt-4 inline-flex items-baseline gap-3 rounded-2xl px-5 py-3">
+            <span className="text-primary text-3xl leading-none font-semibold">
               {activeMemberCount}
             </span>
             <Eyebrow className="text-muted-foreground">
@@ -81,6 +70,8 @@ export async function HeroSection() {
             </Eyebrow>
           </div>
         </div>
+
+        <WorkspaceIllustration />
       </div>
     </Section>
   );
