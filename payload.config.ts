@@ -20,6 +20,7 @@ import { History } from "./src/shared/lib/payload/globals/history.ts";
 import { Manifesto } from "./src/shared/lib/payload/globals/manifesto.ts";
 import { Recruitment } from "./src/shared/lib/payload/globals/recruitment.ts";
 import { getAppUrl } from "./src/shared/utils/get-app-url.ts";
+import { getTrustedOrigins } from "./src/shared/utils/get-trusted-origins.ts";
 
 export default buildConfig({
   bin: [
@@ -114,4 +115,11 @@ export default buildConfig({
    * cross-origin caller is anonymous and sees exactly what the public sees.
    */
   cors: "*",
+  /**
+   * Without an allowlist Payload honours a session cookie no matter which site
+   * the request came from, which lets a hostile page write to an upload
+   * collection as whoever is logged in. `multipart/form-data` needs no
+   * preflight, so CORS never sees it.
+   */
+  csrf: getTrustedOrigins(),
 });
