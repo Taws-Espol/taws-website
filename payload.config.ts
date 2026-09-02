@@ -105,4 +105,13 @@ export default buildConfig({
     ),
   },
   serverURL: getAppUrl().origin,
+  /**
+   * Club data is meant to be readable by anything, including a page running on
+   * someone else's domain. A literal `*` is also the safer of Payload's two
+   * options: listing origins makes it send Access-Control-Allow-Credentials and
+   * echo the origin back, which would let a listed site act as a logged-in
+   * admin. With `*`, browsers refuse to attach cookies at all, so every
+   * cross-origin caller is anonymous and sees exactly what the public sees.
+   */
+  cors: "*",
 });

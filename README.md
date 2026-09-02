@@ -7,66 +7,79 @@ Official website for the TAWS Student Club at ESPOL, showcasing our initiatives 
 
 ## Stack
 
-| Layer                | Technology                                                |
-| -------------------- | --------------------------------------------------------- |
-| Framework            | Next.js 16 (App Router, React Compiler, Cache Components) |
-| Runtime              | React 19                                                  |
-| CMS                  | Payload CMS 3 (headless, self-hosted)                     |
-| Database             | PostgreSQL (Docker for local development)                 |
-| Storage              | S3-compatible object storage                              |
-| Styling              | Tailwind CSS 4, shadcn/ui                                 |
-| Internationalization | next-intl (English, Spanish)                              |
-| Email                | React Email, Nodemailer                                   |
-| Language             | TypeScript 6                                              |
-| Package Manager      | pnpm                                                      |
-| Testing              | Vitest                                                    |
-| Code Quality         | ESLint, Prettier, Husky, lint-staged, commitlint          |
-| CI                   | GitHub Actions                                            |
+| Layer           | Technology                                                |
+| --------------- | --------------------------------------------------------- |
+| Framework       | Next.js 16 (App Router, React Compiler, Cache Components) |
+| Runtime         | React 19                                                  |
+| CMS             | Payload CMS 3 (headless, self-hosted)                     |
+| Database        | PostgreSQL (Docker for local development)                 |
+| Storage         | S3-compatible object storage                              |
+| Styling         | Tailwind CSS 4, shadcn/ui on Base UI primitives           |
+| Forms           | React Hook Form, Zod                                      |
+| Icons           | Hugeicons                                                 |
+| Language        | TypeScript 6                                              |
+| Package Manager | pnpm                                                      |
+| Testing         | Vitest                                                    |
+| Code Quality    | ESLint, Prettier, Husky, lint-staged, commitlint          |
+| CI              | GitHub Actions                                            |
+
+The site is Spanish-only, with Spanish route names (`/nosotros`, `/proyectos`, `/eventos`, `/galeria`, `/postula`) and permanent redirects from their former English paths.
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── (payload)/              # Payload CMS admin panel and API routes
-│   ├── (taws)/
-│   │   ├── [locale]/           # Locale-prefixed public pages
-│   │   │   ├── (home)/         # Landing page
-│   │   │   ├── about/
-│   │   │   ├── blog/           # Blog listing and [slug] post pages
-│   │   └── api/                # Health check, revalidation, attendance endpoints
+│   ├── (payload)/              # Payload admin panel and REST API routes
+│   ├── (taws)/                 # The public site, and its root layout
+│   │   ├── (home)/             # Landing page
+│   │   ├── nosotros/           # The club, its history and its members
+│   │   ├── proyectos/
+│   │   ├── eventos/
+│   │   ├── galeria/
+│   │   ├── blog/               # Listing and [slug] post pages
+│   │   ├── postula/            # Application form
+│   │   ├── not-found.tsx       # 404 for a route that exists but has no record
+│   │   └── api/revalidate/     # Called by Payload hooks to flush cache tags
+│   ├── global-not-found.tsx    # 404 for a URL matching no route at all
+│   ├── manifest.ts
 │   ├── robots.ts
 │   └── sitemap.ts
-├── features/                   # Feature modules: components, queries, utils, tests
-│   ├── blog/
+├── features/                   # One folder per feature: components, hooks,
+│   ├── blog/                   # queries, schemas, types, utils and tests
 │   ├── landing/
+│   └── recruitment/
 └── shared/
-    ├── components/             # Reusable UI (header, footer, shadcn/ui, typography)
-    ├── constants/              # Cache tags, error codes
-    ├── hooks/                  # Shared React hooks
+    ├── components/             # Header, footer, illustrations, shadcn/ui
+    ├── constants/              # Cache tags, majors, work areas
     ├── lib/
-    │   ├── payload/            # Collections, globals, tasks, migrations, types
+    │   ├── payload/            # Collections, globals, access, migrations, seed
+    │   └── umami/
     ├── styles/                 # Global CSS and design tokens
     ├── tests/                  # Tests for shared modules
     ├── types/
     └── utils/
 ```
 
+Only three features exist — `landing`, `blog` and `recruitment` — and that is deliberate. Anything that does not belong to one of them belongs in `shared`.
+
 Key files at the project root:
 
 | File                    | Purpose                                                              |
 | ----------------------- | -------------------------------------------------------------------- |
 | `payload.config.ts`     | Collections, globals, plugins, jobs, localization, database adapter  |
-| `next.config.ts`        | Next.js configuration with Payload and next-intl integrations        |
+| `next.config.ts`        | Next.js configuration, redirects, and the Payload integration        |
 | `docker-compose.yaml`   | Local PostgreSQL instance                                            |
 | `vitest.config.ts`      | Test runner configuration                                            |
 | `commitlint.config.mjs` | Commit message rules                                                 |
-| `messages/`             | Translation files (`en.json`, `es.json`)                             |
+| `CONTEXT.md`            | What the project is and the decisions that shaped it                 |
+| `docs/adr/`             | Architecture decision records, including superseded ones             |
+| `docs/public-api.md`    | How to read club data over the REST API                              |
 | `docs/agents/`          | Configuration read by the agent skills — issue tracker, labels, docs |
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) 20.9 or later, as required by Next.js 16. CI and `flake.nix` both use Node 24.
+- [Node.js](https://nodejs.org/) 20.9 or later, as required by Next.js 16. CI uses Node 24.
 - [pnpm](https://pnpm.io/) — the version is pinned in `packageManager`, so use `pnpm`, never `npx`.
 - [Docker](https://www.docker.com/), for the local PostgreSQL database.
 
@@ -91,9 +104,9 @@ cp .env.example .env.local
 | `DATABASE_URL`       | `postgresql://postgres:postgres@localhost:5432/payload` for local Docker |
 | `REVALIDATE_TOKEN`   | Bearer token the Payload hooks use to call `/api/revalidate`             |
 | `ENABLE_JOB_WORKERS` | Whether this instance runs the background job queue                      |
-| `PUBLIC_S3_*`        | Endpoint, region, key id, secret and bucket for media storage            |
+| `S3_*`               | Endpoint, region, key id, secret and bucket name for media storage       |
 
-Media uploads and outbound email need real credentials; the rest of the site runs without them.
+Media uploads need real S3 credentials; the rest of the site runs without them.
 
 ### 3. Start PostgreSQL
 
@@ -106,16 +119,18 @@ docker compose up -d
 Run the seed script only when you deliberately want bootstrap content in the current database:
 
 ```bash
-pnpm payload seed
+pnpm seed
 ```
+
+It creates two accounts, `admin@test.com` and `editor@test.com`, both with the password `test`, and enough content to see every page populated.
 
 For a clean sandbox, reset the volume first:
 
 ```bash
-docker compose down -v && docker compose up -d && pnpm payload seed
+docker compose down -v && docker compose up -d && pnpm seed
 ```
 
-`pnpm payload seed` is a manual operation and must never run in a production deploy.
+Seeding is a manual operation and must never run in a production deploy.
 
 ### 5. Start the development server
 
@@ -125,11 +140,7 @@ pnpm dev
 
 The site is at [http://localhost:3000](http://localhost:3000) and the admin panel at [http://localhost:3000/admin](http://localhost:3000/admin).
 
-To preview transactional email templates instead:
-
-```bash
-pnpm dev:email
-```
+To open the dev server from another device on your network — a phone, say — add that device's host to `allowedDevOrigins` in `next.config.ts` and restart. Next blocks its own development assets from origins it was not started with, and the symptom is a page that renders but does not respond to a single tap.
 
 ## Checks
 
@@ -144,7 +155,7 @@ pnpm build       # production build; needs PostgreSQL running
 
 ### Testing
 
-Vitest runs in a `node` environment with no jsdom, so tests cover pure logic rather than rendered components — query filters, cache-tag wiring, email rendering, error mapping.
+Vitest runs in a `node` environment with no jsdom, so tests cover pure logic rather than rendered components — schema validation, cache-tag wiring, date splitting, rate limiting.
 
 Tests live in a `tests/` folder scoped to the code they cover: `src/shared/tests/` for shared modules, `src/features/<feature>/tests/` for a feature. Use `pnpm test:watch` while working.
 
@@ -207,7 +218,15 @@ pnpm build   # payload migrate && next build
 | `pnpm test`       | Run the test suite once                                 |
 | `pnpm test:watch` | Run the test suite in watch mode                        |
 | `pnpm payload`    | Run the Payload CLI, e.g. `pnpm payload migrate:create` |
-| `pnpm dev:email`  | Start the React Email preview server                    |
+| `pnpm seed`       | Insert bootstrap content; never run this in production  |
+
+## Public API
+
+Payload exposes the collections over REST, and members, events, projects, gallery, published posts and media all read without a session, from any origin. [docs/public-api.md](./docs/public-api.md) covers what is public, how to filter and paginate, and how to resolve image URLs.
+
+```bash
+curl "https://taws.espol.edu.ec/api/events?sort=startsAt&limit=5&depth=1"
+```
 
 ## Contributing
 
