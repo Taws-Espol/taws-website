@@ -1,7 +1,7 @@
 export const SEED_USERS = [
-  { name: "Admin", email: "admin@taws.espol.edu.ec", role: "admin" },
-  { name: "Editora", email: "editor@taws.espol.edu.ec", role: "editor" },
-  { name: "Bloguero", email: "blogger@taws.espol.edu.ec", role: "blogger" },
+  { name: "Admin", email: "admin@test.com", role: "admin" },
+  { name: "Editor", email: "editor@test.com", role: "editor" },
+  { name: "Blogger", email: "blogger@test.com", role: "blogger" },
 ] as const;
 
 export const SEED_MEMBERS = [
