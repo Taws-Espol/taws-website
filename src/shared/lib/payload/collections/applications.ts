@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 
+import { getWorkAreaPayloadOptions } from "../../../constants/work-areas.ts";
 import { getMajorPayloadOptions } from "../../../utils/get-major-payload-options.ts";
 import { anyone } from "../access/anyone.ts";
 import { collectionAccess } from "../access/collection-access.ts";
@@ -44,10 +45,10 @@ export const Applications: CollectionConfig = {
     },
     {
       name: "interests",
-      type: "relationship",
-      relationTo: "work-areas",
+      type: "select",
       hasMany: true,
       required: true,
+      options: getWorkAreaPayloadOptions(),
     },
     {
       name: "message",

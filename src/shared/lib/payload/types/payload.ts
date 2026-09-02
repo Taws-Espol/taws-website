@@ -75,7 +75,6 @@ export interface Config {
     gallery: Gallery;
     applications: Application;
     posts: Post;
-    "work-areas": WorkArea;
     exports: Export;
     imports: Import;
     "payload-kv": PayloadKv;
@@ -94,7 +93,6 @@ export interface Config {
     gallery: GallerySelect<false> | GallerySelect<true>;
     applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
-    "work-areas": WorkAreasSelect<false> | WorkAreasSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
     imports: ImportsSelect<false> | ImportsSelect<true>;
     "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -299,7 +297,9 @@ export interface Project {
    * Two or three lines. This is what the card shows.
    */
   summary: string;
-  areas: (number | WorkArea)[];
+  areas: (
+    "web" | "mobile" | "machine-learning" | "data-science" | "iot" | "research"
+  )[];
   status: "active" | "completed";
   /**
    * The large card at the top of the projects section. Only the most recent featured project is shown.
@@ -310,23 +310,6 @@ export interface Project {
   repositoryUrl?: string | null;
   externalUrl?: string | null;
   members?: (number | Member)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "work-areas".
- */
-export interface WorkArea {
-  id: number;
-  name: string;
-  /**
-   * Stable key stored on projects and applications. Changing it orphans existing references.
-   */
-  slug: string;
-  description?: string | null;
-  icon: "globe" | "phone" | "brain" | "analytics" | "cpu" | "book";
-  order: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -395,7 +378,9 @@ export interface Application {
     | "diseno-de-productos"
     | "diseno-grafico"
     | "produccion-para-medios-de-comunicacion";
-  interests: (number | WorkArea)[];
+  interests: (
+    "web" | "mobile" | "machine-learning" | "data-science" | "iot" | "research"
+  )[];
   message?: string | null;
   status: "pending" | "accepted" | "rejected";
   updatedAt: string;
@@ -661,10 +646,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: "posts";
         value: number | Post;
-      } | null)
-    | ({
-        relationTo: "work-areas";
-        value: number | WorkArea;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -851,19 +832,6 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "work-areas_select".
- */
-export interface WorkAreasSelect<T extends boolean = true> {
-  name?: T;
-  slug?: T;
-  description?: T;
-  icon?: T;
-  order?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1154,7 +1122,6 @@ export interface TaskCreateCollectionExport {
       | "gallery"
       | "applications"
       | "posts"
-      | "work-areas"
       | "exports"
       | "imports";
     drafts?: ("yes" | "no") | null;

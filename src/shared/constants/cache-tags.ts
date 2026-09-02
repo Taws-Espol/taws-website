@@ -29,5 +29,3 @@ export const HERO_TAG = "hero";
 export const MANIFESTO_TAG = "manifesto";
 
 export const HISTORY_TAG = "history";
-
-export const WORK_AREAS_TAG = "work-areas";

@@ -1,7 +1,7 @@
-import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 import { EVENTS_TAG } from "../../../constants/cache-tags";
+import { revalidateCache } from "../../../utils/revalidate-cache.ts";
 import { collectionAccess } from "../access/collection-access.ts";
 
 const { access, hidden } = collectionAccess({ managedBy: ["admin", "editor"] });
@@ -68,13 +68,13 @@ export const Events: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      () => {
-        revalidateTag(EVENTS_TAG, "default");
+      async ({ req }) => {
+        await revalidateCache({ req, source: "events", tag: EVENTS_TAG });
       },
     ],
     afterDelete: [
-      () => {
-        revalidateTag(EVENTS_TAG, "default");
+      async ({ req }) => {
+        await revalidateCache({ req, source: "events", tag: EVENTS_TAG });
       },
     ],
   },

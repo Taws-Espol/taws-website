@@ -1,4 +1,5 @@
 import type { Project } from "@/features/landing/types/project";
+import { getWorkAreaLabel } from "@/features/landing/utils/get-work-area-label";
 
 import { Badge } from "@/shared/components/ui/badge";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
@@ -9,13 +10,11 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="border-border flex flex-col gap-3 border-t pt-5">
       <div className="flex flex-wrap gap-2">
-        {project.areas.map((area) =>
-          typeof area === "object" ? (
-            <Badge key={area.id} variant="secondary">
-              {area.name}
-            </Badge>
-          ) : null,
-        )}
+        {project.areas.map((area) => (
+          <Badge key={area} variant="secondary">
+            {getWorkAreaLabel(area)}
+          </Badge>
+        ))}
       </div>
 
       <Heading as="h3" className="text-lg">
