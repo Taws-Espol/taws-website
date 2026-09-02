@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { PostCard } from "@/features/blog/components/post-card";
 import { getPublishedPosts } from "@/features/blog/queries/get-published-posts";
+
 import { Section } from "@/shared/components/ui/section";
 import { Heading, Text } from "@/shared/components/ui/typography";
 

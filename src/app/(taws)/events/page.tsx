@@ -1,8 +1,9 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { EventsSections } from "@/features/landing/components/events-sections";
 import { EventsSectionsSkeleton } from "@/features/landing/components/events-sections-skeleton";
+
 import { Section } from "@/shared/components/ui/section";
 import { Heading } from "@/shared/components/ui/typography";
 

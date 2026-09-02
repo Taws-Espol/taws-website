@@ -2,6 +2,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import { getPayload } from "payload";
 
 import payloadConfig from "@payload-config";
+
 import {
   MEDIA_TAG,
   MEMBERS_TAG,

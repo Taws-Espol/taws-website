@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { HERO } from "@/features/landing/constants/hero";
 import { getActiveMemberCount } from "@/features/landing/queries/get-active-member-count";
+
 import { buttonVariants } from "@/shared/components/ui/button";
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";

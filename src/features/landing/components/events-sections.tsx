@@ -5,6 +5,7 @@ import { getAlbums } from "@/features/landing/queries/get-albums";
 import { getEvents } from "@/features/landing/queries/get-events";
 import { indexAlbumsByEvent } from "@/features/landing/utils/index-albums-by-event";
 import { splitEventsByTime } from "@/features/landing/utils/split-events-by-time";
+
 import { Heading, Text } from "@/shared/components/ui/typography";
 
 export async function EventsSections() {

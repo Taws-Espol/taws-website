@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { PostCard } from "@/features/blog/components/post-card";
 import { getPublishedPosts } from "@/features/blog/queries/get-published-posts";
+
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 

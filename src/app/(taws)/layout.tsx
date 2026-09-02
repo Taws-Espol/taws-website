@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 
 import { Footer } from "@/shared/components/footer";
 import { Header } from "@/shared/components/header";

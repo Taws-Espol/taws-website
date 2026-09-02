@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import { AlbumViewer } from "@/features/landing/components/album-viewer";
 import type { Album } from "@/features/landing/types/album";
+import { formatAlbumDate } from "@/features/landing/utils/format-album-date";
+
 import {
   Dialog,
   DialogContent,
@@ -11,7 +13,6 @@ import {
   DialogTrigger,
 } from "@/shared/components/ui/dialog";
 import { Eyebrow, Heading } from "@/shared/components/ui/typography";
-import { formatAlbumDate } from "@/features/landing/utils/format-album-date";
 
 export function AlbumCard({ album }: { album: Album }) {
   const cover = typeof album.cover === "object" ? album.cover : null;

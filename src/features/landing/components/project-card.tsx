@@ -1,5 +1,6 @@
 import type { Project } from "@/features/landing/types/project";
 import { getWorkAreaLabel } from "@/features/landing/utils/get-work-area-label";
+
 import { Badge } from "@/shared/components/ui/badge";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
 

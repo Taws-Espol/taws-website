@@ -1,8 +1,9 @@
-import { Heading, Text } from "@/shared/components/ui/typography";
 import {
   MILESTONES,
   type Milestone,
 } from "@/features/landing/constants/milestones";
+
+import { Heading, Text } from "@/shared/components/ui/typography";
 
 export function Timeline() {
   return (

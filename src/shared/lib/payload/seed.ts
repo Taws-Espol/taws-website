@@ -1,5 +1,6 @@
-import payloadConfig from "@payload-config";
 import { getPayload, type Payload } from "payload";
+
+import payloadConfig from "@payload-config";
 
 export const script = async () => {
   let payload: Payload | undefined;

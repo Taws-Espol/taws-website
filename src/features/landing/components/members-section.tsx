@@ -1,8 +1,9 @@
 import Link from "next/link";
 
 import { MemberCard } from "@/features/landing/components/member-card";
-import { Heading } from "@/shared/components/ui/typography";
 import { getActiveMembers } from "@/features/landing/queries/get-active-members";
+
+import { Heading } from "@/shared/components/ui/typography";
 
 interface MembersSectionProps {
   limit?: number;

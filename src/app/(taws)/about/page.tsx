@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 
 import { MemberCard } from "@/features/landing/components/member-card";
 import { Timeline } from "@/features/landing/components/timeline";
+import { getActiveMembers } from "@/features/landing/queries/get-active-members";
+
 import { Section } from "@/shared/components/ui/section";
 import { Heading, Text } from "@/shared/components/ui/typography";
-import { getActiveMembers } from "@/features/landing/queries/get-active-members";
 
 export const metadata: Metadata = {
   title: "Sobre Nosotros | TAWS",
@@ -18,7 +19,6 @@ export default async function AboutPage() {
   return (
     <Section as="main">
       <div className="flex flex-col gap-12">
-        {/* Sección Quiénes Somos */}
         <section className="flex flex-col gap-4">
           <Heading as="h1" variant="display">
             Quiénes Somos
@@ -31,13 +31,11 @@ export default async function AboutPage() {
           </Text>
         </section>
 
-        {/* Sección Historia / Timeline */}
         <section className="flex flex-col gap-4">
           <Heading as="h2">Nuestra Historia</Heading>
           <Timeline />
         </section>
 
-        {/* Sección Grid de Miembros */}
         <section className="flex flex-col gap-6">
           <Heading as="h2">Miembros Activos</Heading>
           {members.length === 0 ? (

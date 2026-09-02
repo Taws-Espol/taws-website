@@ -1,4 +1,5 @@
 import { MANIFESTO } from "@/features/landing/constants/manifesto";
+
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading } from "@/shared/components/ui/typography";
 

@@ -2,9 +2,9 @@ import type { CollectionConfig } from "payload";
 
 import { checkRole } from "../utils/check-role.ts";
 import { ensureFirstUserIsAdmin } from "../utils/ensure-first-user-is-admin.ts";
-import { isAdmin } from "../utils/is-admin.ts";
 import { isAdminFieldAccess } from "../utils/is-admin-field-access.ts";
 import { isAdminOrSelf } from "../utils/is-admin-or-self.ts";
+import { isAdmin } from "../utils/is-admin.ts";
 
 export const Users: CollectionConfig = {
   slug: "users",

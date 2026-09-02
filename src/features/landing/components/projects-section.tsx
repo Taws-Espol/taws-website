@@ -4,6 +4,7 @@ import { FeaturedProjectCard } from "@/features/landing/components/featured-proj
 import { ProjectCard } from "@/features/landing/components/project-card";
 import { getProjects } from "@/features/landing/queries/get-projects";
 import { selectFeaturedProjects } from "@/features/landing/utils/select-featured-projects";
+
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading } from "@/shared/components/ui/typography";
 

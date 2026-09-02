@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
 
-import { POSTS_TAG, postTag } from "../../../constants/cache-tags.ts";
+import { POSTS_TAG } from "../../../constants/cache-tags.ts";
+import { postTag } from "../../../utils/post-tag.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
 import { countLexicalWords } from "../utils/count-lexical-words.ts";
 import { isAdminOrEditor } from "../utils/is-admin-or-editor.ts";

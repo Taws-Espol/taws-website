@@ -1,8 +1,8 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 
-import { WORK_AREAS } from "@/features/landing/constants/work-areas";
 import { Section } from "@/shared/components/ui/section";
 import { Eyebrow, Heading, Text } from "@/shared/components/ui/typography";
+import { WORK_AREAS } from "@/shared/constants/work-areas";
 
 export function WorkAreasSection() {
   return (
