@@ -1,25 +1,18 @@
 import { Suspense } from "react";
 
+import { EventsSectionSkeleton } from "@/features/landing/components/events-section-skeleton";
 import { PastEvents } from "@/features/landing/components/past-events";
 import { UpcomingEvents } from "@/features/landing/components/upcoming-events";
 
 import { StageIllustration } from "@/shared/components/illustrations/stage-illustration";
 import { PageHeader } from "@/shared/components/page-header";
-import { CardGridSkeleton } from "@/shared/components/ui/card-grid-skeleton";
 import { Section } from "@/shared/components/ui/section";
-import { Skeleton } from "@/shared/components/ui/skeleton";
 import { ITEMS_PER_PAGE } from "@/shared/constants/pagination";
 
-type PageProps = { searchParams: Promise<{ page?: string | string[] }> };
+/** Upcoming events are rarely many; the skeleton reserves a plausible row. */
+const UPCOMING_SKELETON_COUNT = 3;
 
-function SectionSkeleton({ count }: { count: number }) {
-  return (
-    <div className="flex flex-col gap-6">
-      <Skeleton className="h-8 w-56 rounded-xl" />
-      <CardGridSkeleton count={count} aspect="aspect-[16/9]" />
-    </div>
-  );
-}
+type PageProps = { searchParams: Promise<{ page?: string | string[] }> };
 
 export default function Page(props: PageProps) {
   return (
@@ -33,11 +26,13 @@ export default function Page(props: PageProps) {
 
       <Section>
         <div className="flex flex-col gap-16">
-          <Suspense fallback={<SectionSkeleton count={3} />}>
+          <Suspense
+            fallback={<EventsSectionSkeleton count={UPCOMING_SKELETON_COUNT} />}
+          >
             <UpcomingEvents />
           </Suspense>
 
-          <Suspense fallback={<SectionSkeleton count={ITEMS_PER_PAGE} />}>
+          <Suspense fallback={<EventsSectionSkeleton count={ITEMS_PER_PAGE} />}>
             <PastEvents searchParams={props.searchParams} />
           </Suspense>
         </div>

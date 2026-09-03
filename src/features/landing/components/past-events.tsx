@@ -29,6 +29,17 @@ export async function PastEvents({ searchParams }: PastEventsProps) {
   const [events, albums] = await Promise.all([getEvents(), getAlbums()]);
   const { past } = splitEventsByTime(events, new Date());
 
+  /**
+   * Reversing an ascending read leaves the secondary key ascending too. Sorting
+   * here states the order the spec asked for — most recent first, newest
+   * record first on a tie — rather than inheriting whatever the reversal gave.
+   */
+  past.sort(
+    (a, b) =>
+      new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime() ||
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
+
   const resolved = resolvePage({
     raw,
     total: past.length,
@@ -37,8 +48,6 @@ export async function PastEvents({ searchParams }: PastEventsProps) {
 
   if (!resolved) notFound();
 
-  if (past.length === 0) return null;
-
   const albumsByEvent = indexAlbumsByEvent(albums);
   const page = past.slice(resolved.offset, resolved.offset + ITEMS_PER_PAGE);
 
@@ -46,6 +55,11 @@ export async function PastEvents({ searchParams }: PastEventsProps) {
     resolved.page === 1 ? "/eventos" : `/eventos?page=${resolved.page}`,
     getAppUrl(),
   ).toString();
+
+  if (past.length === 0) {
+    // Still says which URL this is, even with nothing to show.
+    return <link rel="canonical" href={canonical} />;
+  }
 
   return (
     <section className="flex flex-col gap-6">
