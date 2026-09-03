@@ -1,7 +1,6 @@
-import Image from "next/image";
-
 import type { Post } from "@/features/blog/types/post";
 
+import { Avatar } from "@/shared/components/ui/avatar";
 import { Text } from "@/shared/components/ui/typography";
 import { getMajorLabel } from "@/shared/utils/get-major-label";
 
@@ -12,17 +11,12 @@ export function PostByline({ author }: { author: Post["author"] }) {
 
   return (
     <div className="mt-6 flex items-center gap-4">
-      <div className="bg-surface relative size-12 shrink-0 overflow-hidden rounded-full">
-        {photo?.url ? (
-          <Image
-            src={photo.url}
-            alt={author.fullName}
-            fill
-            sizes="48px"
-            className="object-cover"
-          />
-        ) : null}
-      </div>
+      <Avatar
+        fullName={author.fullName}
+        photoUrl={photo?.url}
+        sizes="48px"
+        className="size-12 text-sm"
+      />
 
       <div className="flex flex-col">
         <Text variant="small" className="font-semibold">

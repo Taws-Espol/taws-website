@@ -19,7 +19,9 @@ export async function getPostBySlug(slug: string) {
       slug: { equals: slug },
       _status: { equals: "published" },
     },
-    depth: 1,
+    // depth 2, not 1: the byline shows the author's photo, and a photo is one
+    // level below the author.
+    depth: 2,
     limit: 1,
   });
 
