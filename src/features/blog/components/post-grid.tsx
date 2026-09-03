@@ -27,23 +27,28 @@ export async function PostGrid({ searchParams }: PostGridProps) {
 
   if (!resolved) notFound();
 
-  const { posts } = await getPublishedPostsPage({
+  const posts = await getPublishedPostsPage({
     offset: resolved.offset,
     limit: ITEMS_PER_PAGE,
   });
-
-  if (posts.length === 0) {
-    return (
-      <Text className="text-muted-foreground">
-        Todavía no hay publicaciones.
-      </Text>
-    );
-  }
 
   const canonical = new URL(
     resolved.page === 1 ? "/blog" : `/blog?page=${resolved.page}`,
     getAppUrl(),
   ).toString();
+
+  // Emitted before the empty state, not after: a section with nothing in it
+  // still needs to say which URL it is.
+  if (posts.length === 0) {
+    return (
+      <>
+        <link rel="canonical" href={canonical} />
+        <Text className="text-muted-foreground">
+          Todavía no hay publicaciones.
+        </Text>
+      </>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-16">

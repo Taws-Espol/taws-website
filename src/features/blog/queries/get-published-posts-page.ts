@@ -30,14 +30,14 @@ export async function getPublishedPostsPage({
 
   const payload = await getPayload({ config: payloadConfig });
 
-  const { docs, totalDocs } = await payload.find({
+  const { docs } = await payload.find({
     collection: "posts",
     where: { _status: { equals: "published" } },
-    sort: ["-publishedAt", "-id"],
+    sort: ["-publishedAt", "-createdAt"],
     depth: 1,
     limit,
     page: Math.floor(offset / limit) + 1,
   });
 
-  return { posts: docs, total: totalDocs };
+  return docs;
 }
