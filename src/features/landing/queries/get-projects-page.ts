@@ -21,6 +21,11 @@ const UNDATED: Where = { year: { exists: false } };
  * it hands drizzle a plain `desc`. So the dated Projects are read as one
  * ordered group and the undated ones are appended, which puts an incomplete
  * record at the end of the list rather than at the head of the first page.
+ *
+ * Payload pages by page number rather than by row, so the second group — whose
+ * first row is rarely on a page boundary — is read from the start and sliced.
+ * Asking for it by page number instead would return rows that overlap the page
+ * before and skip rows off the end.
  */
 export async function getProjectsPage({
   offset,
@@ -35,30 +40,34 @@ export async function getProjectsPage({
 
   const payload = await getPayload({ config: payloadConfig });
 
-  const read = async (where: Where, skip: number, take: number) => {
-    if (take <= 0) return [];
-
-    const { docs } = await payload.find({
-      collection: "projects",
-      where,
-      sort: ["-year", "-createdAt"],
-      depth: 2,
-      limit: take,
-      page: Math.floor(skip / take) + 1,
-    });
-
-    return docs;
-  };
-
   const { totalDocs: datedCount } = await payload.count({
     collection: "projects",
     where: DATED,
   });
 
-  const dated = await read(DATED, offset, Math.min(limit, datedCount - offset));
+  const { docs: dated } = await payload.find({
+    collection: "projects",
+    where: DATED,
+    sort: ["-year", "-createdAt"],
+    depth: 2,
+    limit,
+    page: Math.floor(offset / limit) + 1,
+  });
 
-  const undatedSkip = Math.max(0, offset - datedCount);
-  const undated = await read(UNDATED, undatedSkip, limit - dated.length);
+  const remaining = limit - dated.length;
 
-  return [...dated, ...undated];
+  if (remaining <= 0) return dated;
+
+  const skip = Math.max(0, offset - datedCount);
+
+  const { docs: undated } = await payload.find({
+    collection: "projects",
+    where: UNDATED,
+    sort: "-createdAt",
+    depth: 2,
+    limit: skip + remaining,
+    page: 1,
+  });
+
+  return [...dated, ...undated.slice(skip)];
 }

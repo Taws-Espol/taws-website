@@ -26,18 +26,23 @@ export async function ProjectGrid({ searchParams }: ProjectGridProps) {
     limit: ITEMS_PER_PAGE,
   });
 
-  if (projects.length === 0) {
-    return (
-      <Text className="text-muted-foreground">
-        Todavía no hay proyectos publicados.
-      </Text>
-    );
-  }
-
   const canonical = new URL(
     resolved.page === 1 ? "/proyectos" : `/proyectos?page=${resolved.page}`,
     getAppUrl(),
   ).toString();
+
+  // Emitted before the empty state, not after: a section with nothing in it
+  // still needs to say which URL it is.
+  if (projects.length === 0) {
+    return (
+      <>
+        <link rel="canonical" href={canonical} />
+        <Text className="text-muted-foreground">
+          Todavía no hay proyectos publicados.
+        </Text>
+      </>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-16">
