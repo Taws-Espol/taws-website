@@ -3,6 +3,7 @@ import type { CollectionConfig } from "payload";
 import { POSTS_TAG } from "../../../constants/cache-tags.ts";
 import { postTag } from "../../../utils/post-tag.ts";
 import { revalidateCache } from "../../../utils/revalidate-cache.ts";
+import { slugify } from "../../../utils/slugify.ts";
 import { collectionAccess } from "../access/collection-access.ts";
 import { countLexicalWords } from "../utils/count-lexical-words.ts";
 
@@ -37,6 +38,28 @@ export const Posts: CollectionConfig = {
       required: true,
       unique: true,
       index: true,
+      admin: {
+        description:
+          "Se genera del título al crear la publicación. Cámbialo antes de publicar si hace falta; después, cambiarlo rompe los enlaces ya compartidos.",
+      },
+      hooks: {
+        /**
+         * Only on create, and only when the editor left it empty. Following the
+         * title afterwards would mean that fixing a typo in a headline silently
+         * changes the URL, breaking every link already shared and everything a
+         * search engine has indexed.
+         */
+        beforeValidate: [
+          ({ value, data, operation }) => {
+            if (operation !== "create") return value;
+            if (typeof value === "string" && value.trim()) return value;
+
+            const title = typeof data?.title === "string" ? data.title : "";
+
+            return slugify(title) || value;
+          },
+        ],
+      },
     },
     {
       name: "excerpt",
