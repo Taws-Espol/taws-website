@@ -2,7 +2,7 @@ import { getManifesto } from "@/features/landing/queries/get-manifesto";
 
 import { Polygon } from "@/shared/components/ui/polygon";
 import { Section } from "@/shared/components/ui/section";
-import { Eyebrow, Heading } from "@/shared/components/ui/typography";
+import { Heading } from "@/shared/components/ui/typography";
 
 export async function ManifestoSection() {
   const manifesto = await getManifesto();
@@ -32,23 +32,13 @@ export async function ManifestoSection() {
         />
       </div>
 
-      <div className="relative flex flex-col gap-8">
-        <Eyebrow className="text-primary-foreground/60">
-          {manifesto.eyebrow}
-        </Eyebrow>
-
-        <Heading
-          as="h2"
-          variant="display"
-          className="max-w-[18ch] text-balance"
-        >
-          {manifesto.body}
-        </Heading>
-
-        <Eyebrow className="text-primary-foreground/60">
-          {manifesto.signature}
-        </Eyebrow>
-      </div>
+      <Heading
+        as="h2"
+        variant="display"
+        className="relative max-w-[18ch] text-balance"
+      >
+        {manifesto.body}
+      </Heading>
     </Section>
   );
 }
