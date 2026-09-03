@@ -191,17 +191,27 @@ Migrations carry schema changes and the data transformations needed to evolve ex
 
 ## Deployment
 
-Deployed on Coolify, built with [Railpack](https://railpack.com/). The build command runs migrations first:
+Deployed on Coolify, built with Nixpacks. The build command runs migrations first:
 
 ```bash
 pnpm build   # payload migrate && next build
 ```
 
-- Build pack: Railpack
+- Build pack: Nixpacks
 - Build command: `pnpm build`
 - Start command: `pnpm start`
 
-There is no build configuration file. Railpack detects the project from `package.json`: Node from `.node-version`, pnpm from `packageManager`, and the commands above from the Coolify settings.
+`nixpacks.toml` pins Node and openssl and enables corepack, because a Nix image ships almost nothing and every package has to be declared. It repeats the Node version that `.node-version` already states, which is unfortunate but unavoidable: Nixpacks cannot read that file.
+
+Railpack is the maintained successor and is worth moving to, but its builds run inside a separate buildx container that could not resolve the database service, and this build needs the database.
+
+### The build needs the database
+
+Both halves of `pnpm build` connect to PostgreSQL, so `DATABASE_URL` has to be set **and reachable from wherever the image is built**, not only from the running container.
+
+`payload migrate` obviously needs it. Less obviously, so does `next build`: with Cache Components the pages are prerendered at build time, and prerendering `/` reads the hero and the member count. Point a build at an unreachable host and it fails on `Error occurred prerendering page "/"`, long after migrations would have finished.
+
+This is a stricter requirement than it looks. A container that runs the application is on the platform's internal network and resolves a database service by its internal hostname; a container that _builds_ the image may not be. A `DATABASE_URL` that works perfectly at runtime can still fail the build with `getaddrinfo EAI_AGAIN <hostname>`, and an application that never reads the database while building will deploy from the same settings without complaint.
 
 ### Production safety
 
