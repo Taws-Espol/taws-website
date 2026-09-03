@@ -5,7 +5,8 @@ export const metadata: Metadata = {
   description:
     "Fotos de los talleres, charlas y del día a día de TAWS en la FIEC de la ESPOL.",
   keywords: ["galería TAWS", "fotos club ESPOL"],
-  alternates: { canonical: "/galeria" },
+  // The canonical is emitted per page by the grid, which is the only place
+  // that knows which page this is.
   openGraph: {
     title: "Galería | TAWS",
     description:
