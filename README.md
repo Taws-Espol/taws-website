@@ -209,7 +209,9 @@ Both halves of `pnpm build` connect to PostgreSQL, so `DATABASE_URL` has to be s
 
 `payload migrate` obviously needs it. Less obviously, so does `next build`: with Cache Components the pages are prerendered at build time, and prerendering `/` reads the hero and the member count. Point the build at an unreachable host and it fails on `Error occurred prerendering page "/"`, long after migrations would have finished.
 
-On Coolify that means the application must share a network with the database service, so its internal hostname resolves during the build. A build that cannot resolve it fails with `getaddrinfo EAI_AGAIN <hostname>` — the builder is simply not on that network. The alternative is a `DATABASE_URL` that is reachable from anywhere, which is worse for a database that should not be exposed.
+This is a stricter requirement than it looks. A container that runs the application is on the platform's internal network and resolves a database service by its internal hostname; a container that _builds_ the image usually is not. So a `DATABASE_URL` that works perfectly at runtime can still fail the build with `getaddrinfo EAI_AGAIN <hostname>`, and an app that does not read the database while building will deploy from the same settings without complaint.
+
+Whatever the platform, the build needs an address for PostgreSQL that resolves from wherever the image is built.
 
 ### Production safety
 
