@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
   },
   reactCompiler: true,
   cacheComponents: true,
+  // Cache Components produces the App Shell; this is what upgrades it once the
+  // params are known, which is the half that matters for routes nobody
+  // prerendered.
+  partialPrefetching: true,
   experimental: {
     globalNotFound: true,
   },
