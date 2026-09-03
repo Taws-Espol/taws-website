@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     "proyectos de investigación estudiantil",
     "portafolio TAWS",
   ],
-  alternates: { canonical: "/proyectos" },
+  // The canonical is emitted per page by the grid, which is the only place
+  // that knows which page this is.
   openGraph: {
     title: "Proyectos | TAWS",
     description:
