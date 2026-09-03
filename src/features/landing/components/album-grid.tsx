@@ -26,18 +26,23 @@ export async function AlbumGrid({ searchParams }: AlbumGridProps) {
     limit: ITEMS_PER_PAGE,
   });
 
-  if (albums.length === 0) {
-    return (
-      <Text className="text-muted-foreground">
-        Todavía no hay álbumes publicados.
-      </Text>
-    );
-  }
-
   const canonical = new URL(
     resolved.page === 1 ? "/galeria" : `/galeria?page=${resolved.page}`,
     getAppUrl(),
   ).toString();
+
+  // Emitted before the empty state, not after: a section with nothing in it
+  // still needs to say which URL it is.
+  if (albums.length === 0) {
+    return (
+      <>
+        <link rel="canonical" href={canonical} />
+        <Text className="text-muted-foreground">
+          Todavía no hay álbumes publicados.
+        </Text>
+      </>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-16">
