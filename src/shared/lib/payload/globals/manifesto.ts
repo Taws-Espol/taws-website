@@ -13,22 +13,10 @@ export const Manifesto: GlobalConfig = {
   admin: { hidden, group: "Landing" },
   fields: [
     {
-      name: "eyebrow",
-      type: "text",
-      required: true,
-      defaultValue: "Manifiesto",
-    },
-    {
       name: "body",
       type: "textarea",
       required: true,
       defaultValue: "Be different. Be TAWS.",
-    },
-    {
-      name: "signature",
-      type: "text",
-      required: true,
-      defaultValue: "TAWS · FIEC · ESPOL",
     },
   ],
   hooks: {

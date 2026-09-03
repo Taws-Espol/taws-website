@@ -976,9 +976,7 @@ export interface Hero {
  */
 export interface Manifesto {
   id: number;
-  eyebrow: string;
   body: string;
-  signature: string;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1044,9 +1042,7 @@ export interface HeroSelect<T extends boolean = true> {
  * via the `definition` "manifesto_select".
  */
 export interface ManifestoSelect<T extends boolean = true> {
-  eyebrow?: T;
   body?: T;
-  signature?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
