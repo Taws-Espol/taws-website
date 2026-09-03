@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     "tutoriales programación español",
     "blog estudiantil ESPOL",
   ],
-  alternates: { canonical: "/blog" },
+  // The canonical is emitted per page by the grid, which is the only place
+  // that knows which page this is. A static one here would contradict it.
   openGraph: {
     title: "Blog | TAWS",
     description:

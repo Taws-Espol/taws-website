@@ -1,14 +1,16 @@
-import { PostCard } from "@/features/blog/components/post-card";
-import { getPublishedPosts } from "@/features/blog/queries/get-published-posts";
+import { Suspense } from "react";
+
+import { PostGrid } from "@/features/blog/components/post-grid";
 
 import { WritingIllustration } from "@/shared/components/illustrations/writing-illustration";
 import { PageHeader } from "@/shared/components/page-header";
+import { CardGridSkeleton } from "@/shared/components/ui/card-grid-skeleton";
 import { Section } from "@/shared/components/ui/section";
-import { Text } from "@/shared/components/ui/typography";
+import { ITEMS_PER_PAGE } from "@/shared/constants/pagination";
 
-export default async function Page() {
-  const posts = await getPublishedPosts();
+type PageProps = { searchParams: Promise<{ page?: string | string[] }> };
 
+export default function Page(props: PageProps) {
   return (
     <main>
       <PageHeader
@@ -19,17 +21,9 @@ export default async function Page() {
       />
 
       <Section>
-        {posts.length === 0 ? (
-          <Text className="text-muted-foreground">
-            Todavía no hay publicaciones.
-          </Text>
-        ) : (
-          <div className="grid gap-x-10 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </div>
-        )}
+        <Suspense fallback={<CardGridSkeleton count={ITEMS_PER_PAGE} />}>
+          <PostGrid searchParams={props.searchParams} />
+        </Suspense>
       </Section>
     </main>
   );

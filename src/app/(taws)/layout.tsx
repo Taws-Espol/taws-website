@@ -31,7 +31,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "TAWS" }],
   creator: "TAWS",
-  alternates: { canonical: "/" },
+  // No canonical here on purpose: inherited by every route, it would tell
+  // any page that forgets to override it that it is a copy of the home page.
+  // The home page declares its own.
   openGraph: {
     siteName: "TAWS",
     type: "website",
