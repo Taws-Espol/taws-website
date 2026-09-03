@@ -203,6 +203,14 @@ pnpm build   # payload migrate && next build
 
 There is no build configuration file. Railpack detects the project from `package.json`: Node from `.node-version`, pnpm from `packageManager`, and the commands above from the Coolify settings.
 
+### The build needs the database
+
+Both halves of `pnpm build` connect to PostgreSQL, so `DATABASE_URL` has to be set **and reachable from the build container**, not only from the running one.
+
+`payload migrate` obviously needs it. Less obviously, so does `next build`: with Cache Components the pages are prerendered at build time, and prerendering `/` reads the hero and the member count. Point the build at an unreachable host and it fails on `Error occurred prerendering page "/"`, long after migrations would have finished.
+
+On Coolify that means the application must share a network with the database service, so its internal hostname resolves during the build. A build that cannot resolve it fails with `getaddrinfo EAI_AGAIN <hostname>` — the builder is simply not on that network. The alternative is a `DATABASE_URL` that is reachable from anywhere, which is worse for a database that should not be exposed.
+
 ### Production safety
 
 - Never run `pnpm payload seed` automatically in a deploy.
