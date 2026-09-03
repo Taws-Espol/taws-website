@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     "talleres de tecnología Guayaquil",
     "charlas FIEC",
   ],
-  alternates: { canonical: "/eventos" },
+  // The canonical is emitted per page by the past-events section, which is
+  // the only place that knows which page this is.
   openGraph: {
     title: "Eventos | TAWS",
     description:
