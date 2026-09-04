@@ -11,6 +11,11 @@ function href(basePath: string, page: number) {
  * Page navigation as links, so a page can be opened in a new tab and a crawler
  * can follow it. The first page is the bare path rather than `?page=1`, so
  * there is only ever one URL for it.
+ *
+ * Every link opts out of scrolling. Next keeps the scroll position only while
+ * the Page element is still in the viewport, and this control sits below the
+ * grid — so from here the default is to jump to the top of the document and
+ * make the reader scroll past the hero again on every page.
  */
 export function Pagination({
   basePath,
@@ -33,6 +38,7 @@ export function Pagination({
         <Link
           href={href(basePath, page - 1)}
           rel="prev"
+          scroll={false}
           className={buttonVariants({ variant: "secondary", size: "sm" })}
         >
           Anterior
@@ -44,6 +50,7 @@ export function Pagination({
           <li key={number}>
             <Link
               href={href(basePath, number)}
+              scroll={false}
               aria-current={number === page ? "page" : undefined}
               aria-label={`Página ${number}`}
               className={cn(
@@ -63,6 +70,7 @@ export function Pagination({
         <Link
           href={href(basePath, page + 1)}
           rel="next"
+          scroll={false}
           className={buttonVariants({ variant: "secondary", size: "sm" })}
         >
           Siguiente
