@@ -1,11 +1,9 @@
 import { notFound } from "next/navigation";
-import { connection } from "next/server";
 
 import { EventCard } from "@/features/landing/components/event-card";
 import { getAlbums } from "@/features/landing/queries/get-albums";
-import { getEvents } from "@/features/landing/queries/get-events";
+import { getEventsByTime } from "@/features/landing/queries/get-events-by-time";
 import { indexAlbumsByEvent } from "@/features/landing/utils/index-albums-by-event";
-import { splitEventsByTime } from "@/features/landing/utils/split-events-by-time";
 
 import { Pagination } from "@/shared/components/ui/pagination";
 import { Heading } from "@/shared/components/ui/typography";
@@ -18,27 +16,16 @@ type PastEventsProps = {
 };
 
 /**
- * Which Events are past depends on the moment the page is read, so the split
- * happens here rather than in the database. Paging the resulting list keeps
- * the whole thing on one cached query instead of a time-keyed one.
+ * Paging happens here rather than in the database: the split by time already
+ * costs one read of every Event, and slicing what it returns keeps the whole
+ * section on that single cached query.
  */
 export async function PastEvents({ searchParams }: PastEventsProps) {
-  await connection();
-
   const { page: raw } = await searchParams;
-  const [events, albums] = await Promise.all([getEvents(), getAlbums()]);
-  const { past } = splitEventsByTime(events, new Date());
-
-  /**
-   * Reversing an ascending read leaves the secondary key ascending too. Sorting
-   * here states the order the spec asked for — most recent first, newest
-   * record first on a tie — rather than inheriting whatever the reversal gave.
-   */
-  past.sort(
-    (a, b) =>
-      new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime() ||
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  );
+  const [{ past }, albums] = await Promise.all([
+    getEventsByTime(),
+    getAlbums(),
+  ]);
 
   const resolved = resolvePage({
     raw,

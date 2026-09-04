@@ -1,18 +1,12 @@
-import { connection } from "next/server";
-
 import { EventCard } from "@/features/landing/components/event-card";
-import { getEvents } from "@/features/landing/queries/get-events";
-import { splitEventsByTime } from "@/features/landing/utils/split-events-by-time";
+import { getEventsByTime } from "@/features/landing/queries/get-events-by-time";
 
 import { Heading, Text } from "@/shared/components/ui/typography";
 
 /** Never paginated: there are rarely many at once, and they are the reason
  *  most people opened the page. */
 export async function UpcomingEvents() {
-  await connection();
-
-  const events = await getEvents();
-  const { upcoming } = splitEventsByTime(events, new Date());
+  const { upcoming } = await getEventsByTime();
 
   return (
     <section className="flex flex-col gap-6">
