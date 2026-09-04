@@ -3,7 +3,10 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { ApplicationCta } from "@/shared/components/application-cta";
-import { SiteNavigation } from "@/shared/components/site-navigation";
+import {
+  SiteNavigation,
+  SiteNavigationShell,
+} from "@/shared/components/site-navigation";
 import { APP_NAME } from "@/shared/constants/app";
 
 export function Header() {
@@ -26,13 +29,15 @@ export function Header() {
           />
         </Link>
 
-        <SiteNavigation
-          applicationCta={
-            <Suspense fallback={null}>
-              <ApplicationCta />
-            </Suspense>
-          }
-        />
+        <Suspense fallback={<SiteNavigationShell applicationCta={null} />}>
+          <SiteNavigation
+            applicationCta={
+              <Suspense fallback={null}>
+                <ApplicationCta />
+              </Suspense>
+            }
+          />
+        </Suspense>
       </div>
     </header>
   );

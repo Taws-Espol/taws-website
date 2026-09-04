@@ -10,11 +10,16 @@ import { Button } from "@/shared/components/ui/button";
 import { NAVIGATION_ITEMS } from "@/shared/constants/app";
 import { cn } from "@/shared/utils/cn";
 
-function isActiveRoute(pathname: string, href: string) {
+function isActiveRoute(pathname: string | null, href: string) {
+  if (!pathname) return false;
+
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-type NavigationProps = { pathname: string; applicationCta: ReactNode };
+type NavigationProps = {
+  pathname: string | null;
+  applicationCta: ReactNode;
+};
 
 function DesktopNavigation({ pathname, applicationCta }: NavigationProps) {
   return (
@@ -108,6 +113,29 @@ function MobileNavigation({ pathname, applicationCta }: NavigationProps) {
   );
 }
 
+/**
+ * The navigation with no idea which route is current, which is what the header
+ * prerenders. Nothing here reads URL data, so it can be part of a static shell
+ * on a route whose URL is not known until someone asks for it.
+ */
+export function SiteNavigationShell({
+  applicationCta,
+}: {
+  applicationCta: ReactNode;
+}) {
+  return (
+    <>
+      <DesktopNavigation pathname={null} applicationCta={applicationCta} />
+      <MobileNavigation pathname={null} applicationCta={applicationCta} />
+    </>
+  );
+}
+
+/**
+ * The same navigation once the current route is known, which is only ever at
+ * request time. Reading the pathname above a boundary would tie every route's
+ * shell to one URL and block prerendering entirely.
+ */
 export function SiteNavigation({
   applicationCta,
 }: {
