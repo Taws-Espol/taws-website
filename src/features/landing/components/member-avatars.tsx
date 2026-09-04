@@ -1,21 +1,12 @@
-import Image from "next/image";
-
 import type { Project } from "@/features/landing/types/project";
 
+import { Avatar } from "@/shared/components/ui/avatar";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-
-function initials(fullName: string) {
-  return fullName
-    .split(" ")
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("");
-}
 
 export function MemberAvatars({ members }: { members: Project["members"] }) {
   const people = (members ?? []).filter((member) => typeof member === "object");
@@ -36,18 +27,13 @@ export function MemberAvatars({ members }: { members: Project["members"] }) {
           return (
             <li key={member.id}>
               <Tooltip>
-                <TooltipTrigger className="border-background bg-muted text-muted-foreground relative flex size-8 items-center justify-center overflow-hidden rounded-full border-2 text-[0.625rem] font-medium">
-                  {photo?.url ? (
-                    <Image
-                      src={photo.url}
-                      alt=""
-                      fill
-                      sizes="32px"
-                      className="object-cover"
-                    />
-                  ) : (
-                    initials(member.fullName)
-                  )}
+                <TooltipTrigger className="border-background rounded-full border-2">
+                  <Avatar
+                    fullName={member.fullName}
+                    photoUrl={photo?.url}
+                    sizes="32px"
+                    className="size-8 text-[0.625rem]"
+                  />
                   <span className="sr-only">{member.fullName}</span>
                 </TooltipTrigger>
                 <TooltipContent>{member.fullName}</TooltipContent>
