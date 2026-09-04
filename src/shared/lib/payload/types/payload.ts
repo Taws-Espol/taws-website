@@ -379,6 +379,9 @@ export interface Application {
 export interface Post {
   id: number;
   title: string;
+  /**
+   * Se genera del título al crear la publicación. Cámbialo antes de publicar si hace falta; después, cambiarlo rompe los enlaces ya compartidos.
+   */
   slug: string;
   excerpt: string;
   content: {

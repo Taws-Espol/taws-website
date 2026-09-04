@@ -3,6 +3,7 @@ import type { Payload } from "payload";
 import {
   SEED_ALBUMS,
   SEED_APPLICATIONS,
+  SEED_COVERS,
   SEED_EVENTS,
   SEED_MEMBERS,
   SEED_POSTS,
@@ -38,20 +39,33 @@ function richText(body: string) {
   } as never;
 }
 
-/** One upload, reused everywhere: the seed proves the wiring, not the artwork. */
-async function uploadPlaceholder(payload: Payload) {
-  const data = makePlaceholderImage(1200, 800, [120, 140, 170]);
+/**
+ * A handful of flat colours rather than one shared image. The seed still proves
+ * the upload path and nothing more, but with the listings paginated a page of
+ * identical cards tells you nothing about whether you moved — or whether what
+ * you are looking at is stale.
+ */
+async function uploadPlaceholders(payload: Payload) {
+  const covers = [];
 
-  return payload.create({
-    collection: "media",
-    data: { alt: "Imagen de ejemplo" },
-    file: {
-      data,
-      mimetype: "image/png",
-      name: "placeholder.png",
-      size: data.length,
-    },
-  });
+  for (const [index, colour] of SEED_COVERS.entries()) {
+    const data = makePlaceholderImage(1200, 800, [...colour]);
+
+    covers.push(
+      await payload.create({
+        collection: "media",
+        data: { alt: `Imagen de ejemplo ${index + 1}` },
+        file: {
+          data,
+          mimetype: "image/png",
+          name: `placeholder-${index + 1}.png`,
+          size: data.length,
+        },
+      }),
+    );
+  }
+
+  return covers;
 }
 
 /**
@@ -90,48 +104,56 @@ export async function seed(payload: Payload) {
     }
   }
 
-  const placeholder = await uploadPlaceholder(payload);
+  const covers = await uploadPlaceholders(payload);
+  const cover = (index: number) => covers[index % covers.length].id;
 
   const members = [];
-  for (const member of SEED_MEMBERS) {
+  for (const [index, member] of SEED_MEMBERS.entries()) {
     members.push(
       await payload.create({
         collection: "members",
-        data: { ...member, photo: placeholder.id },
+        data: { ...member, photo: cover(index) },
       }),
     );
   }
 
-  for (const project of SEED_PROJECTS) {
+  for (const [index, project] of SEED_PROJECTS.entries()) {
+    /**
+     * A different slice per Project, so the collaborator row is not the same
+     * two faces on every card and the overflow counter has something to count.
+     */
+    const start = index % members.length;
+    const size = 2 + (index % 4);
+
     await payload.create({
       collection: "projects",
       data: {
         ...project,
         areas: [...project.areas],
-        cover: placeholder.id,
-        members: members.slice(0, 2).map((member) => member.id),
+        cover: cover(index),
+        members: members.slice(start, start + size).map((member) => member.id),
       },
     });
   }
 
   const events = [];
-  for (const event of SEED_EVENTS) {
+  for (const [index, event] of SEED_EVENTS.entries()) {
     const { daysFromNow: offset, ...rest } = event;
     events.push(
       await payload.create({
         collection: "events",
         data: {
           ...rest,
-          cover: placeholder.id,
+          cover: cover(index),
           startsAt: daysFromNow(offset),
         },
       }),
     );
   }
 
-  for (const album of SEED_ALBUMS) {
+  for (const [index, album] of SEED_ALBUMS.entries()) {
     const images = Array.from({ length: album.imageCount }, (_, i) => ({
-      image: placeholder.id,
+      image: cover(index + i),
       caption: `Foto ${i + 1}`,
     }));
 
@@ -140,7 +162,7 @@ export async function seed(payload: Payload) {
       data: {
         title: album.title,
         date: daysFromNow(album.daysFromNow),
-        cover: placeholder.id,
+        cover: cover(index),
         images,
         event: album.eventSlug
           ? events.find((event) => event.slug === album.eventSlug)?.id
@@ -155,7 +177,7 @@ export async function seed(payload: Payload) {
       collection: "posts",
       data: {
         ...rest,
-        cover: placeholder.id,
+        cover: cover(index),
         author: members[index % members.length].id,
         publishedAt: daysFromNow(-index * 9),
         content: richText(body),
