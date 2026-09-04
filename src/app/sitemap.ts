@@ -1,11 +1,9 @@
 import type { MetadataRoute } from "next";
 
+import { getPublishedPostPaths } from "@/features/blog/queries/get-published-post-paths";
+
 import { getAppUrl } from "@/shared/utils/get-app-url";
 
-/**
- * Blog posts are deliberately absent: reading them here would make the sitemap
- * a database round trip on a route that should stay static.
- */
 const ROUTES = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
   { path: "/nosotros", priority: 0.8, changeFrequency: "monthly" },
@@ -16,14 +14,27 @@ const ROUTES = [
   { path: "/postula", priority: 0.9, changeFrequency: "monthly" },
 ] as const;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getAppUrl();
-  const lastModified = new Date();
+  const now = new Date();
+  const posts = await getPublishedPostPaths();
 
-  return ROUTES.map(({ path, priority, changeFrequency }) => ({
-    url: new URL(path, baseUrl).toString(),
-    lastModified,
-    changeFrequency,
-    priority,
-  }));
+  return [
+    ...ROUTES.map(({ path, priority, changeFrequency }) => ({
+      url: new URL(path, baseUrl).toString(),
+      lastModified: now,
+      changeFrequency,
+      priority,
+    })),
+    /**
+     * A Post carries its own publication date rather than the time of the
+     * request, so a crawler can tell which articles actually changed.
+     */
+    ...posts.map((post) => ({
+      url: new URL(`/blog/${post.slug}`, baseUrl).toString(),
+      lastModified: post.publishedAt ? new Date(post.publishedAt) : now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
 }
