@@ -1,14 +1,16 @@
-import { ProjectCard } from "@/features/landing/components/project-card";
-import { getProjects } from "@/features/landing/queries/get-projects";
+import { Suspense } from "react";
+
+import { ProjectGrid } from "@/features/landing/components/project-grid";
 
 import { BuildIllustration } from "@/shared/components/illustrations/build-illustration";
 import { PageHeader } from "@/shared/components/page-header";
+import { CardGridSkeleton } from "@/shared/components/ui/card-grid-skeleton";
 import { Section } from "@/shared/components/ui/section";
-import { Text } from "@/shared/components/ui/typography";
+import { ITEMS_PER_PAGE } from "@/shared/constants/pagination";
 
-export default async function Page() {
-  const projects = await getProjects();
+type PageProps = { searchParams: Promise<{ page?: string | string[] }> };
 
+export default function Page(props: PageProps) {
   return (
     <main>
       <PageHeader
@@ -19,17 +21,9 @@ export default async function Page() {
       />
 
       <Section>
-        {projects.length === 0 ? (
-          <Text className="text-muted-foreground">
-            Todavía no hay proyectos publicados.
-          </Text>
-        ) : (
-          <div className="grid gap-x-10 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        )}
+        <Suspense fallback={<CardGridSkeleton count={ITEMS_PER_PAGE} />}>
+          <ProjectGrid searchParams={props.searchParams} />
+        </Suspense>
       </Section>
     </main>
   );
