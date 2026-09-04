@@ -1,14 +1,16 @@
-import { AlbumCard } from "@/features/landing/components/album-card";
-import { getAlbums } from "@/features/landing/queries/get-albums";
+import { Suspense } from "react";
+
+import { AlbumGrid } from "@/features/landing/components/album-grid";
 
 import { GalleryIllustration } from "@/shared/components/illustrations/gallery-illustration";
 import { PageHeader } from "@/shared/components/page-header";
+import { CardGridSkeleton } from "@/shared/components/ui/card-grid-skeleton";
 import { Section } from "@/shared/components/ui/section";
-import { Text } from "@/shared/components/ui/typography";
+import { ITEMS_PER_PAGE } from "@/shared/constants/pagination";
 
-export default async function Page() {
-  const albums = await getAlbums();
+type PageProps = { searchParams: Promise<{ page?: string | string[] }> };
 
+export default function Page(props: PageProps) {
   return (
     <main>
       <PageHeader
@@ -19,17 +21,13 @@ export default async function Page() {
       />
 
       <Section>
-        {albums.length === 0 ? (
-          <Text className="text-muted-foreground">
-            Todavía no hay álbumes publicados.
-          </Text>
-        ) : (
-          <div className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-            {albums.map((album) => (
-              <AlbumCard key={album.id} album={album} />
-            ))}
-          </div>
-        )}
+        <Suspense
+          fallback={
+            <CardGridSkeleton count={ITEMS_PER_PAGE} aspect="aspect-[4/3]" />
+          }
+        >
+          <AlbumGrid searchParams={props.searchParams} />
+        </Suspense>
       </Section>
     </main>
   );
