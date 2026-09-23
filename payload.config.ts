@@ -63,6 +63,11 @@ export default buildConfig({
   plugins: [
     s3Storage({
       collections: {
+        applications: {
+          prefix: "recommendation-letters",
+          generateFileURL: ({ filename }) =>
+            `/api/applications/file/${filename}`,
+        },
         media: {
           // Relative on purpose: same origin, no host in code, and next/image
           // treats it as a local path in every environment.

@@ -108,6 +108,11 @@ cp .env.example .env.local
 
 Media uploads need real S3 credentials; the rest of the site runs without them.
 
+Optional application recommendation letters also use these S3 credentials,
+under the `recommendation-letters/` prefix. Keep the bucket private: Payload
+serves letters through the application file endpoint, accessible only to
+admins and editors. Letters must be PDFs no larger than 3 MB.
+
 ### 3. Start PostgreSQL
 
 ```bash

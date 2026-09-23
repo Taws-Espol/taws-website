@@ -25,6 +25,8 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   experimental: {
     globalNotFound: true,
+    // Leave room for form fields and multipart overhead around a 3 MB PDF.
+    serverActions: { bodySizeLimit: "4mb" },
   },
   images: {
     localPatterns: [

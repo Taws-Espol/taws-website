@@ -19,6 +19,7 @@ import { Input } from "@/shared/components/ui/input";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -31,6 +32,10 @@ import { WORK_AREAS } from "@/shared/constants/work-areas";
 import { cn } from "@/shared/utils/cn";
 
 const MAJOR_ITEMS = MAJORS.map(({ value, label }) => ({ value, label }));
+const PROGRAMMING_FUNDAMENTALS_ITEMS = [
+  { value: "yes", label: "Sí" },
+  { value: "no", label: "No" },
+];
 
 export function ApplicationForm() {
   const { form, onSubmit, submitError, isSubmitted } = useApplicationForm();
@@ -133,6 +138,84 @@ export function ApplicationForm() {
           />
 
           <Controller
+            name="semester"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Semestre actual</FieldLabel>
+                <Input
+                  {...field}
+                  value={field.value ?? ""}
+                  onChange={(event) =>
+                    field.onChange(
+                      event.target.value === ""
+                        ? undefined
+                        : event.target.valueAsNumber,
+                    )
+                  }
+                  id={field.name}
+                  type="number"
+                  min={1}
+                  step={1}
+                  required
+                  aria-invalid={fieldState.invalid}
+                  aria-describedby="semester-description"
+                />
+                <FieldDescription id="semester-description">
+                  Obligatorio. Indica el número del semestre que cursas.
+                </FieldDescription>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="passedProgrammingFundamentals"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>
+                  ¿Has aprobado Fundamentos de Programación?
+                </FieldLabel>
+                <Select
+                  name={field.name}
+                  items={PROGRAMMING_FUNDAMENTALS_ITEMS}
+                  value={field.value ?? null}
+                  onValueChange={field.onChange}
+                  required
+                >
+                  <SelectTrigger
+                    ref={field.ref}
+                    id={field.name}
+                    onBlur={field.onBlur}
+                    aria-invalid={fieldState.invalid}
+                    aria-describedby="programming-fundamentals-description"
+                  >
+                    <SelectValue placeholder="Selecciona una respuesta" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {PROGRAMMING_FUNDAMENTALS_ITEMS.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FieldDescription id="programming-fundamentals-description">
+                  Obligatorio. Selecciona sí o no.
+                </FieldDescription>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          <Controller
             name="interests"
             control={form.control}
             render={({ field, fieldState }) => (
@@ -198,6 +281,49 @@ export function ApplicationForm() {
                   aria-invalid={fieldState.invalid}
                 />
                 <FieldDescription>Opcional.</FieldDescription>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="recommendationLetter"
+            control={form.control}
+            render={({ field: { value, onChange, ...field }, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>
+                  Carta de recomendación
+                </FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type="file"
+                  accept="application/pdf,.pdf"
+                  onChange={(event) => onChange(event.target.files?.[0])}
+                  aria-invalid={fieldState.invalid}
+                  aria-describedby="recommendation-letter-description"
+                />
+                <FieldDescription id="recommendation-letter-description">
+                  Opcional. Solo PDF, máximo 3 MB.
+                </FieldDescription>
+                {value ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      form.resetField("recommendationLetter");
+                      const input = document.getElementById(
+                        field.name,
+                      ) as HTMLInputElement | null;
+                      if (input) input.value = "";
+                    }}
+                  >
+                    Quitar archivo
+                  </Button>
+                ) : null}
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}

@@ -323,6 +323,8 @@ export interface Gallery {
   createdAt: string;
 }
 /**
+ * Recommendation letters are optional PDF files, up to 3 MB.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "applications".
  */
@@ -364,13 +366,25 @@ export interface Application {
     | "diseno-de-productos"
     | "diseno-grafico"
     | "produccion-para-medios-de-comunicacion";
+  semester?: number | null;
+  passedProgrammingFundamentals?: ("yes" | "no") | null;
   interests: (
     "web" | "mobile" | "machine-learning" | "data-science" | "iot" | "research"
   )[];
   message?: string | null;
   status: "pending" | "accepted" | "rejected";
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -798,11 +812,23 @@ export interface ApplicationsSelect<T extends boolean = true> {
   fullName?: T;
   email?: T;
   major?: T;
+  semester?: T;
+  passedProgrammingFundamentals?: T;
   interests?: T;
   message?: T;
   status?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
