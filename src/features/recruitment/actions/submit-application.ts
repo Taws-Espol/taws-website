@@ -2,11 +2,13 @@
 
 import { headers } from "next/headers";
 import { getPayload } from "payload";
+import type { File } from "payload";
 
 import { getRecruitmentWindow } from "@/features/recruitment/queries/get-recruitment-window";
 import { applicationSchema } from "@/features/recruitment/schemas/application";
 import { consumeRateLimit } from "@/features/recruitment/utils/consume-rate-limit";
 import { isRecruitmentOpen } from "@/features/recruitment/utils/is-recruitment-open";
+import { validateRecommendationLetter } from "@/features/recruitment/utils/validate-recommendation-letter";
 
 import payloadConfig from "@payload-config";
 
@@ -19,7 +21,25 @@ export type SubmitApplicationCode =
 export async function submitApplication(
   input: unknown,
 ): Promise<ActionResponse<{ submitted: true }, SubmitApplicationCode>> {
-  const parsed = applicationSchema.safeParse(input);
+  let values: unknown;
+  try {
+    if (!(input instanceof FormData)) throw new Error("Expected form data");
+    const application = input.get("application");
+    if (typeof application !== "string") throw new Error("Missing application");
+    values = {
+      ...JSON.parse(application),
+      recommendationLetter: input.get("recommendationLetter") ?? undefined,
+    };
+  } catch {
+    return {
+      data: null,
+      error: {
+        code: "invalid-input",
+        message: "Invalid application form data",
+      },
+    };
+  }
+  const parsed = applicationSchema.safeParse(values);
 
   if (!parsed.success) {
     return {
@@ -31,7 +51,7 @@ export async function submitApplication(
     };
   }
 
-  const { website, ...application } = parsed.data;
+  const { website, recommendationLetter, ...application } = parsed.data;
 
   if (website) {
     return {
@@ -63,10 +83,29 @@ export async function submitApplication(
     };
   }
 
+  let file: File | undefined;
+  if (recommendationLetter) {
+    file = {
+      data: Buffer.from(await recommendationLetter.arrayBuffer()),
+      mimetype: recommendationLetter.type,
+      name: recommendationLetter.name,
+      size: recommendationLetter.size,
+    };
+    const error = validateRecommendationLetter(file);
+    if (error) {
+      return { data: null, error: { code: "invalid-input", message: error } };
+    }
+  }
+
   const payload = await getPayload({ config: payloadConfig });
 
   const { error } = await tryCatch(
-    payload.create({ collection: "applications", data: application as never }),
+    payload.create({
+      collection: "applications",
+      data: application as never,
+      file,
+      overrideAccess: false,
+    }),
   );
 
   if (error) {

@@ -1,5 +1,7 @@
 import type { CollectionConfig } from "payload";
+import { APIError } from "payload";
 
+import { validateRecommendationLetter } from "../../../../features/recruitment/utils/validate-recommendation-letter.ts";
 import { getWorkAreaPayloadOptions } from "../../../constants/work-areas.ts";
 import { getMajorPayloadOptions } from "../../../utils/get-major-payload-options.ts";
 import { anyone } from "../access/anyone.ts";
@@ -19,11 +21,36 @@ const { access, hidden } = collectionAccess({
 export const Applications: CollectionConfig = {
   slug: "applications",
   labels: { singular: "Application", plural: "Applications" },
+  upload: {
+    filesRequiredOnCreate: false,
+    mimeTypes: ["application/pdf"],
+    bulkUpload: false,
+    pasteURL: false,
+  },
+  hooks: {
+    beforeOperation: [
+      ({ operation, req }) => {
+        if ((operation === "create" || operation === "update") && req.file) {
+          const error = validateRecommendationLetter(req.file);
+          if (error) throw new APIError(error, 400);
+        }
+      },
+    ],
+  },
   access,
   admin: {
     hidden,
     group: "Recruitment",
-    defaultColumns: ["fullName", "email", "major", "status", "createdAt"],
+    description: "Recommendation letters are optional PDF files, up to 3 MB.",
+    defaultColumns: [
+      "fullName",
+      "email",
+      "major",
+      "semester",
+      "passedProgrammingFundamentals",
+      "status",
+      "createdAt",
+    ],
     useAsTitle: "fullName",
   },
   fields: [
@@ -42,6 +69,32 @@ export const Applications: CollectionConfig = {
       type: "select",
       required: true,
       options: getMajorPayloadOptions(),
+    },
+    {
+      name: "semester",
+      type: "number",
+      label: "Semester (required)",
+      // Keep the database column nullable for applications submitted before
+      // this field existed. Validation requires it for every new submission.
+      min: 1,
+      validate: (value: number | null | undefined) =>
+        Number.isInteger(value) && Number(value) >= 1
+          ? true
+          : "Enter the semester as a positive whole number.",
+    },
+    {
+      name: "passedProgrammingFundamentals",
+      type: "select",
+      label: "Passed Fundamentals of Programming (required)",
+      // Existing applications have no answer; require an explicit answer on writes.
+      options: [
+        { label: "Yes", value: "yes" },
+        { label: "No", value: "no" },
+      ],
+      validate: (value: unknown) =>
+        value === "yes" || value === "no"
+          ? true
+          : "Indicate whether you passed Fundamentals of Programming.",
     },
     {
       name: "interests",

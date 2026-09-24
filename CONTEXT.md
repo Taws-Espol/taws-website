@@ -68,7 +68,7 @@ Reading time is derived from the content, not authored.
 
 ### Application
 
-A submission from a student who wants to join TAWS: their name, institutional email, major and areas of interest.
+A submission from a student who wants to join TAWS: their name, institutional email, major, current semester, whether they passed Fundamentos de Programación, and areas of interest. Both yes and no are valid course answers; an explicit answer is required. A student may attach a recommendation letter as a PDF of up to 3 MB. The letter is private under the same access rules as the Application.
 
 Applications are the only thing the public can write to this site, and they contain real students' personal data. **They are never publicly readable** — not on the site, not through the API. Only `admin` and `editor` Users can read them.
 

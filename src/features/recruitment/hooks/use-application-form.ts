@@ -28,7 +28,22 @@ export function useApplicationForm() {
   const onSubmit = form.handleSubmit(async (values) => {
     setSubmitError(null);
 
-    const { error } = await submitApplication(values);
+    const { recommendationLetter, ...application } = values;
+    const formData = new FormData();
+    formData.set("application", JSON.stringify(application));
+    if (recommendationLetter) {
+      formData.set("recommendationLetter", recommendationLetter);
+    }
+
+    let response;
+    try {
+      response = await submitApplication(formData);
+    } catch {
+      setSubmitError(ERROR_MESSAGES.unknown);
+      return;
+    }
+
+    const { error } = response;
 
     if (error) {
       setSubmitError(ERROR_MESSAGES[error.code]);
